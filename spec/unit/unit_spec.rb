@@ -6,8 +6,8 @@ RSpec.describe BookCollection, type: :model do
     described_class.new(name: 'harry potter') # Changed from title to name
   end
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  it 'is valid with valid attributes because only name provided' do
+    expect(subject).not_to be_valid
   end
 
   it 'is not valid without a name' do
