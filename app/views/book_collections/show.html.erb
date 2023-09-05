@@ -1,0 +1,34 @@
+<%= link_to("Back to List", book_collections_path, class: 'back-link') %>
+
+<div class="book_collections show">
+  <h2>Show Book</h2>
+
+  <div class="actions">
+    <%= link_to('Edit', edit_book_collection_path(@book)) %>
+    <%= link_to('Delete', delete_book_collection_path(@book)) %>
+  </div>
+
+  <table summary="Book detail view">
+    <tr>
+      <th>Name</th>
+      <td><%= @book.name %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @book.description %></td>
+    </tr>
+    <tr>
+      <th>Read</th>
+      <td><%= @book.read ? 'Yes' : 'No' %></td>
+    </tr>
+    <tr>
+      <th>Created</th>
+      <td><%= @book.created_at %></td>
+    </tr>
+    <tr>
+      <th>Updated</th>
+      <td><%= @book.updated_at %></td>
+    </tr>
+  </table>
+
+</div>

@@ -1,0 +1,80 @@
+
+---
+ar_internal_metadata:
+  columns:
+  - key
+  - value
+  - created_at
+  - updated_at
+  records: 
+  - - environment
+    - development
+    - 2023-08-25 15:25:07.203083000 Z
+    - 2023-08-25 15:25:07.203083000 Z
+
+---
+book_collections:
+  columns:
+  - id
+  - name
+  - description
+  - read
+  - created_at
+  - updated_at
+  records: 
+  - - 6
+    - Little Red Riding Hood
+    - A book about a girl
+    - true
+    - 2023-09-04 18:59:20.488014000 Z
+    - 2023-09-04 18:59:20.488014000 Z
+
+---
+categories:
+  columns:
+  - id
+  - name
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Weekly
+    - 2023-08-26 03:09:33.345605000 Z
+    - 2023-08-26 03:09:33.345605000 Z
+
+---
+tasks:
+  columns:
+  - id
+  - name
+  - description
+  - position
+  - completed
+  - created_at
+  - updated_at
+  - category_id
+  records: 
+  - - 1
+    - Fold laundry
+    - Fold the laundry in the basket and put it in the drawers
+    - 1
+    - false
+    - 2023-08-26 02:46:25.700585000 Z
+    - 2023-08-26 04:37:21.833453000 Z
+    - 1
+  - - 2
+    - Sweep porch
+    - Sweep dirt off the porch
+    - 2
+    - false
+    - 2023-08-26 02:48:18.644927000 Z
+    - 2023-08-26 03:11:41.636410000 Z
+    - 
+  - - 3
+    - Wash dishes
+    - Wash and dry the dishes
+    - 3
+    - false
+    - 2023-08-26 04:29:34.791742000 Z
+    - 2023-08-26 04:29:34.791742000 Z
+    - 
