@@ -16,6 +16,9 @@
             <th>Name</th>
             <th>Description</th>
             <th>Read</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Published Date</th>
             <th>Actions</th>
         </tr>
         <% @book_collections.each do |book| %>
@@ -24,6 +27,9 @@
             <td><%= book.name %></td>
             <td><%= book.description %></td>
             <td><%= book.read ? 'Yes' : 'No' %></td>
+            <td><%= book.author %></td> <!-- New author field -->
+            <td><%= book.price %></td> <!-- New price field -->
+            <td><%= book.published_date %></td> <!-- New published_date field -->
             <td class="actions">
                 <%= link_to("Show", book_collection_path(book), class: 'action show') %>
                 <%= link_to("Edit", edit_book_collection_path(book), class: 'action edit') %>

@@ -2,5 +2,6 @@
 
 class BookCollection < ApplicationRecord
     # Your model code here
+    validates :name, presence: true
 end
   
