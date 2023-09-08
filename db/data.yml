@@ -21,13 +21,46 @@ book_collections:
   - read
   - created_at
   - updated_at
+  - author
+  - price
+  - published_date
   records: 
   - - 6
     - Little Red Riding Hood
     - A book about a girl
     - true
     - 2023-09-04 18:59:20.488014000 Z
-    - 2023-09-04 18:59:20.488014000 Z
+    - 2023-09-05 06:28:07.426622000 Z
+    - Cameron
+    - !ruby/object:BigDecimal 18:0.599e1
+    - '2023-09-20'
+  - - 7
+    - 3 Little Piggies
+    - A story about a dumb wolf
+    - false
+    - 2023-09-04 19:03:42.293161000 Z
+    - 2023-09-05 06:28:28.366508000 Z
+    - Jason
+    - !ruby/object:BigDecimal 18:0.299e1
+    - '2023-09-22'
+  - - 8
+    - Dracula
+    - A story about an old vampire
+    - true
+    - 2023-09-05 03:18:01.273806000 Z
+    - 2023-09-05 06:28:56.948154000 Z
+    - Dracula
+    - !ruby/object:BigDecimal 18:0.5999e2
+    - '2023-10-24'
+  - - 9
+    - 3 Musketeers
+    - 3 noble knights save a princess
+    - false
+    - 2023-09-05 06:29:54.661490000 Z
+    - 2023-09-05 06:29:54.661490000 Z
+    - Mickey
+    - !ruby/object:BigDecimal 18:0.1e-1
+    - '1965-06-15'
 
 ---
 categories:
