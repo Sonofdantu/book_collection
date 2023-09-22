@@ -57,6 +57,34 @@ class MembersController < ApplicationController
     end
   end
 
+  def edit_weekly_points
+    @member = Member.find(params[:id])
+  end
+
+  def update_weekly_points
+    @member = Member.find(params[:id])
+    new_weekly_points = params[:member][:weeklyPoints].to_i
+    if @member.update(weeklyPoints: new_weekly_points, totalPoints: @member.totalPoints + new_weekly_points)
+      redirect_to members_path, notice: 'Points updated successfully'
+    else
+      render :edit_weekly_points
+    end
+  end
+
+  def bulk_edit_points
+    @members = Member.all
+  end
+  
+  def bulk_update_points
+    params[:members].each do |id, member_params|
+      member = Member.find(id)
+      new_weekly_points = member_params[:weeklyPoints].to_i
+      member.update(weeklyPoints: new_weekly_points, totalPoints: member.totalPoints + new_weekly_points)
+    end
+    redirect_to members_path, notice: 'All points updated successfully'
+  end
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_member

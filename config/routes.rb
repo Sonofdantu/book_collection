@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :members
   root "members#index"
 
   match 'about', to: "main#about", via: :get
@@ -7,29 +6,16 @@ Rails.application.routes.draw do
 
   get 'main/index'
 
-  resources :categories do
-    member do
-      get :delete
-    end
-  end
-  
-  resources :tasks do
-    member do
-      get :delete
-    end
-  end
-
-  resources :book_collections
-
-  resources :book_collections do
-    member do
-      get :delete
-    end
-  end
-
   resources :members do
     member do
       get :delete
+      get :edit_weekly_points
+      patch :update_weekly_points
+    end
+
+    collection do
+      get :bulk_edit_points
+      patch :bulk_update_points
     end
   end
   
