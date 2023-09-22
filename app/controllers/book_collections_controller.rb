@@ -11,15 +11,19 @@ class BookCollectionsController < ApplicationController
       @book = BookCollection.new
     end
   
-    def create
-      @book = BookCollection.new(book_collection_params)
-      if @book.save
-        flash[:notice] = "Book #{@book.name} was successfully created."
-        redirect_to book_collections_path
-      else
-        render('new')
-      end
-    end
+    # app/controllers/book_collections_controller.rb
+
+def create
+  @book = BookCollection.new(book_collection_params)
+  if @book.save
+    flash[:notice] = "#{@book.name} was successfully created."
+    redirect_to book_collections_path
+  else
+    flash[:alert] = "Book couldn't be created. Please check the errors."
+    render 'new'
+  end
+end
+
     
   
     def edit
@@ -56,7 +60,7 @@ class BookCollectionsController < ApplicationController
     
     private
     def book_collection_params
-      params.require(:book_collection).permit(:name, :description, :read)
-    end
+      params.require(:book_collection).permit(:name, :description, :read, :author, :price, :published_date)
+    end    
   end
   
