@@ -1,0 +1,31 @@
+<!-- app/views/members/index.html.erb -->
+<h1>Members</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Total Points</th>
+      <th>Weekly Points</th>
+      <th>Name First</th>
+      <th>Name Last</th>
+      <th>Position</th>
+      <th>Attended</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.totalPoints %></td>
+        <td><%= member.weeklyPoints %></td>
+        <td><%= member.nameFirst %></td>
+        <td><%= member.nameLast %></td>
+        <td><%= member.position %></td>
+        <td><%= member.attended ? 'Yes' : 'No' %></td>
+        <td><%= link_to 'Show', member %></td>
+        <td><%= link_to 'Edit', edit_member_path(member) %></td>
+        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Member', new_member_path %>

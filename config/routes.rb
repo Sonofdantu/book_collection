@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "book_collections#index"
+  resources :members
+  root "members#index"
 
   match 'about', to: "main#about", via: :get
   match 'hello', to: "main#hello", via: :get
@@ -21,6 +22,12 @@ Rails.application.routes.draw do
   resources :book_collections
 
   resources :book_collections do
+    member do
+      get :delete
+    end
+  end
+
+  resources :members do
     member do
       get :delete
     end
