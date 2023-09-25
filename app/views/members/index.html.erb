@@ -1,29 +1,51 @@
 <!-- app/views/members/index.html.erb -->
+
+<style>
+  .link-like-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .link-like-button:hover {
+    color: #00C;
+    text-decoration: underline;
+  }
+</style>
+
 <h1>Members</h1>
 <table>
   <thead>
     <tr>
-      <th>Total Points</th>
-      <th>Weekly Points</th>
-      <th>Name First</th>
-      <th>Name Last</th>
+      <th>ID</td>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Position</th>
-      <th>Attended</th>
+      <th>Weekly Points</th>
+      <th>Total Points</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
     <% @members.each do |member| %>
       <tr>
-        <td><%= member.totalPoints %></td>
-        <td><%= member.weeklyPoints %></td>
+        <td><%= member.id %></td>
         <td><%= member.nameFirst %></td>
         <td><%= member.nameLast %></td>
         <td><%= member.position %></td>
-        <td><%= member.attended ? 'Yes' : 'No' %></td>
+        <td><%= member.weeklyPoints %></td>
+        <td><%= member.totalPoints %></td>
         <td><%= link_to 'Show', member %></td>
         <td><%= link_to 'Edit', edit_member_path(member) %></td>
-        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form' do %>
+            <%= submit_tag 'Delete', class: 'link-like-button' %>
+          <% end %>
+        </td>
         <td><%= link_to 'Edit Weekly Points', edit_weekly_points_member_path(member) %></td>
       </tr>
     <% end %>
@@ -31,3 +53,19 @@
 </table>
 <%= link_to 'New Member', new_member_path %>
 <%= link_to 'Bulk Edit Weekly Points', bulk_edit_points_members_path %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var deleteForms = document.querySelectorAll('.delete-member-form');
+
+    deleteForms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        if (!window.confirm('Are you sure you want to delete this member?')) {
+          e.preventDefault();
+        }
+      });
+    });
+  });
+</script>
+

@@ -3,8 +3,9 @@ class MembersController < ApplicationController
 
   # GET /members or /members.json
   def index
-    @members = Member.all
+    @members = Member.order(:nameFirst)
   end
+  
 
   # GET /members/1 or /members/1.json
   def show
@@ -83,6 +84,7 @@ class MembersController < ApplicationController
     end
     redirect_to members_path, notice: 'All points updated successfully'
   end
+
   
 
   private
@@ -93,6 +95,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:totalPoints, :weeklyPoints, :nameFirst, :nameLast, :position, :attended)
+      params.require(:member).permit(:totalPoints, :weeklyPoints, :nameFirst, :nameLast, :position)
     end
 end
