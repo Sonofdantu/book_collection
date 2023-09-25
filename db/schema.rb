@@ -10,20 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_061917) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_224131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "book_collections", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.boolean "read"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "author"
-    t.decimal "price"
-    t.date "published_date"
-  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -31,14 +20,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_061917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "position"
-    t.boolean "completed"
+  create_table "members", force: :cascade do |t|
+    t.integer "totalPoints", default: 0
+    t.integer "weeklyPoints", default: 0
+    t.string "nameFirst"
+    t.string "nameLast"
+    t.string "position", default: "Member"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "category_id"
+    t.integer "officer_points", default: 0
   end
 
 end

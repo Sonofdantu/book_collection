@@ -1,28 +1,26 @@
 Rails.application.routes.draw do
-  root "book_collections#index"
+  root "members#index"
 
   match 'about', to: "main#about", via: :get
   match 'hello', to: "main#hello", via: :get
 
   get 'main/index'
 
-  resources :categories do
+  resources :members do
     member do
       get :delete
+      get :edit_weekly_points
+      patch :update_weekly_points
+      get :edit_officer_points
+      put :update_officer_points
     end
-  end
-  
-  resources :tasks do
-    member do
-      get :delete
-    end
-  end
 
-  resources :book_collections
-
-  resources :book_collections do
-    member do
-      get :delete
+    collection do
+      get :bulk_edit_points
+      patch :bulk_update_points
+      get :officer_index
+      get :bulk_edit_officer_points
+      put :bulk_update_officer_points
     end
   end
   

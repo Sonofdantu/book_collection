@@ -1,0 +1,16 @@
+<h1>Edit Weekly Points for <%= @member.nameFirst %> <%= @member.nameLast %></h1>
+
+<%= form_for @member, url: update_weekly_points_member_path(@member), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :weeklyPoints, "Weekly Points" %>
+    <%= f.number_field :weeklyPoints %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update Points" %>
+  </div>
+
+  <div>
+    <%= link_to "Back to members", members_path %>
+  </div>
+<% end %>
