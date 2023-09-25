@@ -85,6 +85,38 @@ class MembersController < ApplicationController
     redirect_to members_path, notice: 'All points updated successfully'
   end
 
+  def officer_index
+    @members = Member.where.not(position: "Member").order(officer_points: :desc)
+  end
+  
+    # Individual officer point edit and update
+  def edit_officer_points
+    @member = Member.find(params[:id])
+  end
+
+  def update_officer_points
+    @member = Member.find(params[:id])
+    added_officer_points = params[:member][:officer_points].to_i
+    if @member.update(officer_points: @member.officer_points + added_officer_points)
+      redirect_to officer_index_members_path, notice: 'Officer points updated successfully'
+    else
+      render :edit_officer_points
+    end
+  end  
+
+  # Bulk officer point edit and update
+  def bulk_edit_officer_points
+    @members = Member.where.not(position: "Member")
+  end
+
+  def bulk_update_officer_points
+    params[:members].each do |id, member_params|
+      member = Member.find(id)
+      added_officer_points = member_params[:officer_points].to_i
+      member.update(officer_points: member.officer_points + added_officer_points)
+    end
+    redirect_to officer_index_members_path, notice: 'All officer points updated successfully'
+  end
   
 
   private

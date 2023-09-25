@@ -12,27 +12,27 @@
   <% end %>
 
   <div>
-    <%= form.label :totalPoints, style: "display: block" %>
-    <%= form.number_field :totalPoints %>
-  </div>
-
-  <div>
-    <%= form.label :weeklyPoints, style: "display: block" %>
-    <%= form.number_field :weeklyPoints %>
-  </div>
-
-  <div>
-    <%= form.label :nameFirst, style: "display: block" %>
+    <%= form.label :nameFirst, "First Name", style: "display: block" %>
     <%= form.text_field :nameFirst %>
   </div>
 
   <div>
-    <%= form.label :nameLast, style: "display: block" %>
+    <%= form.label :nameLast, "Last Name", style: "display: block" %>
     <%= form.text_field :nameLast %>
   </div>
 
   <div>
-    <%= form.label :position, style: "display: block" %>
+    <%= form.label :weeklyPoints, "Weekly Points", style: "display: block" %>
+    <%= form.number_field :weeklyPoints %>
+  </div>
+
+  <div>
+    <%= form.label :totalPoints, "Total Points", style: "display: block" %>
+    <%= form.number_field :totalPoints %>
+  </div>
+
+  <div>
+    <%= form.label :position, "Position", style: "display: block" %>
     <%= form.text_field :position %>
   </div>
 

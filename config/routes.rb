@@ -11,11 +11,16 @@ Rails.application.routes.draw do
       get :delete
       get :edit_weekly_points
       patch :update_weekly_points
+      get :edit_officer_points
+      put :update_officer_points
     end
 
     collection do
       get :bulk_edit_points
       patch :bulk_update_points
+      get :officer_index
+      get :bulk_edit_officer_points
+      put :bulk_update_officer_points
     end
   end
   
