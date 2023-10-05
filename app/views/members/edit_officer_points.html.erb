@@ -1,0 +1,9 @@
+<%= form_with(model: @member, url: update_officer_points_member_path(@member), method: :put) do |form| %>
+  <div class="field">
+    <%= form.label :officer_points %>
+    <%= form.number_field :officer_points %>
+  </div>
+
+  <%= form.submit "Update Officer Points" %>
+  <%= link_to 'Officer Points Table', officer_index_members_path %>
+<% end %>

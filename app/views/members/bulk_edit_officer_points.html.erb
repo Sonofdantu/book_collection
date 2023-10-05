@@ -1,0 +1,23 @@
+<%= form_with(url: bulk_update_officer_points_members_path, method: :put) do |form| %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Officer Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |member| %>
+        <tr>
+          <td><%= member.nameFirst %> <%= member.nameLast %></td>
+          <td>
+            <%= number_field_tag "members[#{member.id}][officer_points]", member.officer_points %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= form.submit "Update All Officer Points" %>
+  <%= link_to 'Officer Points Table', officer_index_members_path %>
+<% end %>

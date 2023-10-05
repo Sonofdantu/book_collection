@@ -11,3 +11,44 @@ ar_internal_metadata:
     - development
     - 2023-09-19 02:55:07.331634000 Z
     - 2023-09-19 02:55:07.331634000 Z
+
+---
+members:
+  columns:
+  - id
+  - totalPoints
+  - weeklyPoints
+  - nameFirst
+  - nameLast
+  - position
+  - attended
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 35
+    - 2
+    - Cameron
+    - Yoffe
+    - Dev
+    - true
+    - 2023-09-22 17:06:44.599224000 Z
+    - 2023-09-22 17:35:37.426274000 Z
+  - - 2
+    - 48
+    - 15
+    - Seth
+    - Keylon
+    - Dev
+    - true
+    - 2023-09-22 17:31:31.403653000 Z
+    - 2023-09-22 17:35:37.357731000 Z
+  - - 3
+    - 27
+    - 10
+    - Rohan
+    - '878'
+    - Dev
+    - true
+    - 2023-09-22 17:32:56.008365000 Z
+    - 2023-09-22 17:35:37.402981000 Z
