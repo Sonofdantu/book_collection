@@ -65,7 +65,8 @@ class MembersController < ApplicationController
   def update_weekly_points
     @member = Member.find(params[:id])
     new_weekly_points = params[:member][:weeklyPoints].to_i
-    if @member.update(weeklyPoints: new_weekly_points, totalPoints: @member.totalPoints + new_weekly_points)
+    if @member.update(weeklyPoints: new_weekly_points, 
+                      totalPoints: @member.totalPoints + new_weekly_points)
       redirect_to members_path, notice: 'Points updated successfully'
     else
       render :edit_weekly_points
@@ -80,7 +81,8 @@ class MembersController < ApplicationController
     params[:members].each do |id, member_params|
       member = Member.find(id)
       new_weekly_points = member_params[:weeklyPoints].to_i
-      member.update(weeklyPoints: new_weekly_points, totalPoints: member.totalPoints + new_weekly_points)
+      member.update(weeklyPoints: new_weekly_points, 
+                    totalPoints: member.totalPoints + new_weekly_points)
     end
     redirect_to members_path, notice: 'All points updated successfully'
   end

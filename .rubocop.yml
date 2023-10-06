@@ -1,0 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Width: 2
+
+Naming/MethodName:
+  Enabled: true
+  EnforcedStyle: snake_case #default
+
+Naming/ClassAndModuleCamelCase:
+  EnforcedStyle: always
