@@ -76,3 +76,5 @@ group :test do
 end
 
 gem "yaml_db"
+
+gem "rubocop"
