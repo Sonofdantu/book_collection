@@ -77,6 +77,8 @@ end
 
 gem "yaml_db"
 
+gem "rubocop"
+
 gem 'devise'
 gem 'omniauth', "~> 1.9.1"
 gem 'omniauth-google-oauth2'
