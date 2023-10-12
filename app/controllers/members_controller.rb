@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   # GET /members or /members.json
   def index
-    @members = Member.order(:nameFirst)
+    @members = Member.order(:full_name)
   end
   
 
@@ -58,33 +58,8 @@ class MembersController < ApplicationController
     end
   end
 
-  def edit_weekly_points
-    @member = Member.find(params[:id])
-  end
-
-  def update_weekly_points
-    @member = Member.find(params[:id])
-    new_weekly_points = params[:member][:weeklyPoints].to_i
-    if @member.update(weeklyPoints: new_weekly_points, 
-                      totalPoints: @member.totalPoints + new_weekly_points)
-      redirect_to members_path, notice: 'Points updated successfully'
-    else
-      render :edit_weekly_points
-    end
-  end
-
   def bulk_edit_points
     @members = Member.all
-  end
-  
-  def bulk_update_points
-    params[:members].each do |id, member_params|
-      member = Member.find(id)
-      new_weekly_points = member_params[:weeklyPoints].to_i
-      member.update(weeklyPoints: new_weekly_points, 
-                    totalPoints: member.totalPoints + new_weekly_points)
-    end
-    redirect_to members_path, notice: 'All points updated successfully'
   end
 
   def officer_index
@@ -129,6 +104,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:totalPoints, :weeklyPoints, :nameFirst, :nameLast, :position)
+      params.require(:member).permit(:totalPoints, :full_name, :email, :position)
     end
 end

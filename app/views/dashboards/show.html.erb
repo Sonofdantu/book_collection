@@ -1,2 +1,10 @@
-<h1>You are logged in! Welcome to the Admin Dashboard!</h1>
-<%= link_to "Sign Out", destroy_admin_session_path %>
+<h2>Admin Dashboard</h2>
+<p>Welcome to the main dashboard page.</p>
+
+<% if admin_signed_in? %>
+  <p>Here, you can provide options or links specific to logged-in admins.</p>
+  <%= link_to 'View Members', members_path %><br>
+  <%= link_to 'View Officer Members', officer_index_members_path %>
+<% else %>
+  <p>You need to sign in to view admin-specific content.</p>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_06_215202) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_211358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,13 +32,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_215202) do
 
   create_table "members", force: :cascade do |t|
     t.integer "totalPoints", default: 0
-    t.integer "weeklyPoints", default: 0
-    t.string "nameFirst"
-    t.string "nameLast"
     t.string "position", default: "Member"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "officer_points", default: 0
+    t.string "full_name"
+    t.string "email"
   end
 
 end
