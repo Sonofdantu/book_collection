@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <style>
         .flash__alert   { color: red; }
@@ -15,6 +14,16 @@
   </head>
 
   <body>
+    <header>
+      <% if admin_signed_in? %>
+        Welcome, <%= current_admin.full_name %>!
+        <%= link_to "Sign out", destroy_admin_session_path, method: :delete %>
+      <% else %>
+        Welcome, Guest!
+        <%= link_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "sign-in-button" %>
+      <% end %>
+    </header>
+    
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
