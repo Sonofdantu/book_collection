@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Events</h1> <!-- Updated the title here -->
+
+<div id="events">
+  <% @events.each do |event| %>
+    <%= render event %>
+    <p>
+      <%= link_to "Show this event", event %>
+    </p>
+    <%= link_to "Attend", attend_event_path(event) %>
+    <hr> <!-- Added a horizontal line as a separator -->
+  <% end %>
+</div>
+
+<%= link_to "New event", new_event_path %>
+
