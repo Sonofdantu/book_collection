@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :attendances
+  resources :events
   root to: 'dashboards#show'
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
@@ -43,4 +45,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :events do
+    member do
+      get 'attend'
+      post 'register_attendance'
+    end
+  end
 end
