@@ -1,0 +1,52 @@
+<%= form_with(model: finance) do |form| %>
+  <% if finance.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(finance.errors.count, "error") %> prohibited this finance from being saved:</h2>
+
+      <ul>
+        <% finance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
+  </div>
+
+  <div>
+    <%= form.label :eventTitle, style: "display: block" %>
+    <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
+  </div>
+
+  <div>
+    <%= form.label :cost, style: "display: block" %>
+    <%= form.text_field :cost %>
+  </div>
+
+  <div>
+    <%= form.label :receipt, style: "display: block" %>
+    <%= form.file_field :receipt %>
+  </div>
+
+  <div>
+    <%= form.label :reimbursement, style: "display: block" %>
+    <%= form.file_field :reimbursement %>
+  </div>
+
+  <div>
+    <%= form.label :resolved, style: "display: block" %>
+    <%= form.check_box :resolved %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

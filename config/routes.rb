@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :finances
+  resources :officer_entries
   resources :attendances
   resources :events
   root to: 'dashboards#show'

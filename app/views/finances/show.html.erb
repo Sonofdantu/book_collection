@@ -1,0 +1,18 @@
+  <p style="color: green"><%= notice %></p>
+  <%= render @finance %>
+  <p>
+    <strong>Receipt:</strong> <br> <!-- Line break after the Receipt image -->
+    <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+  </p>
+
+  <p>
+    <strong>Reimbursement:</strong> <br> <!-- Line break after the Receipt image -->
+    <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+  </p>
+  
+  <div>
+    <%= link_to "Edit this finance", edit_finance_path(@finance) %> |
+    <%= link_to "Back to finances", finances_path %>
+
+    <%= button_to "Destroy this finance", @finance, method: :delete %>
+  </div>

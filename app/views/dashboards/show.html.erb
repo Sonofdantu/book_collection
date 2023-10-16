@@ -6,7 +6,9 @@
   <%= link_to 'View Members', members_path %><br>
   <%= link_to 'View Officer Members', officer_index_members_path %><br>
   <%= link_to 'View Events', events_path %><br>  <!-- Added this line -->
-  <%= link_to 'View Attendance', attendances_path %>  <!-- Added this line -->
+  <%= link_to 'View Attendance', attendances_path %><br>  <!-- Added this line -->
+  <%= link_to 'View Officer Entries', officer_entries_path %><br>
+  <%= link_to 'View Finances', finances_path %><br>
 <% else %>
   <p>You need to sign in to view admin-specific content.</p>
 <% end %>
