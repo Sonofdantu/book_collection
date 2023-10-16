@@ -48,8 +48,11 @@
     <% end %>
   </tbody>
 </table>
+<% if @current_member&.position != 'Member' %>
 <%= link_to 'New Member', new_member_path %>
+<%end%>
 <%= link_to 'Officer Points View', officer_index_members_path %>
+<%= link_to "Dashboard", root_path %>
 
 
 <script>
@@ -65,5 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script>
+
+
+
 
 
