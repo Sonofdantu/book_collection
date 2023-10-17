@@ -22,8 +22,8 @@
   <thead>
     <tr>
       <th>ID</td>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Full Name</th>
+      <th>Email</th>
       <th>Position</th>
       <th>Officer Points</th>
       <th colspan="3"></th>
@@ -33,8 +33,8 @@
     <% @members.each do |member| %>
       <tr>
         <td><%= member.id %></td>
-        <td><%= member.nameFirst %></td>
-        <td><%= member.nameLast %></td>
+        <td><%= member.full_name %></td>
+        <td><%= member.email %></td>
         <td><%= member.position %></td>
         <td><%= member.officer_points %></td>
         <td><%= link_to 'Add Officer Points', edit_officer_points_member_path(member) %></td>
@@ -43,8 +43,9 @@
   </tbody>
 </table>
 <%= link_to "Back to members", members_path %>
+<% if @current_member&.position != 'Member' %>
 <%= link_to 'Bulk Add Officer Points', bulk_edit_officer_points_members_path %>
-
+<%end%>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {

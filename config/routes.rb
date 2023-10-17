@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
-  root "members#index"
+  resources :finances
+  resources :officer_entries
+  resources :attendances
+  resources :events
+  root to: 'dashboards#show'
+  devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
+  devise_scope :admin do
+    get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
+    get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
+  end
 
-  match 'about', to: "main#about", via: :get
-  match 'hello', to: "main#hello", via: :get
+  match 'about', to: 'main#about', via: :get
+  match 'hello', to: 'main#hello', via: :get
 
   get 'main/index'
 
@@ -23,19 +32,26 @@ Rails.application.routes.draw do
       put :bulk_update_officer_points
     end
   end
-  
-  #get 'tasks/index'
-  #get 'tasks/new'
-  #get 'tasks/edit'
-  #get 'tasks/show'
-  #get 'tasks/delete'
-  #get 'categories/index'
-  #get 'categories/show'
-  #get 'categories/new'
-  #get 'categories/edit'
-  #get 'categories/delete'
+
+  # get 'tasks/index'
+  # get 'tasks/new'
+  # get 'tasks/edit'
+  # get 'tasks/show'
+  # get 'tasks/delete'
+  # get 'categories/index'
+  # get 'categories/show'
+  # get 'categories/new'
+  # get 'categories/edit'
+  # get 'categories/delete'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :events do
+    member do
+      get 'attend'
+      post 'register_attendance'
+    end
+  end
 end

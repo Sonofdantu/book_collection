@@ -10,25 +10,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_25_224131) do
+ActiveRecord::Schema[7.0].define(version: 20_231_015_205_347) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'admins', force: :cascade do |t|
+    t.string 'email', null: false
+    t.string 'full_name'
+    t.string 'uid'
+    t.string 'avatar_url'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['email'], name: 'index_admins_on_email', unique: true
   end
 
-  create_table "members", force: :cascade do |t|
-    t.integer "totalPoints", default: 0
-    t.integer "weeklyPoints", default: 0
-    t.string "nameFirst"
-    t.string "nameLast"
-    t.string "position", default: "Member"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "officer_points", default: 0
+  create_table 'attendances', force: :cascade do |t|
+    t.string 'email'
+    t.string 'event_name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
+  create_table 'categories', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'events', force: :cascade do |t|
+    t.string 'title'
+    t.integer 'score'
+    t.string 'password'
+    t.datetime 'start_time'
+    t.datetime 'end_time'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'finances', force: :cascade do |t|
+    t.string 'email'
+    t.string 'eventTitle'
+    t.decimal 'cost'
+    t.text 'receipt'
+    t.text 'reimbursement'
+    t.boolean 'resolved'
+    t.string 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'members', force: :cascade do |t|
+    t.integer 'totalPoints', default: 0
+    t.string 'position', default: 'Member'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'officer_points', default: 0
+    t.string 'full_name'
+    t.string 'email'
+  end
+
+  create_table 'officer_entries', force: :cascade do |t|
+    t.integer 'points'
+    t.string 'email'
+    t.string 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
 end
