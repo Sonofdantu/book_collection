@@ -9,7 +9,7 @@
     <tbody>
       <% @members.each do |member| %>
         <tr>
-          <td><%= member.nameFirst %> <%= member.nameLast %></td>
+          <td><%= member.full_name %></td>
           <td>
             <%= number_field_tag "members[#{member.id}][officer_points]", member.officer_points %>
           </td>
