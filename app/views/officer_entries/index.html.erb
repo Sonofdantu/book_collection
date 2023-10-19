@@ -11,4 +11,7 @@
   <% end %>
 </div>
 
-<%= link_to "New officer entry", new_officer_entry_path %>
+<% if @current_member&.position == 'President' %>
+  <%= link_to "New officer entry", new_officer_entry_path %>
+<% end %>
+<%= link_to "Dashboard", root_path %>

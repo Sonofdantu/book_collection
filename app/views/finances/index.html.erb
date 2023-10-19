@@ -11,4 +11,7 @@
   <% end %>
 </div>
 
-<%= link_to "New finance", new_finance_path %>
+<% if @current_member&.position != 'Member' %>
+  <%= link_to "New finance", new_finance_path %>
+<% end %>
+<%= link_to "Dashboard", root_path %>

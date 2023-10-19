@@ -12,6 +12,8 @@
     <hr> <!-- Added a horizontal line as a separator -->
   <% end %>
 </div>
-
+<% if @current_member&.position != 'Member' %>
 <%= link_to "New event", new_event_path %>
+<%end%>
+<%= link_to "Dashboard", root_path %>
 
