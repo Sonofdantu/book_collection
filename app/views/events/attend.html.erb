@@ -1,0 +1,8 @@
+<!-- app/views/events/attend.html.erb -->
+
+<h2>Enter Event Password</h2>
+<%= form_with url: register_attendance_event_path(@event), method: :post do |f| %>
+  <%= f.label :event_password, "Password" %>
+  <%= f.text_field :event_password %>
+  <%= f.submit "Attend" %>
+<% end %>
