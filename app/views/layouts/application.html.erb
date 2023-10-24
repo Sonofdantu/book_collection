@@ -10,19 +10,81 @@
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
         .flash__success { color: green; }
+        .logged-out-message {
+            font-family: Arial, sans-serif;
+            font-size: 1.7em; /* Adjust this value as needed */
+        }
+        .sign-in-button {
+            font-family: Arial, sans-serif;
+            font-size: 2em; /* Adjust this value as needed */
+        }
+        .logo-container {
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px; /* Space between the logo and the "You are logged out." message */
+        }
+
+        header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;  /* Center items horizontally */
+          justify-content: center; /* Center items vertically */
+          text-align: center; /* To center the text elements */
+        }
+
+        .resized-logo,
+        .imsa-logo {
+          width: 400px;
+          height: auto;
+          border-radius: 20px;
+        }
+
+        h2 {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          color: #333;
+          font-size: 2em;
+        }
+
+        .google-signin {
+            border: 2px solid #4285F4; 
+            transition: transform 0.3s;  /* smooth transition for the hover effect */
+            display: inline-block;       /* to ensure the border surrounds the content */
+            padding: 5px 15px;           /* padding around the text */
+            border-radius: 5px;          /* rounded corners for the border */
+            margin-top: 20px;            /* spacing above the button for better aesthetics */
+            text-decoration: none;       /* remove any underline from the link */
+            background-color: #fff;      /* white background */
+        }
+
+        .google-signin:hover {
+            transform: scale(1.05);  /* enlarge the button by 5% */
+        }
+
     </style>
   </head>
 
   <body>
     <header>
-      <% if admin_signed_in? %>
-        Welcome, <%= current_admin.full_name %>!
-        <%= link_to "Sign out", destroy_admin_session_path, method: :delete %>
-      <% else %>
-        Welcome, Guest!
-        <%= link_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, class: "sign-in-button" %>
-      <% end %>
-    </header>
+  <% if admin_signed_in? %>
+    Welcome, <%= current_admin.full_name %>!
+    <%= link_to "Sign out", destroy_admin_session_path, method: :delete %>
+  <% else %>
+    <h2>Texas A&M Ismaili Muslim Student Association</h2> <br> <br>
+    
+    <div class="logo-container">
+      <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %> <!-- New image added -->
+    </div>
+
+    <span class="logged-out-message">You are logged out.</span>
+    <%= link_to admin_google_oauth2_omniauth_authorize_path, class: "sign-in-button google-signin" do %>
+      Sign in with 
+      <span style="color: #4285F4;">G</span><span style="color: #DB4437;">o</span><span style="color: #F4B400;">o</span><span style="color: #4285F4;">g</span><span style="color: #0F9D58;">l</span><span style="color: #DB4437;">e</span>
+    <% end %>
+  <% end %>
+</header>
+
+
     
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
