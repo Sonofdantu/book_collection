@@ -1,14 +1,26 @@
-
 <style>
+  .custom-col {
+    max-width: 74%; /* Adjust the width as per your preference */
+    margin-left: 13%
+
+  }
+
+  .custom-col:hover {
+    
+  }
 
 
-
+  .card{
+    transition: background-color 0.3s ease; 
+  }
+  .card:hover{
+    background-color: #585858 !important;
+  }
 </style>
-
 
 <div id="<%= dom_id event %>" class="custom-col mt-3">
   <div class="card bg-light">
-    <div class="card-body" >
+    <div class="card-body">
       <h5 class="card-title"><%= event.title %></h5>
 
       <p class="card-text">
@@ -18,9 +30,9 @@
       <p class="card-text">
         <strong>Password:</strong> <%= event.password %>
       </p>
-      <%end%>
+      <% end %>
       <p class="card-text">
-        <strong>Start time:</strong> <%= event.start_time %>
+      <strong>Start time:</strong> <%= event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
       </p>
 
       <p class="card-text">
