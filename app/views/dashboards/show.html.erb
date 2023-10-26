@@ -12,13 +12,26 @@
       text-align: center;
       margin: 50px;
     }
+    .imsa-logo {
+      position: fixed;
+      top: 10px;
+      left: 50px;
+      width: 100px;
+    }
+    .profile-icon {
+  position: fixed;
+  top: 10px;
+  right: 50px; 
+  width: 100px; 
+  cursor: pointer;
+}
 
     h2 {
       color: #333;
     }
 
     p {
-      color: #666;
+      color: #666;åå
     }
 
     a {
@@ -234,6 +247,10 @@
       </div>  
     <% end %>
   <% end %>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <a href="<%= profile_path %>">
+  <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+  </a>
   <h1 class="side-header">IMSA</h1>
 </div>
 
@@ -264,6 +281,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 

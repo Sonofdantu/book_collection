@@ -54,4 +54,6 @@ Rails.application.routes.draw do
       post 'register_attendance'
     end
   end
+
+  get '/profile', to: 'profiles#show', as: :profile
 end
