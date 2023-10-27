@@ -141,7 +141,7 @@
   <% if admin_signed_in? %>
     <% current_member = Member.find_by(email: current_admin.email) %>
 
-    <% if current_member&.position == 'Admin' %>
+    <% if current_member&.position == 'President' %>
       <div class="links">
       <div class="admin-links">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -222,6 +222,8 @@
   </div>
 </nav>
 <h2>Officer Dashboard</h2>
+    <% elsif current_member&.position == 'Pending' %>
+      <h2>Your membership is pending</h2>
     <% else %>
       <div class="admin-info">
         <h2>Member Dashboard</h2>
@@ -248,9 +250,10 @@
     <% end %>
   <% end %>
   <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
-  <a href="<%= profile_path %>">
-  <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-  </a>
+  <%if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+    <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
     <div class="container my-5 pt-5">
     <div class="row justify-content-center">
         <div class="col-md-5 mb-3">
@@ -264,6 +267,7 @@
             <% end %>
         </div>
     </div>
+  <% end %>
 </div>
 
 </div>
