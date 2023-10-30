@@ -61,15 +61,22 @@
             transform: scale(1.05);  /* enlarge the button by 5% */
         }
 
+        .welcomeMsg{
+          top: 35px;
+          left: 41.75%;
+        }
+
     </style>
   </head>
 
   <body>
-    <header>
-  <% if admin_signed_in? %>
-    Welcome, <%= current_admin.full_name %>!
-    <%= link_to "Sign out", destroy_admin_session_path, method: :delete %>
-  <% else %>
+  <header>
+  <div class = "welcomeMsg">
+    <% if admin_signed_in? %>
+      Welcome, <%= current_admin.full_name %>!
+      <%= link_to "Sign out", destroy_admin_session_path, method: :delete %>
+    <% else %>
+  </div>
     <h2>Texas A&M Ismaili Muslim Student Association</h2> <br> <br>
     
     <div class="logo-container">

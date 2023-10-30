@@ -63,15 +63,6 @@
       color: #fff;
     }
 
-    .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #007bff;
-      padding: 5px; 
-      color: #fff;
-    }
-
     .content {
       margin-top: 60px; 
     }
@@ -149,16 +140,13 @@
         <%= link_to 'Members', members_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+        <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Events', events_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Finances', finances_path, class: 'nav-link' %>
