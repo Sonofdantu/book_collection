@@ -1,43 +1,74 @@
 <style>
   .custom-col {
-    max-width: 74%; /* Adjust the width as per your preference */
-    margin-left: 13%
-
+    max-width: 74%;
+    margin-left: 13%;
   }
 
-  .custom-col:hover {
-    
+  .card {
+    transition: background-color 0.3s ease;
   }
 
-
-  .card{
-    transition: background-color 0.3s ease; 
-  }
-  .card:hover{
+  .card:hover {
     background-color: #585858 !important;
+  }
+
+  .event-section {
+    margin-top: 20px;
+  }
+
+  .e_header {
+    margin-left: -90%;
+  }
+
+  .live-header {
+    display: none;
+  }
+
+  .ongoing-marker {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    padding: 5px;
+    border-radius: 5px;
   }
 </style>
 
-<div id="<%= dom_id event %>" class="custom-col mt-3">
-  <div class="card bg-light">
-    <div class="card-body">
-      <h5 class="card-title"><%= event.title %></h5>
+<% if event.start_time.present? && event.end_time.present? && @current_time.present? %>
+  <% if event.start_time < @current_time && event.end_time > @current_time %>
+    <div class="live-header">
+      <h2 class="e_header">Live</h2>
+    </div>
+  <% end %>
 
-      <p class="card-text">
-        <strong>Score:</strong> <%= event.score %>
-      </p>
-      <% if current_member&.position != 'Member' %>
-      <p class="card-text">
-        <strong>Password:</strong> <%= event.password %>
-      </p>
-      <% end %>
-      <p class="card-text">
-      <strong>Start time:</strong> <%= event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
-      </p>
+  <div id="<%= dom_id event %>" class="custom-col mt-3 event-section">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= event.title %>
+          <% if event.start_time < @current_time && event.end_time > @current_time %>
+            <span class="ongoing-marker">Ongoing</span>
+          <% elsif event.start_time < @current_time %>
+            <span class="ongoing-marker">Past</span>
+          <% else %>
+          <span class="ongoing-marker">Upcoming</span>
+          <% end %>
+        </h5>
 
-      <p class="card-text">
-        <strong>End time:</strong> <%= event.end_time %>
-      </p>
+        <p class="card-text">
+          <strong>Score:</strong> <%= event.score %>
+        </p>
+        <% if current_member&.position != 'Member' %>
+          <p class="card-text">
+            <strong>Password:</strong> <%= event.password %>
+          </p>
+        <% end %>
+        <p class="card-text">
+          <strong>Start time:</strong> <%= event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
+        </p>
+
+        <p class="card-text">
+          <strong>End time:</strong> <%= event.end_time %>
+        </p>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

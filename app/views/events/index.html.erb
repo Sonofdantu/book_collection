@@ -71,6 +71,12 @@
       padding: 5px; 
       color: #fff;
     }
+    .miniheader{
+      margin-left: -60%; 
+    }
+    .miniheader1{
+      margin-left: -53%; 
+    }
 
     .content {
       margin-top: 60px; 
@@ -123,92 +129,171 @@
   <% current_member = Member.find_by(email: current_admin.email) %>
 
   <% if current_member&.position == 'Admin' %>
-    <div class="links">
-      <div class="admin-links">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item ">
-                <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Members', members_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item active">
-                <%= link_to 'Events', events_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <h2 class="title">Admin Dashboard</h2>
-      </div>
-  <% elsif current_member&.position == 'Officer' %>
-    <div class="admin-info">
-      <h2>Officer Dashboard</h2>
-      <div class="links">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Members', members_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Events', events_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-            </li>
-          </ul>
-        </nav>
-        <h2>Officer Dashboard</h2>
-      </div>
-    <% end %>
-  <% end %>
-  <h1 class="side-header">IMSA</h1>
+  <div class="links">
+  <div class="admin-links">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<ul class="navbar-nav">
+  <li class="nav-item active">
+  <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+  </li>
+
+
+
+  <li class="nav-item">
+    <%= link_to 'Members', members_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Events', events_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+  </li>
+</ul>
 </div>
+</nav>
+    <h2 class = "title">Admin Dashboard</h2>
+    
+  </div>
+  <% elsif current_member&.position == 'Officer' %>
+  <h2>Officer Dashboard</h2>
+  <div class="links">
+  <div class="admin-links">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-<div style="color: green"><%= notice %></div>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
 
-<h1>Events</h1>
+<ul class="navbar-nav">
+  <li class="nav-item active">
+  <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+  </li>
+
+
+
+  <li class="nav-item">
+    <%= link_to 'Members', members_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Events', events_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+  </li>
+</ul>
+</div>
+</nav>
+<h2>Officer Dashboard</h2>
+<% else %>
+  <div class="admin-info">
+    <h2>Member Dashboard</h2>
+    
+    <div class="links">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light member-navbar fixed-top">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+      <%= link_to 'Members', members_path, class: 'nav-link' %>
+    </li>
+      <li class="nav-item">
+        <%= link_to 'Events', events_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Leaderboard', events_path, class: 'nav-link' %>
+      </li>
+    </ul>
+  </nav>
+    </div>
+  </div>  
+<% end %>
+<% end %>
+<h1 class="side-header">IMSA</h1>
+</div>
+<h1 style="visibility: hidden; color: white;">f</h1>
 
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <div id="events">
+        <% live_events = [] %>
+        <% upcoming_events = [] %>
+        <% past_events = [] %>
+
         <% @events.each do |event| %>
+          <% if event.end_time < Time.now %>
+            <% past_events << event %>
+          <% elsif event.start_time < Time.now %>
+            <% live_events << event %>
+          <% else %>
+            <% upcoming_events << event %>
+          <% end %>
+        <% end %>
+
+        <h2 class = "miniheader">Live Events</h2>
+        <% live_events.each do |event| %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render event %>
+              <p>
+                <%= link_to "Show this event", event %>
+                <% if event.end_time >= Time.now %>
+                  <%= link_to "Attend", attend_event_path(event) %>
+                <% end %>
+              </p>
+              <hr>
+            </div>
+          </div>
+        <% end %>
+
+        <h2 class = "miniheader1">Upcoming Events</h2>
+        <% upcoming_events.each do |event| %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render event %>
+              <p>
+                <%= link_to "Show this event", event %>
+                <%= link_to "Attend", attend_event_path(event) %>
+              </p>
+              <hr>
+            </div>
+          </div>
+        <% end %>
+
+        <h2 class = "miniheader">Past Events</h2>
+        <% past_events.each do |event| %>
           <div class="row">
             <div class="col-md-12">
               <%= render event %>
               <p>
                 <%= link_to "Show this event", event %>
               </p>
-              <%= link_to "Attend", attend_event_path(event) %>
               <hr>
             </div>
           </div>
@@ -226,8 +311,10 @@
   <% end %>
 </div>
 
-
 <%= link_to "Dashboard", root_path %>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
