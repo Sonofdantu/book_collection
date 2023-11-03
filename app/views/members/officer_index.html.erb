@@ -136,6 +136,28 @@
       font-family: 'Mustopha'; 
     }
 
+    table, thead, tbody, tr, td {
+      font-family: Arial, sans-serif;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid;
+    }
+
+    table {
+      width: 75%;
+    }
+
+    th, td {
+      padding: 5px;
+    }
+
+    tr:nth-child(even) {background-color: #f2f2f2;}
+
+    th {
+      background-color: #04AA6D;
+      color: white;
+    }
+
 
   </style>
 </head>
@@ -243,10 +265,10 @@
 </body>
 
 <h1>Officers</h1>
-<table>
+<table class="centered">
   <thead>
     <tr>
-      <th>ID</td>
+      <th>ID</th>
       <th>Full Name</th>
       <th>Email</th>
       <th>Position</th>
