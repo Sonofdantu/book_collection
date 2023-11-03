@@ -253,8 +253,8 @@
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if !finance.resolved? %>
-              <div class="pending-finance-box">
-                <% if finance.email == current_member&.email %>
+              <% if finance.email == current_member&.email %>
+                <div class="pending-finance-box">
                   <%= render finance %>
                   <div class="showFinance">
                     <p>
@@ -263,8 +263,8 @@
                       <% end %>
                     </p>
                   </div>
-                <% end %>
-              </div>
+                </div>
+              <% end %>
             <% end %>
           </div>
         <% end %>
@@ -273,8 +273,8 @@
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.resolved? %>
-              <div class="completed-finance-box">
-                <% if finance.email == current_member&.email %>
+              <% if finance.email == current_member&.email %>
+                <div class="completed-finance-box">
                   <%= render finance %>
                   <div class="showFinance">
                     <p>
@@ -283,8 +283,8 @@
                       <% end %>
                     </p>
                   </div>
-                <% end %>  
-              </div>
+                </div>  
+              <% end %>
             <% end %>
           </div>
         <% end %>
