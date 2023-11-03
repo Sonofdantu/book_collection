@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 5px;
+    }
+
+    .admin-links,
+    .user-links {
+      display: block; 
+    }
+
+    .user-links,
+    .admin-info {
+      display: block; 
+    }
+
+    .toggle-links-button {
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav {
+      background-color: #007bff;
+      padding: 5px; 
+    }
+
+    nav a {
+      color: #fff;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #007bff;
+      padding: 5px; 
+      color: #fff;
+    }
+
+    .content {
+      margin-top: 60px; 
+    }
+
+    .navbar {
+      background-color: #007bff;
+      padding: 5px;
+      width: 57%;
+      margin: auto; 
+      margin-top: 15vh; 
+      display: flex;
+      align-items: center; 
+      justify-content: space-evenly;
+      z-index: 1000;
+    }
+
+    .navbar a {
+      color: #fff;
+    }
+
+
+    .navbar .active a {
+      background-color: #C0C0C0; 
+      color: #007bff; 
+      border-radius: 5px; 
+    }
+
+    .member-navbar {
+      width: 30%;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
+
+    .side-header {
+      transform: rotate(270deg);
+      position: fixed;
+      top: 75%; 
+      left: 13%; 
+      transform-origin: bottom left; 
+      letter-spacing: 0.8em; 
+      font-size: 120px; 
+      font-family: 'Mustopha'; 
+    }
+
+  </style>
+</head>
+<body>
+
+<% if admin_signed_in? %>
+  <% current_member = Member.find_by(email: current_admin.email) %>
+
+  <% if current_member&.position == 'Admin' %>
+    <div class="links">
+      <div class="admin-links">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Members', members_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Events', events_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <h2 class="title">Admin Dashboard</h2>
+      </div>
+  <% elsif current_member&.position == 'Officer' %>
+    <div class="admin-info">
+      <h2>Officer Dashboard</h2>
+      <div class="links">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Members', members_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Events', events_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+            </li>
+          </ul>
+        </nav>
+      
+      </div>
+    <% end %>
+  <% end %>
+  <h1 class="side-header">IMSA</h1>
+</div>
+
+<div style="color: green"><%= notice %></div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="events">
+        <% @events.each do |event| %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render event %>
+              <p>
+                <%= link_to "Show this event", event %>
+              </p>
+              <%= link_to "Attfend", attend_event_path(event) %>
+              <hr>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if @current_member&.position != 'Member' %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to "New event", new_event_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<%= link_to "Dashboard", root_path %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var adminLinks = document.querySelector('.links');
+    var userLinks = document.querySelector('.user-links');
+    var adminInfo = document.querySelector('.admin-info');
+    var toggleButtons = document.querySelectorAll('.toggle-links-button');
+
+    toggleButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        console.log(adminInfo.style.display); 
+        adminLinks.style.display = adminLinks.style.display === 'none' ? 'block' : 'none';
+        if(adminInfo.style.display == 'none' || adminInfo.style.display == ''){
+          adminInfo.style.display = 'block'; 
+        } else {
+          adminInfo.style.display = "none"; 
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
+
