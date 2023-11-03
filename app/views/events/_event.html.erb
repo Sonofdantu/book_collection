@@ -25,8 +25,7 @@
   </p>
 
   <p>
-    <strong>Image:</strong>
-    <%= event.image %>
+    <strong>Image:</strong> <br> <!-- Line break after the Receipt image -->
+    <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' if event.image.present? %>
   </p>
-
 </div>

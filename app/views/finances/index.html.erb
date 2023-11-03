@@ -167,6 +167,13 @@
       margin-bottom: 10px;
     }
 
+    .pretty-divider {
+      border: none;
+      height: 2px;
+      background-color: #ccc;
+      width: 30%;
+    }
+
   </style>
 </head>
 <body>
@@ -230,6 +237,8 @@
           </div>
         <% end %>
 
+        <hr class="pretty-divider">
+
         <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
@@ -253,8 +262,8 @@
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if !finance.resolved? %>
-              <div class="pending-finance-box">
-                <% if finance.email == current_member&.email %>
+              <% if finance.email == current_member&.email %>
+                <div class="pending-finance-box">
                   <%= render finance %>
                   <div class="showFinance">
                     <p>
@@ -263,18 +272,20 @@
                       <% end %>
                     </p>
                   </div>
-                <% end %>
-              </div>
+                </div>
+              <% end %>
             <% end %>
           </div>
         <% end %>
+
+        <hr class="pretty-divider">
 
         <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.resolved? %>
-              <div class="completed-finance-box">
-                <% if finance.email == current_member&.email %>
+              <% if finance.email == current_member&.email %>
+                <div class="completed-finance-box">
                   <%= render finance %>
                   <div class="showFinance">
                     <p>
@@ -283,8 +294,8 @@
                       <% end %>
                     </p>
                   </div>
-                <% end %>  
-              </div>
+                </div>  
+              <% end %>
             <% end %>
           </div>
         <% end %>

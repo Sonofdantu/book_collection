@@ -15,11 +15,11 @@ class FinancesController < ApplicationController
     @finance = Finance.new
     @finance.email = @current_member.email
     @event_titles = Event.all.pluck(:title)
-    puts @event_titles
   end 
 
   # GET /finances/1/edit
   def edit
+    @event_titles = Event.all.pluck(:title)
   end
 
   # POST /finances or /finances.json
