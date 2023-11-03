@@ -12,13 +12,26 @@
       text-align: center;
       margin: 50px;
     }
+    .imsa-logo {
+      position: fixed;
+      top: 10px;
+      left: 50px;
+      width: 100px;
+    }
+    .profile-icon {
+  position: fixed;
+  top: 10px;
+  right: 50px; 
+  width: 100px; 
+  cursor: pointer;
+}
 
     h2 {
       color: #333;
     }
 
     p {
-      color: #666;
+      color: #666;åå
     }
 
     a {
@@ -60,15 +73,6 @@
     }
 
     nav a {
-      color: #fff;
-    }
-
-    .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #007bff;
-      padding: 5px; 
       color: #fff;
     }
 
@@ -149,16 +153,13 @@
         <%= link_to 'Members', members_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+        <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Events', events_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
         <%= link_to 'Finances', finances_path, class: 'nav-link' %>
@@ -234,6 +235,29 @@
       </div>  
     <% end %>
   <% end %>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <a href="<%= profile_path %>">
+  <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+  </a>
+    <div class="container my-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-3">
+            <%= link_to 'https://www.groupme.com/', target: "_blank" do %>
+                <%= image_tag 'groupme_logo.png', alt: 'First Image', class: 'img-fluid rounded' %>
+            <% end %>
+        </div>
+        <div class="col-md-5 mb-3">
+            <%= link_to 'https://www.instagram.com/', target: "_blank" do %>
+                <%= image_tag 'instagram_logo.png', alt: 'Second Image', class: 'img-fluid rounded', style: 'width:80%;' %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
   <h1 class="side-header">IMSA</h1>
 </div>
 
@@ -264,6 +288,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 

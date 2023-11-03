@@ -37,10 +37,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def current_member
     @current_member
   end
 end
+
+
+
+
 
 
