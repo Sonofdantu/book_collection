@@ -4,7 +4,7 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if admin.present?
       # Determine the position based on the members table being empty
-      position = Member.exists? ? 'Member' : 'President'
+      position = Member.exists? ? 'Pending' : 'President'
       
       # Check if the admin's email is in the members table
       unless Member.exists?(email: admin.email)
