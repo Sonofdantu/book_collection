@@ -3,8 +3,8 @@
 <%= render @officer_entry %>
 
 <div>
-  <%= link_to "Edit this officer entry", edit_officer_entry_path(@officer_entry) %> |
-  <%= link_to "Back to officer entries", officer_entries_path %>
+  <%= link_to "See all officer point entries", officer_entries_path %> |
+  <%= link_to "Add more officer points", new_officer_entry_path %>
 
   <%= button_to "Destroy this officer entry", @officer_entry, method: :delete %>
 </div>

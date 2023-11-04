@@ -1,32 +1,45 @@
-<%= form_with(model: officer_entry) do |form| %>
-  <% if officer_entry.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
+<style>
+  table, td, body {
+    align: center;
+  }
 
-      <ul>
-        <% officer_entry.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  .submit_button {
+  }
+</style>
 
-  <div>
-    <%= form.label :points, style: "display: block" %>
-    <%= form.number_field :points %>
-  </div>
+<body>
+  <table>
+    <%= form_with(model: officer_entry) do |form| %>
+      <% if officer_entry.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
-  </div>
+          <ul>
+            <% officer_entry.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
+      <td>
+        <%= form.label :points, style: "display: block" %>
+        <%= form.number_field :points %>
+      </td>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+      <td>
+        <%= form.label :email, style: "display: block" %>
+        <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
+      </td>
+
+      <td>
+        <%= form.label :description, style: "display: block" %>
+        <%= form.text_field :description %>
+      </td>
+
+      <td>
+        <%= form.submit class: 'submit_button' %>
+      </td>
+    <% end %>
+  </table>
+</body>
