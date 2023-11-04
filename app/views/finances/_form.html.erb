@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :email, style: "display: block" %>
-    <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
+    <%= form.text_field :email, readonly: true %>
   </div>
 
   <div>

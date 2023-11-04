@@ -22,7 +22,9 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    @event = Event.new(event_params)
+    @event = Event.new(event_params_without_image)
+
+    encode_uploaded_images
 
     respond_to do |format|
       if @event.save
@@ -37,8 +39,10 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
+    encode_uploaded_images
+
     respond_to do |format|
-      if @event.update(event_params)
+      if @event.update(event_params_without_image)
         format.html { redirect_to event_url(@event), notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -122,6 +126,17 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :score, :password, :start_time, :end_time)
+      params.require(:event).permit(:title, :score, :password, :start_time, :end_time, :image)
+    end
+
+    def event_params_without_image
+      event_params.except(:image)
+    end
+
+    def encode_uploaded_images
+      if params[:event][:image].is_a?(ActionDispatch::Http::UploadedFile)
+        uploaded_image = params[:event][:image]
+        @event.image = Base64.encode64(uploaded_image.read)
+      end
     end
 end
