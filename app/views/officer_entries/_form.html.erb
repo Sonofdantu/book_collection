@@ -1,45 +1,34 @@
 <style>
-  table, td, body {
+  body {
+    align-items: center;
+    text-align: center;
     align: center;
-  }
-
-  .submit_button {
   }
 </style>
 
 <body>
-  <table>
-    <%= form_with(model: officer_entry) do |form| %>
-      <% if officer_entry.errors.any? %>
-        <div style="color: red">
-          <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
+  <%= form_with(model: officer_entry) do |form| %>
+    <% if officer_entry.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
 
-          <ul>
-            <% officer_entry.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <td>
-        <%= form.label :points, style: "display: block" %>
-        <%= form.number_field :points %>
-      </td>
-
-      <td>
-        <%= form.label :email, style: "display: block" %>
-        <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
-      </td>
-
-      <td>
-        <%= form.label :description, style: "display: block" %>
-        <%= form.text_field :description %>
-      </td>
-
-      <td>
-        <%= form.submit class: 'submit_button' %>
-      </td>
+        <ul>
+          <% officer_entry.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-  </table>
+    <%= form.label :points, style: "display: block" %>
+    <%= form.number_field :points %>
+
+    <%= form.label :email, style: "display: block" %>
+    <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
+
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+
+    <%= form.label :submit, style: "display: block" %>
+    <%= form.submit class: 'submit_button' %>
+  <% end %>
 </body>
