@@ -76,12 +76,20 @@
         color: #fff;
       }
 
+      .content {
+        margin-top: 60px; 
+      }
+
       .navbar {
         background-color: #007bff;
         padding: 5px;
         width: 55%;
         margin: auto; 
         margin-top: 5vh;
+        display: flex;
+        align-items: center; 
+        justify-content: space-evenly;
+        z-index: 1000;
       }
 
       .navbar a {
@@ -134,7 +142,7 @@
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarNav">        
+              <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item active">
                     <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
@@ -221,26 +229,46 @@
         </div>  
       <% end %>
     <% end %>
-    <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
-    <% if current_member&.position != 'Pending' %>
-      <a href="<%= profile_path %>">
-      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-      </a>
-      <div class="container my-5 pt-5">
-        <div class="row justify-content-center">
-          <div class="col-md-5 mb-3">
-            <%= link_to 'https://www.groupme.com/', target: "_blank" do %>
-              <%= image_tag 'groupme_logo.png', alt: 'First Image', class: 'img-fluid rounded', style: 'height:80%;' %>
-            <% end %>
-          </div>
-          <div class="col-md-5 mb-3">
-            <%= link_to 'https://www.instagram.com/', target: "_blank" do %>
-              <%= image_tag 'instagram_logo.png', alt: 'Second Image', class: 'img-fluid rounded', style: 'width:70%; height:80%;' %>
-            <% end %>
-          </div>
+  <% end %>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <%if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+    <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
+    <div class="container my-5 pt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5 mb-3">
+          <%= link_to 'https://www.groupme.com/', target: "_blank" do %>
+            <%= image_tag 'groupme_logo.png', alt: 'First Image', class: 'img-fluid rounded' %>
+          <% end %>
+        </div>
+        <div class="col-md-5 mb-3">
+          <%= link_to 'https://www.instagram.com/', target: "_blank" do %>
+            <%= image_tag 'instagram_logo.png', alt: 'Second Image', class: 'img-fluid rounded', style: 'width:80%;' %>
+          <% end %>
         </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+</div>
+
+</div>
+
+
+
+  <h1 class="side-header">IMSA</h1>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var adminLinks = document.querySelector('.links');
+    var userLinks = document.querySelector('.user-links');
+    var adminInfo = document.querySelector('.admin-info');
+    var toggleButtons = document.querySelectorAll('.toggle-links-button');
 
     <h1 class="side-header">IMSA</h1>
 

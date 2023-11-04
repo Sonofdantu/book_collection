@@ -1,32 +1,34 @@
-<%= form_with(model: officer_entry) do |form| %>
-  <% if officer_entry.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
+<style>
+  body {
+    align-items: center;
+    text-align: center;
+    align: center;
+  }
+</style>
 
-      <ul>
-        <% officer_entry.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<body>
+  <%= form_with(model: officer_entry) do |form| %>
+    <% if officer_entry.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(officer_entry.errors.count, "error") %> prohibited this officer_entry from being saved:</h2>
 
-  <div>
+        <ul>
+          <% officer_entry.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form.label :points, style: "display: block" %>
     <%= form.number_field :points %>
-  </div>
 
-  <div>
     <%= form.label :email, style: "display: block" %>
     <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
-  </div>
 
-  <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
+    <%= form.text_area :description %>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+    <%= form.label :submit, style: "display: block" %>
+    <%= form.submit class: 'submit_button' %>
+  <% end %>
+</body>
