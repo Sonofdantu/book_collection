@@ -167,6 +167,13 @@
       margin-bottom: 10px;
     }
 
+    .pretty-divider {
+      border: none;
+      height: 2px;
+      background-color: #ccc;
+      width: 30%;
+    }
+
   </style>
 </head>
 <body>
@@ -230,6 +237,7 @@
           </div>
         <% end %>
 
+        <hr class="pretty-divider">
         <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
@@ -268,7 +276,7 @@
             <% end %>
           </div>
         <% end %>
-
+        <hr class="pretty-divider">
         <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
