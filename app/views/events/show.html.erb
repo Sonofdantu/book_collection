@@ -1,10 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<!-- show.html.erb -->
 
-<%= render @event %>
-
-<div>
-  <%= link_to "Edit this event", edit_event_path(@event) %> |
-  <%= link_to "Back to events", events_path %>
-
-  <%= button_to "Destroy this event", @event, method: :delete %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <p style="color: green"><%= notice %></p>
+      <%= render @event %>
+    </div>
+    <div class="col-md-4">
+      <div>
+        <%= link_to "Edit this event", edit_event_path(@event) %> |
+        <%= link_to "Back to events", events_path %>
+      </div>
+      <div>
+        <%= button_to "Destroy this event", @event, method: :delete %>
+      </div>
+    </div>
+  </div>
 </div>
+
