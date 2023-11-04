@@ -18,7 +18,7 @@
       font-size: 25px;
     }
 
-    h2.title {
+    h2 {
       color: #333;
       margin-top: 30px;
       left: 41.25%;
@@ -174,7 +174,7 @@
 <% if admin_signed_in? %>
   <% current_member = Member.find_by(email: current_admin.email) %>
 
-  <% if current_member&.position == 'Admin' %>
+  <% if current_member&.position != 'Member' %>
     <h2 class = "title">Finance Requests</h2>
     
     <div class="links">
@@ -210,14 +210,14 @@
         </nav>
       </div>
     </div>
-
     <div class="finances">
-      <h3> Pending </h3>
-      <% @finances.each do |finance| %>
-        <div class = "finance">
-          <% if !finance.resolved? %>
-            <div class="pending-finance-box">
-              <%= render finance %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+        <h3> Pending </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if !finance.resolved? %>
+              <div class="pending-finance-box">
+                <%= render finance %>
                 <div class="showFinance">
                   <p>
                     <%= link_to finance do %>
@@ -225,13 +225,12 @@
                     <% end %>
                   </p>
                 </div>
-            </div>
-          <% end %>
-        </div>
-        </div>
-      <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
-      <h3> Completed </h3>
+        <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.resolved? %>
@@ -248,18 +247,61 @@
             <% end %>
           </div>
         <% end %>
-      </div>
+
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+        <h3> Pending </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if !finance.resolved? %>
+              <% if finance.email == current_member&.email %>
+                <div class="pending-finance-box">
+                  <%= render finance %>
+                  <div class="showFinance">
+                    <p>
+                      <%= link_to finance do %>
+                        <button type="button">Show this finance</button>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <h3> Completed </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if finance.resolved? %>
+              <% if finance.email == current_member&.email %>
+                <div class="completed-finance-box">
+                  <%= render finance %>
+                  <div class="showFinance">
+                    <p>
+                      <%= link_to finance do %>
+                        <button type="button">Show this finance</button>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>  
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
 
-    <div class="floating-button">
-      <div class = "newFinance">
-        <% if @current_member&.position != 'Member' %>
-          <%= link_to new_finance_path do %>
-            <button type="button">Create Finance</button>
+    <% if current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <div class="floating-button">
+        <div class = "newFinance">
+          <% if @current_member&.position != 'Member' %>
+            <%= link_to new_finance_path do %>
+              <button type="button">Create Finance</button>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>  
 
   <% end %>
   <h1 class="side-header">IMSA</h1>
