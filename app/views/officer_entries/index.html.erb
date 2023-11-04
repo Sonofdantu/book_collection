@@ -1,17 +1,69 @@
+<style>
+  table, thead, tbody, tr, td {
+    font-family: Arial, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    border-collapse: collapse;
+  }
+
+  table {
+    width: 75%;
+  }
+
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+
+  tr:nth-child(even) {background-color: #f2f2f2;}
+
+  th {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  h1, div {
+    text-align: center;
+  }
+
+  .submit_button {
+  }
+</style>
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Officer entries</h1>
+<h1>Officer Point Record</h1>
 
-<div id="officer_entries">
-  <% @officer_entries.each do |officer_entry| %>
-    <%= render officer_entry %>
-    <p>
-      <%= link_to "Show this officer entry", officer_entry %>
-    </p>
+<body>
+  <div id="officer_entries">
+    <table class="centered">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Description</th>
+          <th>Points</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @officer_entries.each do |entry| %>
+          <tr>
+            <td><%= entry.email %></td>
+            <td><%= entry.description %></td>
+            <td><%= entry.points %></td>
+            <td><%= button_to "Destroy this officer entry", @officer_entry, method: :delete %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+<div>
+  <% if @current_member&.position == 'President' %>
+    <%= link_to "New officer entry", new_officer_entry_path %>
   <% end %>
+  <%= link_to "Back to leaderboard", officer_index_members_path %>
+  <%= link_to "Dashboard", root_path %>
 </div>
-
-<% if @current_member&.position == 'President' %>
-  <%= link_to "New officer entry", new_officer_entry_path %>
-<% end %>
-<%= link_to "Dashboard", root_path %>

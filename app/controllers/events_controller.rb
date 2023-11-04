@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
+    @current_time = Time.current
     @events = Event.all
   end
 

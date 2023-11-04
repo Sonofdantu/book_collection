@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_admin!
   before_action :set_current_member
-  before_action :check_permissions
+  helper_method :current_member
 
   private
 
@@ -36,4 +36,14 @@ class ApplicationController < ActionController::Base
       redirect_to(root_path)
     end
   end
+
+  def current_member
+    @current_member
+  end
 end
+
+
+
+
+
+
