@@ -1,20 +1,117 @@
-<!-- show.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      padding-top: 50px; /* Adjust for fixed navbar */
+    }
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <p style="color: green"><%= notice %></p>
-      <%= render @event %>
-    </div>
-    <div class="col-md-4">
-      <div>
-        <%= link_to "Edit this event", edit_event_path(@event) %> |
-        <%= link_to "Back to events", events_path %>
+    .event-details-container {
+      max-width: 300px; /* Adjusted max-width */
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      top: 70%
+    }
+
+    h5 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .actions-card {
+      margin-top: 20px;
+    }
+
+    .img-fluid {
+      width: 70%; /* Adjusted width */
+      height: auto;
+      display: block;
+      margin: 0 auto; /* Center the image */
+    }
+
+    .event-image {
+      text-align: center; /* Center the card */
+      left: 150%; 
+      top: 0%; 
+    }
+  </style>
+</head>
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Event Details</a>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"> <!-- Updated col-md-3 -->
+        <div class="card p-3 event-image">
+          <h5 class="card-title">Event Image</h5>
+          <%= image_tag "data:image/png;base64,#{@event.image}", alt: 'Image', class: "img-fluid"  %>
+        </div>
       </div>
-      <div>
-        <%= button_to "Destroy this event", @event, method: :delete %>
+      <div class="col-md-9"> <!-- Updated col-md-9 -->
+        <div class="card bg-light p-3 event-details-container">
+          <h5 class="card-title">
+            <%= @event.title %>
+            <% if @event.start_time.present? && @event.end_time.present? && @current_time.present? %>
+              <% if @event.start_time < @current_time && @event.end_time > @current_time %>
+                <span class="ongoing-marker">Ongoing</span>
+              <% elsif @event.start_time < @current_time %>
+                <span class="ongoing-marker">Past</span>
+              <% else %>
+                <span class="ongoing-marker">Upcoming</span>
+              <% end %>
+            <% end %>
+          </h5>
+
+          <p class="card-text">
+            <strong>Score:</strong> <%= @event.score %>
+          </p>
+          <% if current_member&.position != 'Member' %>
+            <p class="card-text">
+              <strong>Password:</strong> <%= @event.password %>
+            </p>
+          <% end %>
+          <p class="card-text">
+            <strong>Start time:</strong> <%= @event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
+          </p>
+
+          <p class="card-text">
+            <strong>End time:</strong> <%= @event.end_time %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-4">
+      <div class="card p-3 actions-card">
+        <h5 class="card-title">Actions</h5>
+        <%= link_to "Edit this event", edit_event_path(@event), class: "btn btn-primary btn-block mb-2" %>
+        <%= button_to "Destroy this event", @event, method: :delete, class: "btn btn-danger btn-block mb-2" %>
+        <%= link_to "Back to Dashboard", events_path, class: "btn btn-secondary btn-block" %>
       </div>
     </div>
   </div>
-</div>
+  
 
+  <!-- Include Bootstrap JS files -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
