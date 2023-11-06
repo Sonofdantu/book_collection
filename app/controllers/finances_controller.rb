@@ -24,7 +24,7 @@ class FinancesController < ApplicationController
 
   # POST /finances or /finances.json
   def create
-    @finance = Finance.new(finance_params)
+    @finance = Finance.new(finance_params_without_receipt_and_reimbursement)
 
     encode_uploaded_images
 
@@ -44,7 +44,7 @@ class FinancesController < ApplicationController
     encode_uploaded_images
 
     respond_to do |format|
-      if @finance.update(finance_params)
+      if @finance.update(finance_params_without_receipt_and_reimbursement)
         format.html { redirect_to finance_url(@finance), notice: "Finance was successfully updated." }
         format.json { render :show, status: :ok, location: @finance }
       else
@@ -73,6 +73,10 @@ class FinancesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def finance_params
       params.require(:finance).permit(:email, :eventTitle, :cost, :receipt, :reimbursement, :resolved, :description)
+    end
+
+    def finance_params_without_receipt_and_reimbursement
+      finance_params.except(:receipt, :reimbursement)
     end
 
     def encode_uploaded_images
