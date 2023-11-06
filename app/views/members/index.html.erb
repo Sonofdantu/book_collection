@@ -15,7 +15,48 @@
     color: #00C;
     text-decoration: underline;
   }
+
+  .delete-confirmation-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid black; /* This adds the black border */
+  z-index: 1000;
+}
+
+
+.confirm-delete-btn, .cancel-delete-btn {
+  margin-right: 5px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.confirm-delete-btn {
+  background-color: #d9534f; /* Red */
+  color: white;
+}
+
+.cancel-delete-btn {
+  background-color: #f0ad4e; /* Yellow */
+  color: white;
+}
+
+/* ... Any additional styles you want to add ... */
 </style>
+
+<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
+  <p id="deleteConfirmationMessage">Are you sure you want to delete <strong id="memberNameToDelete"></strong>?</p>
+  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
+  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
+</div>
 
 <h1>Members</h1>
 <table>
@@ -58,15 +99,27 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   var deleteForms = document.querySelectorAll('.delete-member-form');
+  var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  var currentForm;
 
   deleteForms.forEach(function(form) {
     form.addEventListener('submit', function(e) {
-      if (!window.confirm('Are you sure you want to delete this member?')) {
-        e.preventDefault();
-      }
+      e.preventDefault();
+      currentForm = form; // Save the current form
+      var memberName = e.target.closest('tr').querySelector('td:nth-child(2)').textContent;
+      document.getElementById('memberNameToDelete').textContent = memberName;
+      document.getElementById('deleteConfirmationPopup').style.display = 'block';
     });
   });
+
+  confirmDeleteBtn.addEventListener('click', function() {
+    currentForm.submit(); // Submit the saved form
+  });
 });
+
+function cancelDelete() {
+  document.getElementById('deleteConfirmationPopup').style.display = 'none';
+}
 </script>
 
 
