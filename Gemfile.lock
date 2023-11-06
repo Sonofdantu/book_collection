@@ -255,6 +255,8 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
+    rubocop-shopify (2.14.0)
+      rubocop (~> 1.51)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -322,6 +324,7 @@ DEPENDENCIES
   rexml
   rspec-rails
   rubocop
+  rubocop-shopify
   selenium-webdriver
   sprockets-rails
   stimulus-rails

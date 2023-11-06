@@ -67,7 +67,8 @@ class EventsController < ApplicationController
         # Destroy the attendance record
         attendance.destroy
       else
-        flash[:alert] = "Could not find the member associated with attendance for #{attendance.email}."
+        flash[:alert] = 
+          "Could not find the member associated with attendance for #{attendance.email}."
       end
     end
     
@@ -75,7 +76,9 @@ class EventsController < ApplicationController
     @event.destroy
   
     respond_to do |format|
-      format.html { redirect_to events_url, notice: "Event and associated attendances were successfully destroyed." }
+      format.html do
+ redirect_to events_url, notice: "Event and associated attendances were successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
@@ -89,7 +92,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   
     if @event.password == params[:event_password]
-      attendance = Attendance.where(email: current_admin.email, event_name: @event.title).first_or_initialize
+      attendance = Attendance.where(
+        email: current_admin.email, 
+        event_name: @event.title
+      ).first_or_initialize
       if attendance.new_record?
         attendance.save!
   

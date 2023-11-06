@@ -29,7 +29,9 @@ class FinancesController < ApplicationController
 
     respond_to do |format|
       if @finance.save
-        format.html { redirect_to finance_url(@finance), notice: "Finance was successfully created." }
+        format.html do
+ redirect_to finance_url(@finance), notice: "Finance was successfully created."
+        end
         format.json { render :show, status: :created, location: @finance }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +46,9 @@ class FinancesController < ApplicationController
 
     respond_to do |format|
       if @finance.update(finance_params)
-        format.html { redirect_to finance_url(@finance), notice: "Finance was successfully updated." }
+        format.html do
+ redirect_to finance_url(@finance), notice: "Finance was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @finance }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,7 +75,15 @@ class FinancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def finance_params
-      params.require(:finance).permit(:email, :eventTitle, :cost, :receipt, :reimbursement, :resolved, :description)
+      params.require(:finance).permit(
+        :email, 
+        :eventTitle, 
+        :cost, 
+        :receipt, 
+        :reimbursement, 
+        :resolved, 
+        :description
+      )
     end
 
     def encode_uploaded_images
