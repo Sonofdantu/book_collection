@@ -74,6 +74,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    brakeman (6.0.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -97,6 +98,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    docile (1.4.0)
     erubi (1.12.0)
     faraday (2.7.11)
       base64
@@ -262,6 +264,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -308,6 +316,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman
   capybara
   debug
   devise
@@ -323,6 +332,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   selenium-webdriver
+  simplecov
   sprockets-rails
   stimulus-rails
   turbo-rails

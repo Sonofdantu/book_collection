@@ -1,6 +1,17 @@
 class MembersController < ApplicationController
   before_action :set_member, only: %i[ show edit update destroy ]
 
+  # Used to order table propperly
+  def index
+    if params[:sort] != "totalPoints"
+      @members = Member.order(params[:sort])
+    elsif params[:sort] == "totalPoints"
+      @members = Member.all.sort_by{|member| member.totalPoints}
+    else
+      @members = Member.all
+    end
+  end
+
   # GET /members or /members.json
   def index
     @members = Member.order(:full_name)
