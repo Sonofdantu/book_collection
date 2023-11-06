@@ -6,19 +6,20 @@ class FinancesController < ApplicationController
     @finances = Finance.all
   end
 
-  # GET /finances/1 or /finances/1.json
+  # GET /finances/1 or /finances/1.jsons
   def show
   end
 
   # GET /finances/new
   def new
     @finance = Finance.new
-    @officer_emails = Member.where.not(position: 'Member').pluck(:email)
+    @finance.email = @current_member.email
     @event_titles = Event.all.pluck(:title)
   end 
 
   # GET /finances/1/edit
   def edit
+    @event_titles = Event.all.pluck(:title)
   end
 
   # POST /finances or /finances.json

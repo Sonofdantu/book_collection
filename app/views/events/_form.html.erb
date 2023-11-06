@@ -37,6 +37,15 @@
   </div>
 
   <div>
+    <%= form.label :image, style: "display: block" %>
+    <% if event.image.present? %>
+      <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' if event.image.present? %>
+    <% end %>
+    <br>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
