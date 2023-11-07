@@ -18,7 +18,7 @@
       font-size: 25px;
     }
 
-    h2.title {
+    h2 {
       color: #333;
       margin-top: 30px;
       left: 41.25%;
@@ -122,20 +122,25 @@
     }
 
     .newFinance button{
-      background-color: #C0C0C0;
+      background-color: #f9f9f9;
       color: #333;
       border: 2px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 20px;
+      font-size: 50px;
       cursor: pointer;
+      height: 75px;
+      width: 75px;
+      text-align: center;
+      margin-right: 325px;
+      margin-bottom: 20px;
     }
 
     .newFinance button:hover{
-      background-color: #f9f9f9;
+      background: #ccc;
     }
 
     .showFinance button{
-      background-color: #C0C0C0;
+      background-color: #f9f9f9;
       color: #333;
       border: 2px solid #ccc;
       border-radius: 5px;
@@ -144,14 +149,14 @@
     }
 
     .showFinance button:hover{
-      background-color: #f9f9f9;
+      scale: 1.1;
     }
 
     .pending-finance-box {
       border: 2px solid #ccc;
       border-radius: 5px;
       padding: 10px;
-      max-width: 600px;
+      max-width: 500px;
       margin: auto;
       background-color: #f9f9f9;
       margin-bottom: 10px;
@@ -161,10 +166,17 @@
       border: 2px solid #ccc;
       border-radius: 5px;
       padding: 10px;
-      max-width: 600px;
+      max-width: 500px;
       margin: auto;
       background-color: #f9f9f9;
       margin-bottom: 10px;
+    }
+
+    .pretty-divider {
+      border: none;
+      height: 2px;
+      background-color: #ccc;
+      width: 30%;
     }
 
   </style>
@@ -174,7 +186,7 @@
 <% if admin_signed_in? %>
   <% current_member = Member.find_by(email: current_admin.email) %>
 
-  <% if current_member&.position == 'Admin' %>
+  <% if current_member&.position != 'Member' %>
     <h2 class = "title">Finance Requests</h2>
     
     <div class="links">
@@ -210,28 +222,37 @@
         </nav>
       </div>
     </div>
-
     <div class="finances">
-      <h3> Pending </h3>
-      <% @finances.each do |finance| %>
-        <div class = "finance">
-          <% if !finance.resolved? %>
-            <div class="pending-finance-box">
-              <%= render finance %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+        <h3> Pending </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if !finance.resolved? %>
+              <div class="pending-finance-box">
+                <%= render finance %>
                 <div class="showFinance">
                   <p>
-                    <%= link_to finance do %>
-                      <button type="button">Show this finance</button>
-                    <% end %>
+                    <div style="display: flex;">
+                      <%= link_to finance do %>
+                        <button type="button" style= "width: 20%;">
+                          <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
+                        </button>
+                      <% end %>
+                      <%= link_to edit_finance_path(finance) do %>
+                        <button type="button" style= "width: 20%;">
+                          <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
+                        </button>
+                      <% end %>
+                    </div>
                   </p>
                 </div>
-            </div>
-          <% end %>
-        </div>
-        </div>
-      <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
-      <h3> Completed </h3>
+        <hr class="pretty-divider">
+        <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.resolved? %>
@@ -239,28 +260,97 @@
                 <%= render finance %>
                 <div class="showFinance">
                   <p>
-                    <%= link_to finance do %>
-                      <button type="button">Show this finance</button>
-                    <% end %>
+                    <div style="display: flex;">
+                      <%= link_to finance do %>
+                        <button type="button" style= "width: 20%;">
+                          <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
+                        </button>
+                      <% end %>
+                      <%= button_to finance, method: :delete, style: "width: 20%;" do %>
+                        <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
+                      <% end %>
+                    </div>
                   </p>
                 </div>
               </div>
             <% end %>
           </div>
         <% end %>
-      </div>
-    </div>
 
-    <div class="floating-button">
-      <div class = "newFinance">
-        <% if @current_member&.position != 'Member' %>
-          <%= link_to new_finance_path do %>
-            <button type="button">Create Finance</button>
-          <% end %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+        <h3> Pending </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if !finance.resolved? %>
+              <% if finance.email == current_member&.email %>
+                <div class="pending-finance-box">
+                  <%= render finance %>
+                  <div class="showFinance">
+                    <p>
+                      <div style="display: flex;">
+                        <%= link_to finance do %>
+                          <button type="button" style="width: 30%;">
+                            <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
+                          </button>
+                        <% end %>
+                      
+                        <%= link_to edit_finance_path(finance) do %>
+                          <button type="button" style="width: 30%;">
+                            <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
+                          </button>
+                        <% end %>
+                      
+                        <%= button_to finance, method: :delete, style: "width: 30%;" do %>
+                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
+                        <% end %>
+                      </div>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
         <% end %>
-      </div>
-    </div>
+        <hr class="pretty-divider">
+        <h3> Completed </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if finance.resolved? %>
+              <% if finance.email == current_member&.email %>
+                <div class="completed-finance-box">
+                  <%= render finance %>
+                  <div class="showFinance">
+                    <p>
+                      <%= link_to finance do %>
+                        <button type="button" style= "width: 10%;">
+                          <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
+                        </button>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>  
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="floating-button">
+          <div class = "newFinance">
+            <% if @current_member&.position != 'Member' %>
+              <%= link_to new_finance_path do %>
+                <button type="button">+</button>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div> 
 
   <% end %>
   <h1 class="side-header">IMSA</h1>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <% if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
+  <% end %>
 <% end %>
