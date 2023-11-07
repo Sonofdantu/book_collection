@@ -155,9 +155,17 @@
     <div>
       <%= form.label :eventTitle, "Event Title", style: "display: block; margin-bottom: 10px;" %>
       <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
-        <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title", disabled: true %>
+        <% if @event_titles %>
+          <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title", disabled: true %>
+        <% else %>
+          <p>No event titles available.</p>
+        <% end %>
       <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
+        <% if @event_titles %>
+          <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
+        <% else %>
+          <p>No event titles available.</p>
+        <% end %>
       <% end %>
     </div>
 
