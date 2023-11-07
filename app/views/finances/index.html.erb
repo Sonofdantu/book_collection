@@ -202,7 +202,8 @@
   <% current_member = Member.find_by(email: current_admin.email) %>
 
   <% if current_member&.position != 'Member' %>
-    <h2 class = "title">Finance Requests</h2>
+    <br>
+    <h1 class = "title">Finance Requests</h1>
     
     <div class="links">
       <div class="admin-links">
