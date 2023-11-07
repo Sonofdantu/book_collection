@@ -148,10 +148,9 @@
             <td><%= member.email %></td>
             <td><%= member.position %></td>
             <td><%= member.totalPoints %></td>
-            <% if current_member&.position == 'Officer' || current_member&.position == 'President' %>
+            <% if current_member&.position == 'Officer' || current_member&.position == 'President'%>
               <td><%= link_to 'Show', member %></td>
               <td><%= link_to 'Edit', edit_member_path(member) %></td>
-            
             <td>
               <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
                 <%= submit_tag 'Delete', class: 'link-like-button' %>
