@@ -186,6 +186,42 @@
 
 <h1>Attendances</h1>
 
+<div class="links">
+  <div class="admin-links">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Members', members_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Events', events_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<br>
+
 <div id="attendances">
   <% @events.each do |event| %>
     <% @attendances.each do |attendance| %>
@@ -193,11 +229,39 @@
         <h2><%= event.title %></h2>
         <div class="pending-finance-box">
           <%= render attendance %>
+          <div class="showFinance">
+            <p>
+              <div style="display: flex;">
+                <%= link_to attendance do %>
+                  <button type="button" style="width: 30%;">
+                    <%= image_tag "view_icon.png", alt: "Show Attendance", style: "width: 100%; height: auto;" %>
+                  </button>
+                <% end %>
+                      
+                <%= link_to edit_attendance_path(attendance) do %>
+                  <button type="button" style="width: 30%;">
+                    <%= image_tag "edit_icon.png", alt: "Edit Attendance", style: "width: 100%; height: auto;" %>
+                  </button>
+                <% end %>
+                      
+                <%= button_to attendance, method: :delete, style: "width: 30%;" do %>
+                  <%= image_tag "delete_icon.png", alt: "Delete Attendance", style: "width: 100%; height: auto;" %>
+                <% end %>
+              </div>
+            </p>
+          </div>
         </div>
       <% end %>
     <% end %>
   <% end %>
 </div>
 
-<%= link_to "New attendance", new_attendance_path %>
-<%= link_to "Dashboard", root_path %>
+<div class="floating-button">
+  <div class = "newFinance">
+    <% if @current_member&.position != 'Member' %>
+      <%= link_to new_attendance_path do %>
+        <button type="button">+</button>
+      <% end %>
+    <% end %>
+  </div>
+</div>
