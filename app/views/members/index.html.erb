@@ -1,199 +1,3 @@
-<!-- app/views/members/index.html.erb -->
-
-<style>
-  .link-like-button {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    font-family: arial, sans-serif;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .link-like-button:hover {
-    color: #00C;
-    text-decoration: underline;
-  }
-
-  .delete-confirmation-popup {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid black; /* This adds the black border */
-  z-index: 1000;
-}
-
-
-.confirm-delete-btn, .cancel-delete-btn {
-  margin-right: 5px;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.confirm-delete-btn {
-  background-color: #d9534f; /* Red */
-  color: white;
-}
-
-.cancel-delete-btn {
-  background-color: #f0ad4e; /* Yellow */
-  color: white;
-}
-
-.link-like-button {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    font-family: arial, sans-serif;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .link-like-button:hover {
-    color: #00C;
-    text-decoration: underline;
-  }
-
-  h1{
-    padding: 10px;
-    margin: 10px;
-  }
-
-  table, thead, tbody, tr, td {
-    font-family: Arial, sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid;
-    border-collapse: collapse;
-  }
-
-  table {
-    width: 75%;
-    position: relative;
-    top: 150px;
-  }
-
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-
-  tr:nth-child(even) {background-color: #f2f2f2;}
-
-  th {
-    background-color: #04AA6D;
-    color: white;
-  }
-
-  h1, div {
-    text-align: center;
-  }
-
-  h3{
-    position: fixed;
-    left: 1655px;
-    top: 750px;
-    outline: solid;
-    background-color: #04AA6D;
-  }
-
-  title{
-    position: fixed;
-    left: 675px;
-    top: 300px;
-  }
-
-  h2{
-    position: fixed;
-    left: 828px;
-    top: 90px;
-  }
-</style>
-
-<p style="color: green"><%= notice %></p>
-
-<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
-  <p id="deleteConfirmationMessage">Are you sure you want to delete <strong id="memberNameToDelete"></strong>?</p>
-  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
-  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
-</div>
-
-<body>
-  <div id="member_table">
-    <table class="centered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Position</th>
-          <th><%= link_to "Total Points", :sort => "totalPoints"%></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @members.each do |member| %>
-          <tr>
-            <td><%= member.id %></td>
-            <td><%= member.full_name %></td>
-            <td><%= member.email %></td>
-            <td><%= member.position %></td>
-            <td><%= member.totalPoints %></td>
-            <% if current_member&.position == 'Officer' || current_member&.position == 'President'%>
-              <td><%= link_to 'Show', member %></td>
-              <td><%= link_to 'Edit', edit_member_path(member) %></td>
-            <td>
-              <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
-                <%= submit_tag 'Delete', class: 'link-like-button' %>
-              <% end %>
-            </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-      <% if @current_member&.position != 'Member' %>
-      <h3><%= link_to 'New Member', new_member_path %><h3>
-      <%end%>
-  </div>
-</body>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var deleteForms = document.querySelectorAll('.delete-member-form');
-  var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-  var currentForm;
-
-  deleteForms.forEach(function(form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      currentForm = form; // Save the current form
-      var memberName = e.target.closest('tr').querySelector('td:nth-child(2)').textContent;
-      document.getElementById('memberNameToDelete').textContent = memberName;
-      document.getElementById('deleteConfirmationPopup').style.display = 'block';
-    });
-  });
-
-  confirmDeleteBtn.addEventListener('click', function() {
-    currentForm.submit(); // Submit the saved form
-  });
-});
-
-function cancelDelete() {
-  document.getElementById('deleteConfirmationPopup').style.display = 'none';
-}
-</script>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -264,16 +68,12 @@ function cancelDelete() {
       }
 
       nav {
-        background-color: #007bff;
-        padding: 5px; 
+      background-color: #007bff;
+      padding: 5px; 
       }
 
       nav a {
         color: #fff;
-      }
-
-      .content {
-        margin-top: 60px; 
       }
 
       .navbar {
@@ -282,16 +82,31 @@ function cancelDelete() {
         width: 55%;
         margin: auto; 
         margin-top: 5vh;
-        display: flex;
-        align-items: center; 
-        justify-content: space-evenly;
-        z-index: 1000;
-        position: relative;
-        top: -125px;
       }
 
       .navbar a {
         color: #fff;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #007bff;
+        padding: 5px; 
+        color: #fff;
+      }
+
+      .miniheader{
+        margin-left: -60%; 
+      }
+
+      .miniheader1{
+        margin-left: -53%; 
+      }
+
+      .content {
+        margin-top: 60px; 
       }
 
       .navbar .active a {
@@ -323,9 +138,41 @@ function cancelDelete() {
         font-family: 'Mustopha'; 
       }
 
+      table, thead, tbody, tr, td {
+        font-family: Arial, sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid;
+      }
+
+      table {
+        width: 75%;
+      }
+
+      th, td {
+        padding: 5px;
+      }
+
+      tr:nth-child(even) {background-color: #f2f2f2;}
+
+      th {
+        background-color: #04AA6D;
+        color: white;
+      }
+
 
     </style>
   </head>
+
+</style>
+
+<p style="color: green"><%= notice %></p>
+
+<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
+  <p id="deleteConfirmationMessage">Are you sure you want to delete <strong id="memberNameToDelete"></strong>?</p>
+  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
+  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
+</div>
 
   <body>
 
@@ -365,7 +212,7 @@ function cancelDelete() {
             </nav>
           </div>
         </div>
-      <% elsif current_member&.position == 'Officer' || current_member&.position == 'Finance Officer' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <h2>Officer Dashboard</h2>
         <div class="links">
           <div class="admin-links">
@@ -383,7 +230,7 @@ function cancelDelete() {
                     <%= link_to 'Members', members_path, class: 'nav-link' %>
                   </li>
                   <li class="nav-item">
-                    <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+                    <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
                   </li>
                   <li class="nav-item">
                     <%= link_to 'Events', events_path, class: 'nav-link' %>
@@ -424,6 +271,81 @@ function cancelDelete() {
         </div>  
       <% end %>
     <% end %>
+
+  <h1 class="side-header">IMSA</h1>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <% if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
+  <% end %>
+
+<body>
+  <div id="member_table">
+    <table class="centered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th><%= link_to "Total Points", :sort => "totalPoints"%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @members.each do |member| %>
+          <tr>
+            <td><%= member.id %></td>
+            <td><%= member.full_name %></td>
+            <td><%= member.email %></td>
+            <td><%= member.position %></td>
+            <td><%= member.totalPoints %></td>
+            <% if current_member&.position == 'Officer'%>
+              <td><%= link_to 'Show', member %></td>
+              <td><%= link_to 'Edit', edit_member_path(member) %></td>
+            
+            <td>
+              <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
+                <%= submit_tag 'Delete', class: 'link-like-button' %>
+              <% end %>
+            </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      <% if @current_member&.position != 'Member' %>
+      <h3><%= link_to 'New Member', new_member_path %><h3>
+      <%end%>
+  </div>
+</body>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var deleteForms = document.querySelectorAll('.delete-member-form');
+  var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  var currentForm;
+
+  deleteForms.forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      currentForm = form; // Save the current form
+      var memberName = e.target.closest('tr').querySelector('td:nth-child(2)').textContent;
+      document.getElementById('memberNameToDelete').textContent = memberName;
+      document.getElementById('deleteConfirmationPopup').style.display = 'block';
+    });
+  });
+
+  confirmDeleteBtn.addEventListener('click', function() {
+    currentForm.submit(); // Submit the saved form
+  });
+});
+
+function cancelDelete() {
+  document.getElementById('deleteConfirmationPopup').style.display = 'none';
+}
+</script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
