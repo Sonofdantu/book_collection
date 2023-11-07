@@ -1,172 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
-      }
-      .imsa-logo {
-        position: fixed;
-        top: 25px;
-        left: 50px;
-        width: 100px;
-      }
-      .profile-icon {
-        position: fixed;
-        top: 25px;
-        right: 50px; 
-        width: 100px; 
-        cursor: pointer;
-      }
+<!-- app/views/members/index.html.erb -->
 
-      h2 {
-        color: #333;
-      }
+<style>
+  .link-like-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
-      p {
-        color: #666;åå
-      }
+  .link-like-button:hover {
+    color: #00C;
+    text-decoration: underline;
+  }
 
-      a {
-        color: #007bff;
-        text-decoration: none;
-        margin: 5px;
-      }
-
-      .admin-links,
-      .user-links {
-        display: block; 
-      }
-
-      .user-links,
-      .admin-info {
-        display: block; 
-      }
-
-      .toggle-links-button {
-        padding: 10px;
-        margin: 10px;
-        cursor: pointer;
-      }
-
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      li {
-        display: inline;
-        margin-right: 10px;
-      }
-
-      nav {
-      background-color: #007bff;
-      padding: 5px; 
-      }
-
-      nav a {
-        color: #fff;
-      }
-
-      .navbar {
-        background-color: #007bff;
-        padding: 5px;
-        width: 55%;
-        margin: auto; 
-        margin-top: 5vh;
-      }
-
-      .navbar a {
-        color: #fff;
-      }
-
-      .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #007bff;
-        padding: 5px; 
-        color: #fff;
-      }
-
-      .miniheader{
-        margin-left: -60%; 
-      }
-
-      .miniheader1{
-        margin-left: -53%; 
-      }
-
-      .content {
-        margin-top: 60px; 
-      }
-
-      .navbar .active a {
-        background-color: #C0C0C0; 
-        color: #007bff; 
-        border-radius: 5px; 
-      }
-
-      .navbar-nav {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .member-navbar {
-        width: 30%;
-      }
-      @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
+  .delete-confirmation-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid black; /* This adds the black border */
+  z-index: 1000;
+}
 
 
-      .side-header {
-        transform: rotate(270deg);
-        position: fixed;
-        top: 75%; 
-        left: 11%; 
-        transform-origin: bottom left; 
-        letter-spacing: 0.8em; 
-        font-size: 100px; 
-        font-family: 'Mustopha'; 
-      }
+.confirm-delete-btn, .cancel-delete-btn {
+  margin-right: 5px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
 
-      table, thead, tbody, tr, td {
-        font-family: Arial, sans-serif;
-        margin-left: auto;
-        margin-right: auto;
-        border: 1px solid;
-      }
+.confirm-delete-btn {
+  background-color: #d9534f; /* Red */
+  color: white;
+}
 
-      table {
-        width: 75%;
-      }
+.cancel-delete-btn {
+  background-color: #f0ad4e; /* Yellow */
+  color: white;
+}
 
-      th, td {
-        padding: 5px;
-      }
-
-      tr:nth-child(even) {background-color: #f2f2f2;}
-
-      th {
-        background-color: #04AA6D;
-        color: white;
-      }
-
-
-    </style>
-  </head>
-
+/* ... Any additional styles you want to add ... */
 </style>
-
-<p style="color: green"><%= notice %></p>
 
 <div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
   <p id="deleteConfirmationMessage">Are you sure you want to delete <strong id="memberNameToDelete"></strong>?</p>
@@ -174,151 +58,42 @@
   <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
 </div>
 
-  <body>
-
-    <% if admin_signed_in? %>
-      <% current_member = Member.find_by(email: current_admin.email) %>
-
-      <% if current_member&.position == 'President'%>
-        <h2>Members Table</h2>
-        <div class="links">
-          <div class="admin-links">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item active">
-                    <%= link_to 'Members', members_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Events', events_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </div>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <h2>Officer Dashboard</h2>
-        <div class="links">
-          <div class="admin-links">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-                  </li>
-
-                  <li class="nav-item active">
-                    <%= link_to 'Members', members_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Events', events_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </div>
-      <% elsif current_member&.position == 'Pending' %>
-        <h2>Pending Member Dashboard</h2>
-          <h2>Your membership is pending...</h2>
-          <h2>You won't be approved for an account unless you're a paid member of TAMU IMSA.</h2>
-      <% else %>
-        <div class="admin-info">
-          <h2>Member Dashboard</h2>
-          <div class="links">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light member-navbar">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Events', events_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item active">
-                  <%= link_to 'Leaderboard', events_path, class: 'nav-link' %>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>  
-      <% end %>
+<h1>Members</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</td>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Position</th>
+      <th>Total Points</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.id %></td>
+        <td><%= member.full_name %></td>
+        <td><%= member.email %></td>
+        <td><%= member.position %></td>
+        <td><%= member.totalPoints %></td>
+        <td><%= link_to 'Show', member %></td>
+        <td><%= link_to 'Edit', edit_member_path(member) %></td>
+        <td>
+          <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
+            <%= submit_tag 'Delete', class: 'link-like-button' %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-
-  <h1 class="side-header">IMSA</h1>
-  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
-  <% if current_member&.position != 'Pending' %>
-    <a href="<%= profile_path %>">
-      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-    </a>
-  <% end %>
-
-<body>
-  <div id="member_table">
-    <table class="centered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Position</th>
-          <th><%= link_to "Total Points", :sort => "totalPoints"%></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @members.each do |member| %>
-          <tr>
-            <td><%= member.id %></td>
-            <td><%= member.full_name %></td>
-            <td><%= member.email %></td>
-            <td><%= member.position %></td>
-            <td><%= member.totalPoints %></td>
-            <% if current_member&.position == 'Officer'%>
-              <td><%= link_to 'Show', member %></td>
-              <td><%= link_to 'Edit', edit_member_path(member) %></td>
-            
-            <td>
-              <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
-                <%= submit_tag 'Delete', class: 'link-like-button' %>
-              <% end %>
-            </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-      <% if @current_member&.position != 'Member' %>
-      <h3><%= link_to 'New Member', new_member_path %><h3>
-      <%end%>
-  </div>
-</body>
+  </tbody>
+</table>
+<% if @current_member&.position != 'Member' %>
+<%= link_to 'New Member', new_member_path %>
+<%end%>
+<%= link_to 'Officer Points View', officer_index_members_path %>
+<%= link_to "Dashboard", root_path %>
 
 
 <script>
@@ -347,32 +122,7 @@ function cancelDelete() {
 }
 </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        var adminLinks = document.querySelector('.links');
-        var userLinks = document.querySelector('.user-links');
-        var adminInfo = document.querySelector('.admin-info');
-        var toggleButtons = document.querySelectorAll('.toggle-links-button');
-
-        toggleButtons.forEach(function(button) {
-          button.addEventListener('click', function() {
-            console.log(adminInfo.style.display); 
-            adminLinks.style.display = adminLinks.style.display === 'none' ? 'block' : 'none';
-            if(adminInfo.style.display == 'none' || adminInfo.style.display == ''){
-              adminInfo.style.display = 'block'; 
-            } else {
-              adminInfo.style.display = "none"; 
-            }
-          });
-        });
-      </script>
-    </script>
-  </body>
-</html>
 
 
 
