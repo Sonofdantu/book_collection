@@ -265,3 +265,11 @@
     <% end %>
   </div>
 </div>
+
+<h1 class="side-header">IMSA</h1>
+<%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<% if current_member&.position != 'Pending' %>
+  <a href="<%= profile_path %>">
+    <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+  </a>
+<% end %>
