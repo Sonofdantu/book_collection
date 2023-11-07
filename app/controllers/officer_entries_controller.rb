@@ -32,7 +32,9 @@ class OfficerEntriesController < ApplicationController
           member.increment!(:officer_points, @officer_entry.points)
         end
         
-        format.html { redirect_to officer_entry_url(@officer_entry), notice: "Officer entry was successfully created." }
+        format.html do
+ redirect_to officer_entry_url(@officer_entry), notice: "Officer entry was successfully created."
+        end
         format.json { render :show, status: :created, location: @officer_entry }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +48,9 @@ class OfficerEntriesController < ApplicationController
   def update
     respond_to do |format|
       if @officer_entry.update(officer_entry_params)
-        format.html { redirect_to officer_entry_url(@officer_entry), notice: "Officer entry was successfully updated." }
+        format.html do
+ redirect_to officer_entry_url(@officer_entry), notice: "Officer entry was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @officer_entry }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,7 +75,9 @@ class OfficerEntriesController < ApplicationController
     end
   
     respond_to do |format|
-      format.html { redirect_to officer_entries_url, notice: "Officer entry was successfully destroyed." }
+      format.html do
+ redirect_to officer_entries_url, notice: "Officer entry was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end

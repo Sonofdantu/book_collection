@@ -1,6 +1,7 @@
 <!-- show.html.erb -->
 
 <div class="container">
+  <!-- ... other content ... -->
   <div class="row">
     <div class="col-md-8">
       <p style="color: green"><%= notice %></p>
@@ -12,9 +13,87 @@
         <%= link_to "Back to events", events_path %>
       </div>
       <div>
-        <%= button_to "Destroy this event", @event, method: :delete %>
+        <%= button_to "Destroy this event", @event, method: :delete, form_class: "destroy-event-form", style: "display: none;" %>
+        <button class="link-like-button" onclick="confirmEventDelete('<%= escape_javascript(@event.title) %>')">Destroy this event</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Confirmation Popup -->
+<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
+  <p id="deleteConfirmationMessage">Are you sure you want to delete <span id="eventName"></span>?</p>
+  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
+  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
+</div>
+
+<script>
+function confirmEventDelete(eventName) {
+  document.getElementById('eventName').textContent = eventName;
+  document.getElementById('deleteConfirmationPopup').style.display = 'block';
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  var destroyForm = document.querySelector('.destroy-event-form');
+
+  confirmDeleteBtn.addEventListener('click', function() {
+    destroyForm.submit();
+  });
+});
+
+function cancelDelete() {
+  document.getElementById('deleteConfirmationPopup').style.display = 'none';
+}
+</script>
+
+<style>
+  .link-like-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .link-like-button:hover {
+    color: #00C;
+    text-decoration: underline;
+  }
+
+  .delete-confirmation-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid black; /* This adds the black border */
+  z-index: 1000;
+  }
+
+
+  .confirm-delete-btn, .cancel-delete-btn {
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .confirm-delete-btn {
+    background-color: #d9534f; /* Red */
+    color: white;
+  }
+
+  .cancel-delete-btn {
+    background-color: #f0ad4e; /* Yellow */
+    color: white;
+  }
+</style>
 
