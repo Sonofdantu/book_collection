@@ -1,27 +1,83 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Title:</strong>
-    <%= event.title %>
-  </p>
+<style>
+  .custom-col {
+    max-width: 74%;
+    margin-left: 13%;
+  }
 
-  <p>
-    <strong>Score:</strong>
-    <%= event.score %>
-  </p>
+  .card {
+    transition: background-color 0.3s ease;
+  }
 
-  <p>
-    <strong>Password:</strong>
-    <%= event.password %>
-  </p>
+  .card:hover {
+    background-color: #585858 !important;
+  }
 
-  <p>
-    <strong>Start time:</strong>
-    <%= event.start_time %>
-  </p>
+  .event-section {
+    margin-top: 20px;
+  }
 
-  <p>
-    <strong>End time:</strong>
-    <%= event.end_time %>
-  </p>
+  .e_header {
+    margin-left: -90%;
+  }
 
-</div>
+  .live-header {
+    display: none;
+  }
+
+  .ongoing-marker {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    padding: 5px;
+    border-radius: 5px;
+  }
+</style>
+
+<% if event.start_time.present? && event.end_time.present? && @current_time.present? %>
+  <% if event.start_time < @current_time && event.end_time > @current_time %>
+    <div class="live-header">
+      <h2 class="e_header">Live</h2>
+    </div>
+  <% end %>
+
+  <div id="<%= dom_id event %>" class="custom-col mt-3 event-section">
+    <div class="card bg-light">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <p class="card-text">
+              <strong>Image:</strong> <br> <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' if event.image.present? %>
+            </p>
+          </div>
+          <div class="col-md-8">
+            <h5 class="card-title">
+              <%= event.title %>
+              <% if event.start_time < @current_time && event.end_time > @current_time %>
+                <span class="ongoing-marker">Ongoing</span>
+              <% elsif event.start_time < @current_time %>
+                <span class="ongoing-marker">Past</span>
+              <% else %>
+                <span class="ongoing-marker">Upcoming</span>
+              <% end %>
+            </h5>
+
+            <p class="card-text">
+              <strong>Score:</strong> <%= event.score %>
+            </p>
+            <% if current_member&.position != 'Member' %>
+              <p class="card-text">
+                <strong>Password:</strong> <%= event.password %>
+              </p>
+            <% end %>
+            <p class="card-text">
+              <strong>Start time:</strong> <%= event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
+            </p>
+
+            <p class="card-text">
+              <strong>End time:</strong> <%= event.end_time %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
