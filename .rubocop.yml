@@ -1,7 +1,15 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
 inherit_from: .rubocop_todo.yml
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
+  Exclude:
+    - db/**/*
+    - config/**/*
+    - bin/**/*
+    - Gemfile
 
 Metrics/BlockLength:
   Exclude:
