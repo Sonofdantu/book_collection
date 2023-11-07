@@ -1,28 +1,9 @@
-<!-- app/views/members/index.html.erb -->
 <!DOCTYPE html>
 <html lang="en">
-
-<style>
-  .link-like-button {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    font-family: arial, sans-serif;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .link-like-button:hover {
-    color: #00C;
-    text-decoration: underline;
-  }
-</style>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Officer Leaderboard</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
   <style>
@@ -116,14 +97,12 @@
       background-color: #C0C0C0; 
       color: #007bff; 
       border-radius: 5px; 
-      
     }
 
     .member-navbar {
       width: 30%;
     }
     @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
-
 
     .side-header {
       transform: rotate(270deg);
@@ -136,36 +115,15 @@
       font-family: 'Mustopha'; 
     }
 
-    table, thead, tbody, tr, td {
-      font-family: Arial, sans-serif;
-      margin-left: auto;
-      margin-right: auto;
-      border: 1px solid;
-    }
-
-    table {
-      width: 75%;
-    }
-
-    th, td {
-      padding: 5px;
-    }
-
-    tr:nth-child(even) {background-color: #f2f2f2;}
-
-    th {
-      background-color: #04AA6D;
-      color: white;
-    }
-
-
   </style>
 </head>
-
 <body>
-  <% if admin_signed_in? %>
-    <% current_member = Member.find_by(email: current_admin.email) %>
-    <% if current_member&.position == 'President' %>
+
+<% if admin_signed_in? %>
+  <% current_member = Member.find_by(email: current_admin.email) %>
+
+  <% if current_member&.position == 'Admin' %>
+    <div class="links">
       <div class="admin-links">
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,13 +131,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
+              <li class="nav-item active">
                 <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to 'Members', members_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
@@ -197,24 +155,21 @@
             </ul>
           </div>
         </nav>
-        <h2 class = "title">Officer Leaderboard</h2>
+        <h2 class="title">Admin Dashboard</h2>
       </div>
-    <% else %>
-    <h2>Officer Leaderboard</h2>
-    <div class="admin-links">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+  <% elsif current_member&.position == 'Officer' %>
+    <div class="admin-info">
+      <h2>Officer Dashboard</h2>
+      <div class="links">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <ul class="navbar-nav">
             <li class="nav-item active">
-            <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
               <%= link_to 'Members', members_path, class: 'nav-link' %>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
@@ -230,80 +185,74 @@
               <%= link_to 'Finances', finances_path, class: 'nav-link' %>
             </li>
           </ul>
-        </div>
-      </nav>
-      <h2>Officer Leaderboard</h2>
+        </nav>
+      
+      </div>
     <% end %>
   <% end %>
   <h1 class="side-header">IMSA</h1>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div style="color: green"><%= notice %></div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var adminLinks = document.querySelector('.links');
-      var userLinks = document.querySelector('.user-links');
-      var adminInfo = document.querySelector('.admin-info');
-      var toggleButtons = document.querySelectorAll('.toggle-links-button');
 
-      toggleButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-          console.log(adminInfo.style.display); 
-          adminLinks.style.display = adminLinks.style.display === 'none' ? 'block' : 'none';
-          if(adminInfo.style.display == 'none' || adminInfo.style.display == ''){
-            adminInfo.style.display = 'block'; 
-          } else {
-            adminInfo.style.display = "none"; 
-          }
-        });
-      });
-    });
-  </script>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="events">
+        <% @events.each do |event| %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render event %>
+              <p>
+                <%= link_to "Show this event", event %>
+              </p>
+              <%= link_to "Attfend", attend_event_path(event) %>
+              <hr>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-</body>
+  <% if @current_member&.position != 'Member' %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to "New event", new_event_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<h1>Officers</h1>
-<table class="centered">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>Position</th>
-      <th>Officer Points</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @members.each do |member| %>
-      <tr>
-        <td><%= member.id %></td>
-        <td><%= member.full_name %></td>
-        <td><%= member.email %></td>
-        <td><%= member.position %></td>
-        <td><%= member.officer_points %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to "Back to members", members_path %>
-<% if @current_member&.position == 'President' %>
-  <%= link_to 'Add Officer Points', new_officer_entry_path %>
-<%end%>
+
+<%= link_to "Dashboard", root_path %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var deleteForms = document.querySelectorAll('.delete-member-form');
+  document.addEventListener("DOMContentLoaded", function() {
+    var adminLinks = document.querySelector('.links');
+    var userLinks = document.querySelector('.user-links');
+    var adminInfo = document.querySelector('.admin-info');
+    var toggleButtons = document.querySelectorAll('.toggle-links-button');
 
-  deleteForms.forEach(function(form) {
-    form.addEventListener('submit', function(e) {
-      if (!window.confirm('Are you sure you want to delete this member?')) {
-        e.preventDefault();
-      }
+    toggleButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        console.log(adminInfo.style.display); 
+        adminLinks.style.display = adminLinks.style.display === 'none' ? 'block' : 'none';
+        if(adminInfo.style.display == 'none' || adminInfo.style.display == ''){
+          adminInfo.style.display = 'block'; 
+        } else {
+          adminInfo.style.display = "none"; 
+        }
+      });
     });
   });
-});
 </script>
 
+</body>
 </html>
+
