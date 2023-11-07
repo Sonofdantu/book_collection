@@ -80,8 +80,6 @@ class FinancesController < ApplicationController
         :eventTitle, 
         :cost, 
         :receipt, 
-        :reimbursement, 
-        :resolved, 
         :description
       )
     end
