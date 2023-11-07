@@ -36,6 +36,21 @@
       color: #333;
     }
 
+    .imsa-logo {
+      position: fixed;
+      top: 25px;
+      left: 50px;
+      width: 100px;
+    }
+
+    .profile-icon {
+      position: fixed;
+      top: 25px;
+      right: 50px; 
+      width: 100px; 
+      cursor: pointer;
+    }
+
     p {
       color: #666;
     }
@@ -82,6 +97,18 @@
       color: #fff;
     }
 
+    .navbar {
+      background-color: #007bff;
+      padding: 5px;
+      width: 55%;
+      margin: auto; 
+      margin-top: 5vh;
+    }
+
+    .navbar a {
+      color: #fff;
+    }
+
     .header {
       position: fixed;
       top: 0;
@@ -91,32 +118,28 @@
       color: #fff;
     }
 
+    .miniheader{
+      margin-left: -60%; 
+    }
+
+    .miniheader1{
+      margin-left: -53%; 
+    }
+
     .content {
       margin-top: 60px; 
     }
-
-    .navbar {
-      background-color: #007bff;
-      padding: 5px;
-      width: 57%;
-      margin: auto; 
-      margin-top: 15vh; 
-      display: flex;
-      align-items: center; 
-      justify-content: space-evenly;
-      z-index: 1000;
-    }
-
-    .navbar a {
-      color: #fff;
-    }
-
 
     .navbar .active a {
       background-color: #C0C0C0; 
       color: #007bff; 
       border-radius: 5px; 
-      
+    }
+
+    .navbar-nav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .member-navbar {
@@ -129,10 +152,10 @@
       transform: rotate(270deg);
       position: fixed;
       top: 75%; 
-      left: 13%; 
+      left: 11%; 
       transform-origin: bottom left; 
       letter-spacing: 0.8em; 
-      font-size: 120px; 
+      font-size: 100px; 
       font-family: 'Mustopha'; 
     }
 
@@ -165,9 +188,11 @@
 <body>
   <% if admin_signed_in? %>
     <% current_member = Member.find_by(email: current_admin.email) %>
+    <br>
+    <h1 class = "title">Officer Leaderboard</h1>
     <% if current_member&.position == 'President' %>
       <div class="admin-links">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -180,7 +205,7 @@
                 <%= link_to 'Members', members_path, class: 'nav-link' %>
               </li>
               <li class="nav-item active">
-                <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+                <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to 'Events', events_path, class: 'nav-link' %>
@@ -189,20 +214,16 @@
                 <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
                 <%= link_to 'Finances', finances_path, class: 'nav-link' %>
               </li>
             </ul>
           </div>
         </nav>
-        <h2 class = "title">Officer Leaderboard</h2>
       </div>
     <% else %>
-    <h2>Officer Leaderboard</h2>
+    <h1>Officer Leaderboard</h1>
     <div class="admin-links">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -215,7 +236,7 @@
               <%= link_to 'Members', members_path, class: 'nav-link' %>
             </li>
             <li class="nav-item active">
-              <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+              <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
               <%= link_to 'Events', events_path, class: 'nav-link' %>
@@ -224,18 +245,20 @@
               <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
               <%= link_to 'Finances', finances_path, class: 'nav-link' %>
             </li>
           </ul>
         </div>
       </nav>
-      <h2>Officer Leaderboard</h2>
     <% end %>
   <% end %>
   <h1 class="side-header">IMSA</h1>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <% if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
+  <% end %>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -264,7 +287,6 @@
 
 </body>
 
-<h1>Officers</h1>
 <table class="centered">
   <thead>
     <tr>
