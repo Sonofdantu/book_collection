@@ -1,15 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h3 {
+      color: #333;
+      font-size: 25px;
+    }
+
+    h2 {
+      color: #333;
+      margin-top: 30px;
+      left: 41.25%;
+    }
+
+    .imsa-logo {
+      position: fixed;
+      top: 25px;
+      left: 50px;
+      width: 100px;
+    }
+
+    .profile-icon {
+      position: fixed;
+      top: 25px;
+      right: 50px; 
+      width: 100px; 
+      cursor: pointer;
+    }
+
+    p {
+      color: #666;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 5px;
+    }
+
+    .admin-links,
+    .user-links {
+      display: block; 
+    }
+
+    .user-links,
+    .admin-info {
+      display: block; 
+    }
+
+    .toggle-links-button {
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    nav {
+      background-color: #007bff;
+      padding: 5px; 
+    }
+
+    nav a {
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: #007bff;
+      padding: 5px;
+      width: 55%;
+      margin: auto; 
+      margin-top: 5vh;
+    }
+
+    .navbar a {
+      color: #fff;
+    }
+
+    .navbar .active a {
+      background-color: #C0C0C0; 
+      color: #007bff; 
+      border-radius: 5px; 
+    }
+
+    .navbar-nav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .member-navbar {
+      width: 30%;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
+
+
+    .side-header {
+      transform: rotate(270deg);
+      position: fixed;
+      top: 75%; 
+      left: 11%;  
+      transform-origin: bottom left; 
+      letter-spacing: 0.8em; 
+      font-size: 100px; 
+      font-family: 'Mustopha'; 
+    }
+
+    .floating-button {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+    }
+
+    .finances {
+      margin-top: 30px;
+    }
+
+    .newFinance button{
+      background-color: #f9f9f9;
+      color: #333;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      font-size: 50px;
+      cursor: pointer;
+      height: 75px;
+      width: 75px;
+      text-align: center;
+      margin-right: 325px;
+      margin-bottom: 20px;
+    }
+
+    .newFinance button:hover{
+      background: #ccc;
+    }
+
+    .showFinance button{
+      background-color: #f9f9f9;
+      color: #333;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .showFinance button:hover{
+      scale: 1.1;
+    }
+
+    .pending-finance-box {
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      max-width: 500px;
+      margin: auto;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+    }
+
+    .completed-finance-box {
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      max-width: 500px;
+      margin: auto;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+    }
+
+    .pretty-divider {
+      border: none;
+      height: 2px;
+      background-color: #ccc;
+      width: 30%;
+    }
+
+  </style>
+</head>
+  
 <p style="color: green"><%= notice %></p>
 
 <h1>Attendances</h1>
 
+<div class="links">
+  <div class="admin-links">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Members', members_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Events', events_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<br>
+
 <div id="attendances">
-  <% @attendances.each do |attendance| %>
-    <%= render attendance %>
-    <p>
-      <%= link_to "Show this attendance", attendance %>
-    </p>
+  <% @events.each do |event| %>
+    <% @attendances.each do |attendance| %>
+      <% if attendance.event_name == event.title %>
+        <h2><%= event.title %></h2>
+        <div class="pending-finance-box">
+          <%= render attendance %>
+          <div class="showFinance">
+            <p>
+              <div style="display: flex;">
+                <%= link_to attendance do %>
+                  <button type="button" style="width: 30%;">
+                    <%= image_tag "view_icon.png", alt: "Show Attendance", style: "width: 100%; height: auto;" %>
+                  </button>
+                <% end %>
+                      
+                <%= link_to edit_attendance_path(attendance) do %>
+                  <button type="button" style="width: 30%;">
+                    <%= image_tag "edit_icon.png", alt: "Edit Attendance", style: "width: 100%; height: auto;" %>
+                  </button>
+                <% end %>
+                      
+                <%= button_to attendance, method: :delete, style: "width: 30%;" do %>
+                  <%= image_tag "delete_icon.png", alt: "Delete Attendance", style: "width: 100%; height: auto;" %>
+                <% end %>
+              </div>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
 
-<%= link_to "New attendance", new_attendance_path %>
-<%= link_to "Dashboard", root_path %>
+<div class="floating-button">
+  <div class = "newFinance">
+    <% if @current_member&.position != 'Member' %>
+      <%= link_to new_attendance_path do %>
+        <button type="button">+</button>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<h1 class="side-header">IMSA</h1>
+<%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<% if current_member&.position != 'Pending' %>
+  <a href="<%= profile_path %>">
+    <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+  </a>
+<% end %>
