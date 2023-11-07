@@ -1,3 +1,3 @@
 class Attendance < ApplicationRecord
-    validates :email, :event_name, presence: true
+    validates_presence_of :email, :event_name
 end

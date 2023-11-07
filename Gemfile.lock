@@ -74,6 +74,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    brakeman (6.0.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -255,6 +256,8 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
+    rubocop-shopify (2.14.0)
+      rubocop (~> 1.51)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -308,6 +311,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman
   capybara
   debug
   devise
@@ -322,6 +326,7 @@ DEPENDENCIES
   rexml
   rspec-rails
   rubocop
+  rubocop-shopify
   selenium-webdriver
   sprockets-rails
   stimulus-rails
