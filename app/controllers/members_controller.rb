@@ -4,7 +4,6 @@ class MembersController < ApplicationController
   # GET /members or /members.json
   def index
     @members = Member.order(:full_name)
-    @members = Member.order(totalPoints: :desc)
   end
   
 
