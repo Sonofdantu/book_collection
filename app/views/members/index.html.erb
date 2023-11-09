@@ -300,7 +300,7 @@
             <td><%= member.email %></td>
             <td><%= member.position %></td>
             <td><%= member.totalPoints %></td>
-            <% if current_member&.position == 'Officer'%>
+            <% if current_member&.position != 'Member'%>
               <td><%= link_to 'Show', member %></td>
               <td><%= link_to 'Edit', edit_member_path(member) %></td>
             
