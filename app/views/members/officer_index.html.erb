@@ -174,7 +174,11 @@
       padding: 5px;
     }
 
-    tr:nth-child(even) {background-color: #f2f2f2;}
+    tr:nth-child(even):not(.viewer) {background-color: #f2f2f2;}
+
+    .viewer {
+      background-color: #ace6d0;
+    }
 
     th {
       background-color: #04AA6D;
@@ -299,13 +303,23 @@
   </thead>
   <tbody>
     <% @members.each do |member| %>
-      <tr>
-        <td><%= member.id %></td>
-        <td><%= member.full_name %></td>
-        <td><%= member.email %></td>
-        <td><%= member.position %></td>
-        <td><%= member.officer_points %></td>
-      </tr>
+      <% if member.email == @current_member&.email %>
+        <tr class = "viewer">
+          <td><%= member.id %></td>
+          <td><%= member.full_name %></td>
+          <td><%= member.email %></td>
+          <td><%= member.position %></td>
+          <td><%= member.officer_points %></td>
+        </tr>
+      <%else%>
+        <tr class = "info">
+          <td><%= member.id %></td>
+          <td><%= member.full_name %></td>
+          <td><%= member.email %></td>
+          <td><%= member.position %></td>
+          <td><%= member.officer_points %></td>
+        </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>
