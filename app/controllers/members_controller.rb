@@ -88,6 +88,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:totalPoints, :full_name, :email, :position)
+      params.require(:member).permit(:totalPoints, :full_name, :email, :position, :phone_number)
     end
 end
