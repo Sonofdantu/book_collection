@@ -60,7 +60,7 @@ class MembersController < ApplicationController
   end
 
   def officer_index
-    @members = Member.where.not(position: "Member").order(officer_points: :desc)
+    @members = Member.where("position != 'Member' and position != 'Pending'").order(officer_points: :desc)
   end
   
     # Individual officer point edit and update
