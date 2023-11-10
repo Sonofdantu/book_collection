@@ -45,12 +45,14 @@
         <div class="row">
           <div class="col-md-4">
             <p class="card-text">
+            <% if current_member&.position != 'Member' || event.end_time > @current_time %>
               <strong>Image:</strong> <br> <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' if event.image.present? %>
             </p>
           </div>
           <div class="col-md-8">
             <h5 class="card-title">
               <%= event.title %>
+              
               <% if event.start_time < @current_time && event.end_time > @current_time %>
                 <span class="ongoing-marker">Ongoing</span>
               <% elsif event.start_time < @current_time %>
@@ -59,7 +61,7 @@
                 <span class="ongoing-marker">Upcoming</span>
               <% end %>
             </h5>
-
+            
             <p class="card-text">
               <strong>Score:</strong> <%= event.score %>
             </p>
@@ -73,8 +75,9 @@
             </p>
 
             <p class="card-text">
-            <strong>Start time:</strong> <%= event.end_time.strftime("%B %d, %Y %H:%M %p %Z") %>
+            <strong>End time:</strong> <%= event.end_time.strftime("%B %d, %Y %H:%M %p %Z") %>
             </p>
+            <%end%>
           </div>
         </div>
       </div>
