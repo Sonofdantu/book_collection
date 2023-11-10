@@ -393,13 +393,15 @@
     </div>
   </div>
 
-  <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
-    <div class="row">
-      <div class="col-md-12">
-        <%= link_to "New event", new_event_path, class: 'btn btn-primary' %>
-      </div>
-    </div>
-  <% end %>
+
+<div class="floating-button">
+  <div class = "newFinance">
+    <% if @current_member&.position != 'Member' %>
+      <%= link_to new_event_path do %>
+        <button type="button">+</button>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <h1 class="side-header">IMSA</h1>
