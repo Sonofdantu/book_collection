@@ -4,26 +4,32 @@ class FinancesController < ApplicationController
   # GET /finances or /finances.json
   def index
     @finances = Finance.all
+    @event_titles = Event.all.pluck(:title)
   end
 
   # GET /finances/1 or /finances/1.json
   def show
+    @finance = Finance.find(params[:id])
+    @event_titles = Event.all.pluck(:title)
   end
 
   # GET /finances/new
   def new
     @finance = Finance.new
-    @officer_emails = Member.where.not(position: 'Member').pluck(:email)
+    @officer_emails = Member.where.not("position != 'Member' and position != 'Pending'").pluck(:email)
     @event_titles = Event.all.pluck(:title)
   end 
 
   # GET /finances/1/edit
   def edit
+    @finance = Finance.find(params[:id])
+    @event_titles = Event.all.pluck(:title)
   end
 
   # POST /finances or /finances.json
   def create
-    @finance = Finance.new(finance_params)
+    @finance = Finance.new(finance_params_without_receipt)
+    @event_titles = Event.all.pluck(:title)
 
     encode_uploaded_images
 
@@ -42,10 +48,11 @@ class FinancesController < ApplicationController
 
   # PATCH/PUT /finances/1 or /finances/1.json
   def update
+    @event_titles = Event.all.pluck(:title)
     encode_uploaded_images
 
     respond_to do |format|
-      if @finance.update(finance_params)
+      if @finance.update(finance_params_without_receipt)
         format.html do
  redirect_to finance_url(@finance), notice: "Finance was successfully updated."
         end
@@ -59,6 +66,7 @@ class FinancesController < ApplicationController
 
   # DELETE /finances/1 or /finances/1.json
   def destroy
+    @event_titles = Event.all.pluck(:title)
     @finance.destroy
 
     respond_to do |format|
@@ -70,6 +78,7 @@ class FinancesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_finance
+      @event_titles = Event.all.pluck(:title)
       @finance = Finance.find(params[:id])
     end
 
@@ -80,8 +89,13 @@ class FinancesController < ApplicationController
         :eventTitle, 
         :cost, 
         :receipt, 
-        :description
+        :description,
+        :status
       )
+    end
+
+    def finance_params_without_receipt
+      finance_params.except(:receipt)
     end
 
     def encode_uploaded_images

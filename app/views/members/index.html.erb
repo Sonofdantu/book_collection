@@ -212,7 +212,7 @@
             </nav>
           </div>
         </div>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <h2>Officer Dashboard</h2>
         <div class="links">
           <div class="admin-links">
@@ -302,6 +302,7 @@
             <td><%= member.phone_number %></td>
             <td><%= member.position %></td>
             <td><%= member.totalPoints %></td>
+            
             <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
               <td><%= link_to 'Show', member %></td>
               <td><%= link_to 'Edit', edit_member_path(member) %></td>
@@ -316,7 +317,7 @@
         <% end %>
       </tbody>
     </table>
-      <% if @current_member&.position != 'Member' %>
+      <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
       <h3><%= link_to 'New Member', new_member_path %><h3>
       <%end%>
   </div>
