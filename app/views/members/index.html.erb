@@ -159,7 +159,11 @@
         background-color: #04AA6D;
         color: white;
       }
-
+      <% if current_member&.position == 'Member'%>
+        tr:nth-child(n+11){
+          display:none;
+        }
+      <% end %>
 
     </style>
   </head>
