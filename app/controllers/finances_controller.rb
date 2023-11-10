@@ -69,6 +69,7 @@ class FinancesController < ApplicationController
     @event_titles = Event.all.pluck(:title)
     @finance.destroy
 
+
     respond_to do |format|
       format.html { redirect_to finances_url, notice: "Finance was successfully destroyed." }
       format.json { head :no_content }
