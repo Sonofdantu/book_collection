@@ -193,7 +193,18 @@
       background-color: #ccc;
       width: 30%;
     }
-    .red-dot {
+    .red-dot1 {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 190px;
+      left: 1430px;
+      z-index: 1000000;
+    }
+
+    .red-dot2 {
       width: 22px;
       height: 22px;
       background-color: red;
@@ -208,8 +219,14 @@
 </head>
 <body>
 <% if current_member&.position != 'Member' %>
-  <% if Finance.where(status: 0).count %>
-      <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
+  <% if Finance.where(status: 0).count == 1 %>
+      <div class="red-dot1"><%= Finance.where(status: 0).count %>!</div>
+  <% end %>
+<% end %>
+
+<% if current_member&.position != 'Member' %>
+  <% if Finance.where(status: 0).count > 1 %>
+      <div class="red-dot2"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 

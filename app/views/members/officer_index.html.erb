@@ -202,7 +202,7 @@
 <body>
 
 <% if current_member&.position != 'Member' %>
-  <% if Finance.where(status: 0).count %>
+  <% if Finance.where(status: 0).count > 0 %>
     <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %> 
