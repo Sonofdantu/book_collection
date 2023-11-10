@@ -95,6 +95,11 @@
             </div>
 
             <div>
+              <%= form.label :attendanceVisible, "Attendance Visible?", style: "display: block" %>
+              <%= form.check_box :attendanceVisible %>
+            </div>
+
+            <div>
               <%= form.label :image, style: "display: block" %>
               <% if event.image.present? %>
                 <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' %>

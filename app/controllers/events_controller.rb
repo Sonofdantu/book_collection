@@ -91,6 +91,13 @@ class EventsController < ApplicationController
   def attend
     @event = Event.find(params[:id])
   end
+
+  def peopleAttending
+    @event = Event.find(params[:id])
+    # Assuming Attendance model has an 'event_name' and 'email' field
+    attending_emails = Attendance.where(event_name: @event.title).pluck(:email)
+    @attending_members = Member.where(email: attending_emails)
+  end
   
   def register_attendance
     @event = Event.find(params[:id])
@@ -132,7 +139,7 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :score, :password, :start_time, :end_time, :image)
+      params.require(:event).permit(:title, :score, :password, :start_time, :end_time, :image, :attendanceVisible)
     end
 
     def event_params_without_image

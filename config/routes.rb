@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     member do
       get 'attend'
       post 'register_attendance'
+      get 'peopleAttending'
     end
   end
 

@@ -1,72 +1,28 @@
 <p style="color: green"><%= notice %></p>
-
-<h1><%= render @member %></h1>
 <h2>Member Information</h2>
-<style> 
-  h1 {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    position: relative;
-    top: 100px;
-  }
-  h2 {
-    font-family: Arial, sans-serif;
-    font-size: 50px;
-    padding: 5px;
-    text-align: center;
-    position: relative;
-    top: -300px;
-    outline-style: solid;
-  }
+<%= render @member %>
 
-  .box {
-    height: 270px;
-    width: 550px;
-    outline-style: solid;
-    position: absolute;
-    top: 150px;
-    left: 680px;
-    font-family: Arial, sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
+<br>
+<br>
+<br>
+<h2>Member Attendance</h2>
 
-  .triangle {
-    width: 0px;
-    height: 1000px;
-    border-left: 0px solid transparent; 
-    border-right: 1000px solid transparent; 
-    border-bottom: 700px solid maroon; 
-    position: absolute;
-    left: 00px;
-    bottom: 0px;
-}
-.triangle2 {
-    width: 0px;
-    height: 1000px;
-    border-left: 1000px solid transparent; 
-    border-right: 0px solid transparent; 
-    border-bottom: 700px solid maroon; 
-    position: absolute;
-    right: 00px;
-    bottom: 0px;
-}
-
- .links {
-    height: 20px;
-    width: 300px;
-    position: absolute;
-    top: 450px;
-    left: 800px;
-    outline-style: solid;
-    font-family: Arial, sans-serif;
-    text-align: center;
- }
-</style>
-
-<div class="triangle"></div> 
-<div class="triangle2"></div> 
+<table>
+  <thead>
+    <tr>
+      <th>Event Name</th>
+      <!-- Add other relevant headers -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @member_attendances.each do |attendance| %>
+      <tr>
+        <td><%= attendance.event_name %></td>
+        <!-- Display other attendance attributes as needed -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="links">
   <%= link_to "Edit this member", edit_member_path(@member) %> |

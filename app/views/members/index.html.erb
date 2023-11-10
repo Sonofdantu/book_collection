@@ -166,6 +166,41 @@
 
 </style>
 
+<style>
+  .delete-confirmation-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid black;
+    z-index: 1000;
+  }
+
+
+  .confirm-delete-btn, .cancel-delete-btn {
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .confirm-delete-btn {
+    background-color: #d9534f; /* Red */
+    color: white;
+  }
+
+  .cancel-delete-btn {
+    background-color: #f0ad4e; /* Yellow */
+    color: white;
+  }
+</style>
+
 <p style="color: green"><%= notice %></p>
 
 <div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
