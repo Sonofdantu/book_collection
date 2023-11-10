@@ -288,6 +288,7 @@
           <th>ID</th>
           <th>Full Name</th>
           <th>Email</th>
+          <th>Phone Number</th>
           <th>Position</th>
           <th><%= link_to "Total Points", :sort => "totalPoints"%></th>
         </tr>
@@ -298,9 +299,10 @@
             <td><%= member.id %></td>
             <td><%= member.full_name %></td>
             <td><%= member.email %></td>
+            <td><%= member.phone_number %></td>
             <td><%= member.position %></td>
             <td><%= member.totalPoints %></td>
-            <% if current_member&.position != 'Member'%>
+            <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
               <td><%= link_to 'Show', member %></td>
               <td><%= link_to 'Edit', edit_member_path(member) %></td>
             
