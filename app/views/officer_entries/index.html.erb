@@ -31,6 +31,47 @@
   }
 </style>
 
+<style>
+  .delete-confirmation-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid black;
+    z-index: 1000;
+  }
+
+
+  .confirm-delete-btn, .cancel-delete-btn {
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .confirm-delete-btn {
+    background-color: #d9534f; /* Red */
+    color: white;
+  }
+
+  .cancel-delete-btn {
+    background-color: #f0ad4e; /* Yellow */
+    color: white;
+  }
+</style>
+
+<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
+  <p id="deleteConfirmationMessage">Are you sure you want to delete <span id="officerEmail"></span>'s entry?</p>
+  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
+  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
+</div>
+
 <p style="color: green"><%= notice %></p>
 
 <h1>Officer Point Record</h1>
@@ -52,13 +93,34 @@
             <td><%= entry.email %></td>
             <td><%= entry.description %></td>
             <td><%= entry.points %></td>
-            <td><%= button_to "Destroy this officer entry", @officer_entry, method: :delete %></td>
+            <td>
+              <%= button_to "Destroy this officer entry", officer_entry_path(entry), method: :delete, form_class: "destroy-officer-entry-form-#{entry.id}", style: "display: none;" %>
+              <button class="link-like-button" onclick="confirmOfficerEntryDelete('<%= escape_javascript(entry.email) %>', '<%= entry.id %>')">Destroy</button>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </body>
+
+<script>
+  function confirmOfficerEntryDelete(email, entryId) {
+    document.getElementById('officerEmail').textContent = email;
+    document.getElementById('deleteConfirmationPopup').style.display = 'block';
+    window.confirmDelete = function() {
+      document.querySelector('.destroy-officer-entry-form-' + entryId).submit();
+    };
+  }
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+    window.confirmDelete();
+  });
+
+  function cancelDelete() {
+    document.getElementById('deleteConfirmationPopup').style.display = 'none';
+  }
+</script>
 
 <div>
   <% if @current_member&.position == 'President' %>
