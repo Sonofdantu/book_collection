@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_033222) do
     t.integer "officer_points", default: 0
     t.string "full_name"
     t.string "email"
+    t.string "phone_number"
   end
 
   create_table "officer_entries", force: :cascade do |t|

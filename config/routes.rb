@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       patch :update_weekly_points
       get :edit_officer_points
       put :update_officer_points
+      get :edit_phone_number
+      patch :update_phone_number
     end
 
     collection do
