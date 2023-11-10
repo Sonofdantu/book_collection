@@ -348,6 +348,9 @@
                 <% if event.end_time >= Time.now %>
                   <%= link_to "Attend", attend_event_path(event) %>
                 <% end %>
+                <% if event.attendanceVisible %>
+                  <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
+                <% end %>
               </p>
               <hr>
             </div>
@@ -362,6 +365,9 @@
               <p>
                 <%= link_to "Show this event", event %>
                 <%= link_to "Attend", attend_event_path(event) %>
+                <% if event.attendanceVisible %>
+                  <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
+                <% end %>
               </p>
               <hr>
             </div>
@@ -375,6 +381,9 @@
               <%= render event %>
               <p>
                 <%= link_to "Show this event", event %>
+                <% if event.attendanceVisible %>
+                  <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
+                <% end %>
               </p>
               <hr>
             </div>
