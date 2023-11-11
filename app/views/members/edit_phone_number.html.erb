@@ -1,0 +1,5 @@
+<%= form_for @member, url: update_phone_number_member_path(@member), method: :patch do |f| %>
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number %>
+  <%= f.submit 'Update Phone Number' %>
+<% end %>

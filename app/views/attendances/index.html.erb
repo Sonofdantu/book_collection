@@ -194,10 +194,27 @@
       width: 30%;
     }
 
+    .red-dot {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 184px;
+      left: 1422px;
+      z-index: 1000000;
+    }
+
   </style>
 </head>
   
 <p style="color: green"><%= notice %></p>
+
+<% if current_member&.position != 'Member' %>
+  <% if Finance.where(status: 0).count > 0 %>
+      <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
+  <% end %>
+<% end %> 
 
 <h1>Attendances</h1>
 

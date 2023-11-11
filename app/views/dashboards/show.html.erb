@@ -125,12 +125,26 @@
         font-family: 'Mustopha'; 
       }
 
+      .red-dot {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 160px;
+      left: 1425px;
+      z-index: 1000000;
+    }
 
     </style>
   </head>
 
   <body>
-
+  <% if current_member&.position != 'Member' %>
+    <% if Finance.where(status: 0).count > 0 %>
+        <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
+    <% end %>
+  <% end %>
     <% if admin_signed_in? %>
       <% current_member = Member.find_by(email: current_admin.email) %>
 

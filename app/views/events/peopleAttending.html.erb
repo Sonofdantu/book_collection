@@ -1,0 +1,11 @@
+<!-- app/views/events/peopleAttending.html.erb -->
+
+<h1>People Attending <%= @event.title %></h1>
+
+<ul>
+  <% @attending_members.each do |member| %>
+    <li><%= member.full_name %></li> <!-- Assuming 'full_name' is a member attribute -->
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Event', event_path(@event) %>

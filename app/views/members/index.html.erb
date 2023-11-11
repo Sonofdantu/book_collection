@@ -159,11 +159,61 @@
         background-color: #04AA6D;
         color: white;
       }
-
+      <% if current_member&.position == 'Member'%>
+        tr:nth-child(n+11){
+          display:none;
+        }
+      <% end %>
 
     </style>
   </head>
 
+</style>
+
+<style>
+  .delete-confirmation-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid black;
+    z-index: 1000;
+  }
+
+
+  .confirm-delete-btn, .cancel-delete-btn {
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .confirm-delete-btn {
+    background-color: #d9534f; /* Red */
+    color: white;
+  }
+
+  .cancel-delete-btn {
+    background-color: #f0ad4e; /* Yellow */
+    color: white;
+  }
+
+  .red-dot {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 175px;
+      left: 1425px;
+      z-index: 1000000;
+    }
 </style>
 
 <p style="color: green"><%= notice %></p>
@@ -175,6 +225,11 @@
 </div>
 
   <body>
+  <% if current_member&.position != 'Member' %>
+    <% if Finance.where(status: 0).count > 0 %>
+        <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
+    <% end %>
+  <% end %>
 
     <% if admin_signed_in? %>
       <% current_member = Member.find_by(email: current_admin.email) %>
@@ -212,7 +267,7 @@
             </nav>
           </div>
         </div>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <h2>Officer Dashboard</h2>
         <div class="links">
           <div class="admin-links">
@@ -288,6 +343,7 @@
           <th>ID</th>
           <th>Full Name</th>
           <th>Email</th>
+          <th>Phone Number</th>
           <th>Position</th>
           <th><%= link_to "Total Points", :sort => "totalPoints"%></th>
         </tr>
@@ -298,9 +354,11 @@
             <td><%= member.id %></td>
             <td><%= member.full_name %></td>
             <td><%= member.email %></td>
+            <td><%= member.phone_number %></td>
             <td><%= member.position %></td>
             <td><%= member.totalPoints %></td>
-            <% if current_member&.position == 'Officer'%>
+            
+            <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
               <td><%= link_to 'Show', member %></td>
               <td><%= link_to 'Edit', edit_member_path(member) %></td>
             
@@ -314,7 +372,7 @@
         <% end %>
       </tbody>
     </table>
-      <% if @current_member&.position != 'Member' %>
+      <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
       <h3><%= link_to 'New Member', new_member_path %><h3>
       <%end%>
   </div>
