@@ -13,7 +13,7 @@ class OfficerEntriesController < ApplicationController
   # GET /officer_entries/new
   def new
     @officer_entry = OfficerEntry.new
-    @officer_emails = Member.where.not(position: "Member").pluck(:email)
+    @officer_emails = Member.where("position != 'Member' and position != 'Pending'").pluck(:email)
   end
 
   # GET /officer_entries/1/edit

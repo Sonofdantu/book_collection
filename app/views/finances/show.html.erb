@@ -17,7 +17,7 @@
 </p>
   
 <div>
-  <% if @finance.resolved == false %>
+  <% if @finance.status == 'Pending' %>
     <%= link_to edit_finance_path(@finance) do %>
       <button type="button" 
       style="width: 5%; bottom: 50px; right: 225px; position: fixed; background: none; border: none;" 

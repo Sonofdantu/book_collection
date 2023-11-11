@@ -10,6 +10,11 @@ class MembersController < ApplicationController
 
   # GET /members/1 or /members/1.json
   def show
+    # Existing set_member call
+    set_member
+
+    # Fetching attendance data for the member
+    @member_attendances = Attendance.where(email: @member.email)
   end
 
   # GET /members/new
@@ -60,7 +65,7 @@ class MembersController < ApplicationController
   end
 
   def officer_index
-    @members = Member.where.not(position: "Member").order(officer_points: :desc)
+    @members = Member.where("position != 'Member' and position != 'Pending'").order(officer_points: :desc)
   end
   
     # Individual officer point edit and update
@@ -76,9 +81,20 @@ class MembersController < ApplicationController
     else
       render :edit_officer_points
     end
-  end  
+  end
 
+  def edit_phone_number
+    @member = Member.find(params[:id])
+  end
   
+  def update_phone_number
+    @member = Member.find(params[:id])
+    if @member.update(member_params)
+      redirect_to profile_path, notice: 'Phone number was successfully updated.'
+    else
+      render :edit_phone_number
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -88,6 +104,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:totalPoints, :full_name, :email, :position)
+      params.require(:member).permit(:totalPoints, :full_name, :email, :position, :phone_number)
     end
 end
