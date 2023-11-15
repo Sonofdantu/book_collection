@@ -12,6 +12,10 @@
     background-color: #f9f9f9 !important;
   }
 
+  .card .card-body .row .col-md-4 img {
+    max-width: 100%;
+  }
+
   .event-section {
     margin-top: 20px;
   }
@@ -29,6 +33,7 @@
     color: #FFFFFF;
     padding: 5px;
     border-radius: 5px;
+    font-size: 1.5vw;
   }
 </style>
 
@@ -65,7 +70,7 @@
             <p class="card-text">
               <strong>Score:</strong> <%= event.score %>
             </p>
-            <% if current_member&.position != 'Member' %>
+            <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
               <p class="card-text">
                 <strong>Password:</strong> <%= event.password %>
               </p>
