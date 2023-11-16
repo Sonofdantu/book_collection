@@ -199,32 +199,22 @@
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 190px;
-      left: 1430px;
-      z-index: 1000000;
-    }
-
-    .red-dot2 {
-      width: 22px;
-      height: 22px;
-      background-color: red;
-      border-radius: 100%;
-      position: absolute;
-      top: 190px;
-      left: 1410px;
+      top: 25%;
+      left: 73.5%;
       z-index: 1000000;
     }
 
   </style>
 </head>
 <body>
-<% if current_member&.position != 'Member' %>
+
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count == 1 %>
       <div class="red-dot1"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 
-<% if current_member&.position != 'Member' %>
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count > 1 %>
       <div class="red-dot2"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
@@ -233,7 +223,7 @@
 <% if admin_signed_in? %>
   <% current_member = Member.find_by(email: current_admin.email) %>
 
-  <% if current_member&.position != 'Member' %>
+  <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
     <br>
     <h1 class = "title">Finance Requests</h1>
     
@@ -272,7 +262,7 @@
     </div>
     
     <div class="finances">
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <h3> Pending </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
@@ -328,7 +318,7 @@
 
         <div class="floating-button">
           <div class = "newFinance">
-            <% if @current_member&.position != 'Member' %>
+            <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
               <%= link_to new_finance_path do %>
                 <button type="button">+</button>
               <% end %>
@@ -336,7 +326,7 @@
           </div>
         </div>
 
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <h3> Denied </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
@@ -428,9 +418,10 @@
             <% end %>
           </div>
         <% end %>
+
         <div class="floating-button">
           <div class = "newFinance">
-            <% if @current_member&.position != 'Member' %>
+            <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
               <%= link_to new_finance_path do %>
                 <button type="button">+</button>
               <% end %>

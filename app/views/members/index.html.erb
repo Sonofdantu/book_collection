@@ -234,8 +234,10 @@
     <% if admin_signed_in? %>
       <% current_member = Member.find_by(email: current_admin.email) %>
 
+      <h1>Members</h1>
+
       <% if current_member&.position == 'President'%>
-        <h2>Members Table</h2>
+        
         <div class="links">
           <div class="admin-links">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -268,7 +270,6 @@
           </div>
         </div>
       <% elsif current_member&.position != 'President' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <h2>Officer Dashboard</h2>
         <div class="links">
           <div class="admin-links">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -302,12 +303,10 @@
           </div>
         </div>
       <% elsif current_member&.position == 'Pending' %>
-        <h2>Pending Member Dashboard</h2>
           <h2>Your membership is pending...</h2>
           <h2>You won't be approved for an account unless you're a paid member of TAMU IMSA.</h2>
       <% else %>
         <div class="admin-info">
-          <h2>Member Dashboard</h2>
           <div class="links">
             <nav class="navbar navbar-expand-lg navbar-light bg-light member-navbar">
               <ul class="navbar-nav">

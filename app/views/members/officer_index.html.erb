@@ -201,7 +201,7 @@
 
 <body>
 
-<% if current_member&.position != 'Member' %>
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count > 0 %>
     <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
@@ -210,7 +210,7 @@
   <% if admin_signed_in? %>
     <% current_member = Member.find_by(email: current_admin.email) %>
     <br>
-    <h1 class = "title">Officer Leaderboard</h1>
+    <h1 class = "title">Officers</h1>
     <% if current_member&.position == 'President' %>
       <div class="admin-links">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -241,8 +241,7 @@
           </div>
         </nav>
       </div>
-    <% else %>
-    <h1>Officer Leaderboard</h1>
+    <% elsif current_member&.position != 'Member' && current_member&.position != 'Pending' %>
     <div class="admin-links">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -273,6 +272,7 @@
       </nav>
     <% end %>
   <% end %>
+  
   <h1 class="side-header">IMSA</h1>
   <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
   <% if current_member&.position != 'Pending' %>

@@ -155,8 +155,8 @@
 
     .floating-button {
       position: fixed;
-      bottom: 40px;
-      right: 40px;
+      bottom: 10%;
+      right: 10%;
     }
 
     .finances {
@@ -168,13 +168,11 @@
       color: #333;
       border: 2px solid #ccc;
       border-radius: 20px;
-      font-size: 50px;
+      font-size: 5vh;
       cursor: pointer;
-      height: 75px;
-      width: 75px;
+      height: 10vh;
+      width: 5vw;
       text-align: center;
-      margin-right: 325px;
-      margin-bottom: 20px;
     }
 
     .newFinance button:hover{
@@ -218,7 +216,7 @@
       border: none;
       height: 2px;
       background-color: #ccc;
-      width: 30%;
+      width: 80%;
     }
 
     .red-dot {
@@ -227,15 +225,15 @@
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 190px;
-      left: 1410px;
+      top: 23%;
+      left: 74%;
       z-index: 1000000;
     }
 
   </style>
 </head>
 <body>
-<% if current_member&.position != 'Member' %>
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count > 0 %>
       <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
@@ -280,8 +278,9 @@
         </nav>
       </div>
     </div>
+
   <% elsif current_member&.position != 'President' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-    <h2>Officer Dashboard</h2>
+    <h1>Events</h1>
     <div class="links">
       <div class="admin-links">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -315,9 +314,10 @@
         </nav>
       </div>
     </div>
+
   <% else %>
     <div class="admin-info">
-      <h2>Member Dashboard</h2>
+      <h1>Events</h1>
       <div class="links">
         <nav class="navbar navbar-expand-lg navbar-light bg-light member-navbar">
           <ul class="navbar-nav">
@@ -337,8 +337,6 @@
     </div>  
   <% end %>
 <% end %>
-
-<h1 style="visibility: hidden; color: white;">f</h1>
 
 <div class="container">
   <div class="row">
@@ -372,10 +370,11 @@
                   <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
                 <% end %>
               </p>
-              <hr>
             </div>
           </div>
         <% end %>
+
+        <hr class="pretty-divider">
 
         <h2 class = "miniheader1">Upcoming Events</h2>
         <% upcoming_events.each do |event| %>
@@ -389,10 +388,11 @@
                   <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
                 <% end %>
               </p>
-              <hr>
             </div>
           </div>
         <% end %>
+
+        <hr class="pretty-divider">
 
         <h2 class = "miniheader">Past Events</h2>
         <% past_events.each do |event| %>
@@ -400,19 +400,16 @@
             <div class="col-md-12">
               <%= render event %>
               <p>
-                
                 <% if event.attendanceVisible %>
                   <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
                 <% end %>
               </p>
-              <hr>
             </div>
           </div>
         <% end %>
       </div>
     </div>
   </div>
-
 
 <div class="floating-button">
   <div class = "newFinance">
@@ -425,17 +422,12 @@
 </div>
 
 <h1 class="side-header">IMSA</h1>
-  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
-  <% if current_member&.position != 'Pending' %>
-    <a href="<%= profile_path %>">
-      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-    </a>
-  <% end %>
-
-<%= link_to "Dashboard", root_path %>
-
-
-
+<%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<% if current_member&.position != 'Pending' %>
+  <a href="<%= profile_path %>">
+    <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+  </a>
+<% end %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

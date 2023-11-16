@@ -154,13 +154,13 @@
 
     <div>
       <%= form.label :eventTitle, "Event Title", style: "display: block; margin-bottom: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <% if @event_titles %>
           <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title", disabled: true %>
         <% else %>
           <p>No event titles available.</p>
         <% end %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <% if @event_titles %>
           <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
         <% else %>
@@ -171,27 +171,27 @@
 
     <div>
       <%= form.label :cost, style: "display: block; margin-bottom: 10px; margin-top: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <%= form.text_field :cost, style: "margin-bottom: 10px;", readonly: true %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <%= form.text_field :cost, style: "margin-bottom: 10px;" %>
       <% end %>
     </div>
 
     <div>
       <%= form.label :description, style: "display: block; margin-bottom: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <%= form.text_field :description, style: "margin-bottom: 10px;", readonly: true %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <%= form.text_field :description, style: "margin-bottom: 10px;" %>
       <% end %>
     </div>
 
     <div>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <%= form.label :status, style: "display: block; margin-bottom: 10px;" %>
         <%= form.select :status, Finance.statuses.keys, {}, { style: "margin-bottom: 10px;" } %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <%= form.label :status, style: "display: block; margin-bottom: 10px;" %>  
         <%= form.select :status, Finance.statuses.keys, {}, { disabled: true } %>
       <% end %>
@@ -205,13 +205,13 @@
         <br>
       <% end %>
 
-      <% if current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+      <% if current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <%= form.file_field :receipt, style: "margin-bottom: 10px; margin-left: 6.75%" %>
       <% end %>
     </div>
 
     <div>
-      <% if finance.reimbursement.present? || current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if finance.reimbursement.present? || current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <%= form.label :reimbursement, style: "display: block; margin-bottom: 10px;" %>
       <% end %>
 
@@ -221,7 +221,7 @@
         <br>
       <% end %>
 
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
         <%= form.file_field :reimbursement, style: "margin-bottom: 10px; margin-left: 6.75%" %>
       <% end %>
     </div>
