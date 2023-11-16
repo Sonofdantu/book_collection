@@ -72,6 +72,7 @@ class FinancesController < ApplicationController
   def destroy
     @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
+    
     @finance.destroy
 
     respond_to do |format|
