@@ -22,8 +22,8 @@ class Finance < ApplicationRecord
 
   def email_valid
     # Check if the email is present and ends with the expected domain
-    if email.present? && !email.ends_with?('@tamu.edu')
-      errors.add(:email, 'must be from tamu.edu domain.')
+    if email.present? && !email.ends_with?('@tamu.edu', '@gmail.com')
+      errors.add(:email, 'must be from tamu.edu or gmail.com domains.')
     end
   end
 
@@ -32,8 +32,8 @@ class Finance < ApplicationRecord
   end
 
   def needs_reimbursement
-    unless reimbursement.present? && status == "Approved"
-      errors.add(:reimbursement, 'must be included and status must be set to Approved.')
+    unless (reimbursement.present? && status == "Approved") || status == "Denied"
+      errors.add(:reimbursement, 'must be included and status must be set to Approved OR status must be set to Denied.')
     end
   end
 
