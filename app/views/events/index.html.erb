@@ -220,14 +220,15 @@
     }
 
     .red-dot {
-      width: 22px;
-      height: 22px;
+      width: 1.75vw;
+      height: 3.5vh;
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 23%;
-      left: 74%;
+      top: 24.5%;
+      left: 73.5%;
       z-index: 1000000;
+      font-size: 1vw;
     }
 
   </style>
@@ -268,9 +269,6 @@
                 <%= link_to 'Events', events_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
                 <%= link_to 'Finances', finances_path, class: 'nav-link' %>
               </li>
             </ul>
@@ -302,9 +300,6 @@
               </li>
               <li class="nav-item active">
                 <%= link_to 'Events', events_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to 'Finances', finances_path, class: 'nav-link' %>
@@ -422,7 +417,7 @@
 </div>
 
 <h1 class="side-header">IMSA</h1>
-<%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-logo' %>
 <% if current_member&.position != 'Pending' %>
   <a href="<%= profile_path %>">
     <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>

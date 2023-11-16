@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
     <style>
@@ -12,17 +12,36 @@
         text-align: center;
         margin: 50px;
       }
+
+      h3 {
+        color: #333;
+        font-size: 5vw;
+      }
+
+      h2 {
+        color: #333;
+        margin-top: 1%;
+        left: 41.25%;
+        font-size: 2vw;
+      }
+
+      h1 {
+        margin-top: 1%;
+        font-size: 3vw;
+      }
+
       .imsa-logo {
         position: fixed;
-        top: 25px;
-        left: 50px;
-        width: 100px;
+        top: 4%;
+        left: 3%;
+        width: 7.5%;
       }
+
       .profile-icon {
         position: fixed;
-        top: 25px;
-        right: 50px; 
-        width: 100px; 
+        top: 4%;
+        right: 3%; 
+        width: 7.5%; 
         cursor: pointer;
       }
 
@@ -121,20 +140,21 @@
         left: 11%; 
         transform-origin: bottom left; 
         letter-spacing: 0.8em; 
-        font-size: 100px; 
+        font-size: 6vw; 
         font-family: 'Mustopha'; 
       }
 
       .red-dot {
-      width: 22px;
-      height: 22px;
-      background-color: red;
-      border-radius: 100%;
-      position: absolute;
-      top: 160px;
-      left: 1425px;
-      z-index: 1000000;
-    }
+        width: 1.75vw;
+        height: 3.5vh;
+        background-color: red;
+        border-radius: 100%;
+        position: absolute;
+        top: 24.5%;
+        left: 73.5%;
+        z-index: 1000000;
+        font-size: 1vw;
+      }
 
     </style>
   </head>
@@ -147,10 +167,9 @@
   <% end %>
     <% if admin_signed_in? %>
       <% current_member = Member.find_by(email: current_admin.email) %>
-      <br>
 
       <% if current_member&.position == 'President'%>
-        <h1>Admin Dashboard</h1>
+        <h1>President Dashboard</h1>
         <div class="links">
           <div class="admin-links">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -172,9 +191,6 @@
                     <%= link_to 'Events', events_path, class: 'nav-link' %>
                   </li>
                   <li class="nav-item">
-                    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
                     <%= link_to 'Finances', finances_path, class: 'nav-link' %>
                   </li>
                 </ul>
@@ -182,7 +198,7 @@
             </nav>
           </div>
         </div>
-      <% elsif current_member&.position == 'Officer' || current_member&.position == 'Finance Chair' %>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
         <h1>Officer Dashboard</h1>
         <div class="links">
           <div class="admin-links">
@@ -204,9 +220,6 @@
                   </li>
                   <li class="nav-item">
                     <%= link_to 'Events', events_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
                   </li>
                   <li class="nav-item">
                     <%= link_to 'Finances', finances_path, class: 'nav-link' %>
@@ -240,7 +253,7 @@
           </div>
         </div>  
       <% end %>
-      <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+      <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-logo' %>
       <% if current_member&.position != 'Pending' %>
         <a href="<%= profile_path %>">
           <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>

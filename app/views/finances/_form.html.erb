@@ -10,19 +10,6 @@
       text-align: center;
       margin: 50px;
     }
-    .imsa-logo {
-      position: fixed;
-      top: 25px;
-      left: 50px;
-      width: 100px;
-    }
-    .profile-icon {
-      position: fixed;
-      top: 25px;
-      right: 50px; 
-      width: 100px; 
-      cursor: pointer;
-    }
 
     h2 {
       color: #333;
@@ -65,67 +52,12 @@
       margin-right: 10px;
     }
 
-    nav {
-      background-color: #007bff;
-      padding: 5px; 
-    }
-
-    nav a {
-      color: #fff;
-    }
-
-    .content {
-      margin-top: 60px; 
-    }
-
-    .navbar {
-      background-color: #007bff;
-      padding: 5px;
-      width: 55%;
-      margin: auto; 
-      margin-top: 5vh;
-      display: flex;
-      align-items: center; 
-      justify-content: space-evenly;
-      z-index: 1000;
-    }
-
-    .navbar a {
-      color: #fff;
-    }
-
-    .navbar .active a {
-      background-color: #C0C0C0; 
-      color: #007bff; 
-      border-radius: 5px; 
-    }
-
-    .navbar-nav {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .member-navbar {
-      width: 30%;
-    }
-    @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
-
-
-    .side-header {
-      transform: rotate(270deg);
-      position: fixed;
-      top: 75%; 
-      left: 11%; 
-      transform-origin: bottom left; 
-      letter-spacing: 0.8em; 
-      font-size: 100px; 
-      font-family: 'Mustopha'; 
-    }
-
-
     .form-formatting { 
       align-items: center; 
+    }
+
+    .image-resizing img{
+      max-width: 50%;
     }
 
   </style>
@@ -149,42 +81,30 @@
 
     <div>
       <%= form.label :email, style: "display: block; margin-bottom: 10px;" %>
-      <%= form.text_field :email, style: "margin-bottom: 10px;" %>
+      <% if @officer_emails %>
+        <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an email" %>
+      <% else %>
+        <p>No emails available.</p>
+      <% end %>
     </div>
 
     <div>
-      <%= form.label :eventTitle, "Event Title", style: "display: block; margin-bottom: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
-        <% if @event_titles %>
-          <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title", disabled: true %>
-        <% else %>
-          <p>No event titles available.</p>
-        <% end %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <% if @event_titles %>
-          <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
-        <% else %>
-          <p>No event titles available.</p>
-        <% end %>
+      <%= form.label :eventTitle, "Event Title", style: "display: block; margin-bottom: 10px; margin-top: 10px;" %>
+      <% if @event_titles %>
+        <%= form.collection_select :eventTitle, @event_titles, :to_s, :to_s, prompt: "Select an event title" %>
+      <% else %>
+        <p>No event titles available.</p>
       <% end %>
     </div>
 
     <div>
       <%= form.label :cost, style: "display: block; margin-bottom: 10px; margin-top: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
-        <%= form.text_field :cost, style: "margin-bottom: 10px;", readonly: true %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <%= form.text_field :cost, style: "margin-bottom: 10px;" %>
-      <% end %>
+      <%= form.text_field :cost, style: "margin-bottom: 10px;" %>
     </div>
 
     <div>
       <%= form.label :description, style: "display: block; margin-bottom: 10px;" %>
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
-        <%= form.text_field :description, style: "margin-bottom: 10px;", readonly: true %>
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <%= form.text_field :description, style: "margin-bottom: 10px;" %>
-      <% end %>
+      <%= form.text_field :description, style: "margin-bottom: 10px;" %>
     </div>
 
     <div>
@@ -200,14 +120,13 @@
     <div>
       <%= form.label :receipt, style: "display: block; margin-bottom: 10px; margin-top: 10px;" %>
       <% if finance.receipt.present? %>
-        <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+        <div class="image-resizing">
+          <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+        </div>
         <br>
         <br>
       <% end %>
-
-      <% if current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <%= form.file_field :receipt, style: "margin-bottom: 10px; margin-left: 6.75%" %>
-      <% end %>
+      <%= form.file_field :receipt, style: "margin-bottom: 10px; margin-left: 6.75%" %>
     </div>
 
     <div>
@@ -216,7 +135,9 @@
       <% end %>
 
       <% if finance.reimbursement.present? %>
-        <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+        <div class="image-resizing">
+          <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+        </div>
         <br>
         <br>
       <% end %>

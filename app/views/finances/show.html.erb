@@ -1,3 +1,43 @@
+<style>
+  .delete-confirmation-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid black;
+    z-index: 1000;
+  }
+
+
+  .confirm-delete-btn, .cancel-delete-btn {
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .confirm-delete-btn {
+    background-color: #d9534f; /* Red */
+    color: white;
+  }
+
+  .cancel-delete-btn {
+    background-color: #f0ad4e; /* Yellow */
+    color: white;
+  }
+
+  .image-resizing img {
+    max-width: 50%;
+  }
+
+</style>
+
 <br>
 <h1>Viewing finance</h1>
 <br>
@@ -6,13 +46,17 @@
 
 <p>
   <strong>Receipt:</strong> <br> <!-- Line break after the Receipt image -->
-  <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+  <div class="image-resizing">
+    <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+  </div>
 </p>
 
 <p>
   <% if @finance.reimbursement.present? %>
     <strong>Reimbursement:</strong> <br> <!-- Line break after the Receipt image -->
-    <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+    <div class="image-resizing">
+      <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+    </div>
   <% end %>
 </p>
   
@@ -27,7 +71,7 @@
       </button>
     <% end %>
 
-    <%= button_to @finance, method: :delete, onclick: "confirmFinanceDelete()",
+    <%= button_to @finance, method: :delete, class: "destroy-finance-form", onclick: "confirmFinanceDelete()",
     style: "width: 5%; bottom: 50px; right: 100px; position: fixed; background: none; border: none;", 
     onmouseover: "this.style.transform='scale(1.1)';",
     onmouseout: "this.style.transform='scale(1)';" do %>
@@ -69,39 +113,3 @@ function cancelDelete() {
   document.getElementById('deleteConfirmationPopup').style.display = 'none';
 }
 </script>
-
-
-<style>
-  .delete-confirmation-popup {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid black;
-    z-index: 1000;
-  }
-
-
-  .confirm-delete-btn, .cancel-delete-btn {
-    margin-right: 5px;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-
-  .confirm-delete-btn {
-    background-color: #d9534f; /* Red */
-    color: white;
-  }
-
-  .cancel-delete-btn {
-    background-color: #f0ad4e; /* Yellow */
-    color: white;
-  }
-</style>

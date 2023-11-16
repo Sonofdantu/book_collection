@@ -10,7 +10,6 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 50px;
     }
 
     h3 {
@@ -24,18 +23,24 @@
       left: 41.25%;
     }
 
-    .imsa-logo {
-      position: fixed;
-      top: 25px;
-      left: 50px;
-      width: 100px;
+    h1.title {
+      margin-top: 1%;
+      font-size: 3vw;
     }
 
-    .profile-icon {
+    .imsa-icon {
       position: fixed;
-      top: 25px;
-      right: 50px; 
-      width: 100px; 
+      top: 4%;
+      left: 3%;
+      width: 7.5%;
+      border-radius: 20px; 
+    }
+
+    .profile {
+      position: fixed;
+      top: 4%;
+      right: 3%; 
+      width: 7.5%; 
       cursor: pointer;
     }
 
@@ -115,21 +120,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
 
 
-    .side-header {
+    .imsa-header {
       transform: rotate(270deg);
       position: fixed;
       top: 75%; 
       left: 11%; 
       transform-origin: bottom left; 
       letter-spacing: 0.8em; 
-      font-size: 100px; 
+      font-size: 6vw; 
       font-family: 'Mustopha'; 
     }
 
     .floating-button {
       position: fixed;
-      bottom: 40px;
-      right: 40px;
+      bottom: 10%;
+      right: 10%;
     }
 
     .finances {
@@ -141,13 +146,11 @@
       color: #333;
       border: 2px solid #ccc;
       border-radius: 20px;
-      font-size: 50px;
+      font-size: 2.5vw;
       cursor: pointer;
-      height: 75px;
-      width: 75px;
+      height: 10vh;
+      width: 5vw;
       text-align: center;
-      margin-right: 325px;
-      margin-bottom: 20px;
     }
 
     .newFinance button:hover{
@@ -171,7 +174,7 @@
       border: 2px solid #ccc;
       border-radius: 5px;
       padding: 10px;
-      max-width: 500px;
+      max-width: 50vw;
       margin: auto;
       background-color: #f9f9f9;
       margin-bottom: 10px;
@@ -181,7 +184,7 @@
       border: 2px solid #ccc;
       border-radius: 5px;
       padding: 10px;
-      max-width: 500px;
+      max-width: 50vw;
       margin: auto;
       background-color: #f9f9f9;
       margin-bottom: 10px;
@@ -193,30 +196,26 @@
       background-color: #ccc;
       width: 30%;
     }
-    .red-dot1 {
-      width: 22px;
-      height: 22px;
+
+    .red-dot {
+      width: 1.75vw;
+      height: 3.5vh;
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 25%;
+      top: 24.5%;
       left: 73.5%;
       z-index: 1000000;
+      font-size: 1vw;
     }
 
   </style>
 </head>
+
 <body>
-
 <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-  <% if Finance.where(status: 0).count == 1 %>
-      <div class="red-dot1"><%= Finance.where(status: 0).count %>!</div>
-  <% end %>
-<% end %>
-
-<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-  <% if Finance.where(status: 0).count > 1 %>
-      <div class="red-dot2"><%= Finance.where(status: 0).count %>!</div>
+  <% if Finance.where(status: 0).count >= 1 %>
+      <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 
@@ -224,7 +223,6 @@
   <% current_member = Member.find_by(email: current_admin.email) %>
 
   <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-    <br>
     <h1 class = "title">Finance Requests</h1>
     
     <div class="links">
@@ -249,9 +247,6 @@
               <li class="nav-item">
                 <%= link_to 'Events', events_path, class: 'nav-link' %>
               </li>
-              <li class="nav-item">
-                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-              </li>
               <li class="nav-item active">
                 <%= link_to 'Finances', finances_path, class: 'nav-link' %>
               </li>
@@ -263,6 +258,41 @@
     
     <div class="finances">
       <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
+        <h3> Denied </h3>
+        <% @finances.each do |finance| %>
+          <div class = "finance">
+            <% if finance.status == 'Denied' %>
+              <% if finance.email == current_member&.email %>
+                <div class="pending-finance-box">
+                  <%= render finance %>
+                  <div class="showFinance">
+                    <p>
+                      <div style="display: flex;">
+                        <%= link_to finance do %>
+                          <button type="button" style="width: 30%;">
+                            <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
+                          </button>
+                        <% end %>
+                      
+                        <%= link_to edit_finance_path(finance) do %>
+                          <button type="button" style="width: 30%;">
+                            <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
+                          </button>
+                        <% end %>
+                      
+                        <%= button_to finance, method: :delete, style: "width: 30%;" do %>
+                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
+                        <% end %>
+                      </div>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        
+        <hr class="pretty-divider">
         <h3> Pending </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
@@ -281,6 +311,11 @@
                         <button type="button" style= "width: 20%;">
                           <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
                         </button>
+                      <% end %>
+                      <% if finance.email == current_member&.email %>
+                        <%= button_to finance, method: :delete, style: "width: 20%;" do %>
+                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
+                        <% end %>
                       <% end %>
                     </div>
                   </p>
@@ -430,13 +465,15 @@
         </div>
       <% end %>
     </div> 
+  
+    <h1 class="imsa-header">IMSA</h1>
+    <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-icon' %>
+    <% if current_member&.position != 'Pending' %>
+      <a href="<%= profile_path %>">
+        <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile' %>
+      </a>
+    <% end %>
 
   <% end %>
-  <h1 class="side-header">IMSA</h1>
-  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
-  <% if current_member&.position != 'Pending' %>
-    <a href="<%= profile_path %>">
-      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-    </a>
-  <% end %>
 <% end %>
+</body>
