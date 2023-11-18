@@ -9,17 +9,17 @@
   <style>
     body {
       background-color: #f4f4f4;
-      padding-top: 70px;
+      padding-top: 50px; /* Adjust for fixed navbar */
     }
 
     .event-details-container {
-      max-width: 100%;
+      max-width: 300px; /* Adjusted max-width */
       margin: 50px auto;
       background-color: #fff;
       padding: 10px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      top: -5%
+      top: 70%
     }
 
     h5 {
@@ -31,59 +31,24 @@
       margin-bottom: 15px;
     }
 
+    .actions-card {
+      margin-top: 20px;
+    }
+
     .img-fluid {
-      max-width: 100%;
+      width: 70%; /* Adjusted width */
       height: auto;
       display: block;
-      margin: 0 auto;
+      margin: 0 auto; /* Center the image */
     }
 
     .event-image {
-      text-align: center;
-    }
-
-    .actions-card {
-      margin-top: 10%;
-    }
-
-    .delete-confirmation-popup {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      border: 1px solid black;
-      z-index: 1000;
-    }
-
-    .confirm-delete-btn, .cancel-delete-btn {
-      margin-right: 5px;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .confirm-delete-btn {
-      background-color: #d9534f; /* Red */
-      color: white;
-    }
-
-    .cancel-delete-btn {
-      background-color: #f0ad4e; /* Yellow */
-      color: white;
-    }
-
-    .image-resizing img {
-      max-width: 50%;
+      text-align: center; /* Center the card */
+      left: 150%; 
+      top: 0%; 
     }
   </style>
 </head>
-
 <body>
   <!-- Bootstrap Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -116,7 +81,7 @@
           <p class="card-text">
             <strong>Score:</strong> <%= @event.score %>
           </p>
-          <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+          <% if current_member&.position != 'Member' %>
             <p class="card-text">
               <strong>Password:</strong> <%= @event.password %>
             </p>
@@ -140,23 +105,11 @@
     <div class="col-md-4">
       <div class="card p-3 actions-card">
         <h5 class="card-title">Actions</h5>
-        <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-          <%= link_to "Edit this event", edit_event_path(@event), class: "btn btn-primary btn-block mb-2" %>
-          <%= button_to "Delete this event", @event, method: :delete, class: "destroy-event-form", form_class: "event-delete-form", onclick: "confirmEventDelete()", style: "display: none;" %>
-          <button type="button" onclick="confirmEventDelete()" class="btn btn-danger btn-block mb-2">
-            Delete this event
-          </button>
-        <% end %>
+        <%= link_to "Edit this event", edit_event_path(@event), class: "btn btn-primary btn-block mb-2" %>
+        <%= button_to "Destroy this event", @event, method: :delete, class: "btn btn-danger btn-block mb-2" %>
         <%= link_to "Back to Dashboard", events_path, class: "btn btn-secondary btn-block" %>
       </div>
     </div>
-  </div>
-
-  <!-- Confirmation Popup -->
-  <div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
-    <p id="deleteConfirmationMessage">Are you sure you want to delete this event?</p>
-    <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
-    <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
   </div>
   
 
@@ -164,33 +117,5 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script>
-    function confirmEventDelete() {
-      document.getElementById('deleteConfirmationPopup').style.display = 'block';
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-      var destroyForm = document.querySelector('.event-delete-form');
-
-      confirmDeleteBtn.addEventListener('click', function() {
-        try {
-          if (destroyForm) {
-            console.log(destroyForm);
-            destroyForm.submit();
-          } else {
-            console.error('Delete form not found');
-          }
-        } catch (error) {
-          console.error('Error submitting delete form:', error);
-        }
-      });
-    });
-
-    function cancelDelete() {
-      document.getElementById('deleteConfirmationPopup').style.display = 'none';
-    }
-  </script>
 </body>
 </html>

@@ -1,12 +1,10 @@
-<header>
-  <title>Officer Entry Details</title>
-</header>
-
 <p style="color: green"><%= notice %></p>
 
 <%= render @officer_entry %>
 
 <div>
-  <%= link_to "Back to officer leaderboard", officer_index_members_path %>
+  <%= link_to "See all officer point entries", officer_entries_path %> |
   <%= link_to "Add more officer points", new_officer_entry_path %>
+
+  <%= button_to "Destroy this officer entry", @officer_entry, method: :delete %>
 </div>

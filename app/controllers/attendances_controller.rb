@@ -57,11 +57,7 @@ class AttendancesController < ApplicationController
     
     if member && event
       # Decrement the member's total points by the score of the event
-      if member.totalPoints - @event.score >= 0
-        member.decrement(:totalPoints, event.score).save!
-      else
-        member.totalPoints = 0
-      end
+      member.decrement(:totalPoints, event.score).save!
     elsif !member
       flash[:alert] = "Could not find the member to update points."
     elsif !event
