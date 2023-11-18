@@ -49,13 +49,14 @@
   <thead>
     <th>Points</th>
     <th>Description</th>
+    <th>Entry ID</th>
   </thead>
   <tbody>
     <% @member_officer_points.each do |entry| %>
         <tr>
             <td><%= entry.points %></td>
             <td><%= entry.description %></td>
-            <td><%= button_to "Delete", entry, method: :delete %></td>
+            <td><%= entry.id %></td>
         </tr>
     <% end %>
   </tbody>
