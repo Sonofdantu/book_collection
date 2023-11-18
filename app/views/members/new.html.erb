@@ -1,60 +1,49 @@
-<h1>Create New Member</h1>
+<header>
+  <title>New Member</title>
+</header>
 
-<h2><%= render "new_form", member: @member %></h2>
-
-<br>
-
-<style> 
-  h1 {
+<style>
+  body {
     font-family: Arial, sans-serif;
     text-align: center;
-    position: relative;
-    top: 100px;
+    margin: 50px;
   }
+
+  h3 {
+    color: #333;
+    font-size: 1vw;
+  }
+
   h2 {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    position: relative;
-    top: 100px;
-    outline-style: solid;
-    z-index: 2;
+    color: #333;
+    margin-top: 1%;
+    left: 41.25%;
+    font-size: 2vw;
   }
 
-  .triangle {
-    width: 0px;
-    height: 1000px;
-    border-left: 0px solid transparent; 
-    border-right: 1000px solid transparent; 
-    border-bottom: 700px solid maroon; 
-    position: absolute;
-    left: 00px;
-    bottom: 0px;
-}
-.triangle2 {
-    width: 0px;
-    height: 1000px;
-    border-left: 1000px solid transparent; 
-    border-right: 0px solid transparent; 
-    border-bottom: 700px solid maroon; 
-    position: absolute;
-    right: 00px;
-    bottom: 0px;
-}
-
- .link {
-    height: 20px;
-    width: 300px;
-    position: absolute;
-    top: 450px;
-    left: 810px;
-    outline-style: solid;
-    font-family: Arial, sans-serif;
+  h1 {
+    margin-top: 1%;
+    font-size: 3vw;
     text-align: center;
- }
+  }
+
+  p {
+    color: #666;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 5px;
+  }
+
 </style>
 
-<div class="triangle"></div> 
-<div class="triangle2"></div> 
+<h1>Create New Member</h1>
+
+<%= render "form", member: @member %>
+
+<br>
 
 <div class="link">
   <%= link_to "Back to members", members_path %>
