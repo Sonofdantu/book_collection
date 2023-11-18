@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :edit_officer_points
       put :update_officer_points
       get :edit_phone_number
+      get :officer_show
       patch :update_phone_number
     end
 

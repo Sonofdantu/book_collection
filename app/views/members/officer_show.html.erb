@@ -1,5 +1,5 @@
 <header>
-  <title>Member Details</title>
+  <title>Officer Details</title>
 </header>
 
 <style>
@@ -38,32 +38,25 @@
   }
 
   table {
-    width: 100%;
+    margin: auto;
+    text-align: center;
+    width: 50%;
   }
 </style>
 
-<p style="color: green"><%= notice %></p>
-<h2>Member Information</h2>
-<%= render @member %>
-
-<br>
-<br>
-<br>
-<h2>Officer Points</h2>
-
+<h2>Officer Points for <%= @member.full_name %> </h2>
 <table>
   <thead>
-    <p>
-      <th>Points</th>
-      <th>Description</th>
-    </p>
+    <th>Points</th>
+    <th>Description</th>
   </thead>
   <tbody>
     <% @member_officer_points.each do |entry| %>
-      <p>
-        <td><%= entry.points %></td>
-        <td><%= entry.description %></td>
-      </p>
+        <tr>
+            <td><%= entry.points %></td>
+            <td><%= entry.description %></td>
+            <td><%= button_to "Delete", entry, method: :delete %></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
@@ -72,9 +65,8 @@
 <br>
 
 <div class="links">
-  <% if @current_member&.position == 'President' %>
-    <%= link_to "Edit this member", edit_member_path(@member) %>
-  <% end %>
-  <%= link_to "Back to members", members_path %>
+  <%= link_to "Back to officer leaderboard", officer_index_members_path %>
 </div>
 <div class="box"> </div>
+
+
