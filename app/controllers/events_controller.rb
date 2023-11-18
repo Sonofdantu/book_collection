@@ -66,11 +66,7 @@ class EventsController < ApplicationController
       
       if member
         # Decrement the member's total points by the event's score
-        if member.totalPoints - event_score >= 0
-          member.decrement(:totalPoints, event.score).save!
-        else
-          member.totalPoints = 0
-        end
+        member.decrement(:totalPoints, event_score).save!
         
         # Destroy the attendance record
         attendance.destroy
