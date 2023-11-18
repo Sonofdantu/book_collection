@@ -321,6 +321,7 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
+          <td><%= link_to 'Show', officer_show_member_path %></td>
         </tr>
       <%else%>
         <tr class = "info">
@@ -330,6 +331,7 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
+          <td><%= link_to 'Show', officer_show_member_path %></td>
         </tr>
       <%end%>
     <% end %>
