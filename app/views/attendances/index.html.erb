@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<header>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>Attendance</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
   <style>
@@ -15,27 +15,33 @@
 
     h3 {
       color: #333;
-      font-size: 25px;
+      font-size: 5vw;
     }
 
     h2 {
       color: #333;
-      margin-top: 30px;
+      margin-top: 1%;
       left: 41.25%;
+      font-size: 2vw;
+    }
+
+    h1 {
+      margin-top: 1%;
+      font-size: 3vw;
     }
 
     .imsa-logo {
       position: fixed;
-      top: 25px;
-      left: 50px;
-      width: 100px;
+      top: 4%;
+      left: 3%;
+      width: 7.5%;
     }
 
     .profile-icon {
       position: fixed;
-      top: 25px;
-      right: 50px; 
-      width: 100px; 
+      top: 4%;
+      right: 3%; 
+      width: 7.5%; 
       cursor: pointer;
     }
 
@@ -114,18 +120,6 @@
     }
     @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
 
-
-    .side-header {
-      transform: rotate(270deg);
-      position: fixed;
-      top: 75%; 
-      left: 11%;  
-      transform-origin: bottom left; 
-      letter-spacing: 0.8em; 
-      font-size: 100px; 
-      font-family: 'Mustopha'; 
-    }
-
     .floating-button {
       position: fixed;
       bottom: 40px;
@@ -195,113 +189,157 @@
     }
 
     .red-dot {
-      width: 22px;
-      height: 22px;
+      width: 1.75vw;
+      height: 3.5vh;
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 184px;
-      left: 1422px;
+      top: 24.5%;
+      left: 73.5%;
       z-index: 1000000;
+      font-size: 1vw;
     }
-
   </style>
-</head>
+</header>
   
 <p style="color: green"><%= notice %></p>
 
-<% if current_member&.position != 'Member' %>
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count > 0 %>
       <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %> 
 
-<h1>Attendances</h1>
+<h1>Attendance</h1>
 
-<div class="links">
-  <div class="admin-links">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+  <div class="links">
+    <div class="admin-links">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Members', members_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Events', events_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</div>
-
-<br>
-
-<div id="attendances">
-  <% @events.each do |event| %>
-    <% @attendances.each do |attendance| %>
-      <% if attendance.event_name == event.title %>
-        <h2><%= event.title %></h2>
-        <div class="pending-finance-box">
-          <%= render attendance %>
-          <div class="showFinance">
-            <p>
-              <div style="display: flex;">
-                <%= link_to attendance do %>
-                  <button type="button" style="width: 30%;">
-                    <%= image_tag "view_icon.png", alt: "Show Attendance", style: "width: 100%; height: auto;" %>
-                  </button>
-                <% end %>
-                      
-                <%= link_to edit_attendance_path(attendance) do %>
-                  <button type="button" style="width: 30%;">
-                    <%= image_tag "edit_icon.png", alt: "Edit Attendance", style: "width: 100%; height: auto;" %>
-                  </button>
-                <% end %>
-                      
-                <%= button_to attendance, method: :delete, style: "width: 30%;" do %>
-                  <%= image_tag "delete_icon.png", alt: "Delete Attendance", style: "width: 100%; height: auto;" %>
-                <% end %>
-              </div>
-            </p>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Members', members_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Events', events_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+            </li>
+          </ul>
         </div>
+      </nav>
+    </div>
+  </div>
+
+  <br>
+
+  <div id="attendances">
+    <% @events.each do |event| %>
+      <% @attendances.each do |attendance| %>
+        <% if attendance.event_name == event.title %>
+          <h2><%= event.title %></h2>
+          <div class="pending-finance-box">
+            <%= render attendance %>
+            <div class="showFinance">
+              <p>
+                <div style="display: flex;">
+                  <%= link_to attendance do %>
+                    <button type="button" style="width: 30%;">
+                      <%= image_tag "view_icon.png", alt: "Show Attendance", style: "width: 100%; height: auto;" %>
+                    </button>
+                  <% end %>
+                        
+                  <%= link_to edit_attendance_path(attendance) do %>
+                    <button type="button" style="width: 30%;">
+                      <%= image_tag "edit_icon.png", alt: "Edit Attendance", style: "width: 100%; height: auto;" %>
+                    </button>
+                  <% end %>
+                        
+                  <%= button_to attendance, method: :delete, style: "width: 30%;" do %>
+                    <%= image_tag "delete_icon.png", alt: "Delete Attendance", style: "width: 100%; height: auto;" %>
+                  <% end %>
+                </div>
+              </p>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<div class="floating-button">
-  <div class = "newFinance">
-    <% if @current_member&.position != 'Member' %>
+  <div class="floating-button">
+    <div class = "newFinance">
       <%= link_to new_attendance_path do %>
         <button type="button">+</button>
       <% end %>
+    </div>
+  </div>
+
+<% elsif current_member&.position == 'Member'%>
+  <div class="links">
+    <div class="admin-links">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Events', events_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Leaderboard', members_path, class: 'nav-link' %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <br>
+
+  <div id="attendances">
+    <% @events.each do |event| %>
+      <% @attendances.each do |attendance| %>
+        <% if attendance.event_name == event.title %>
+          <h2><%= event.title %></h2>
+          <div class="pending-finance-box">
+            <%= render attendance %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
-</div>
+<% end %>
 
-<h1 class="side-header">IMSA</h1>
-<%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<%= link_to root_path do %>
+  <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-logo' %>
+<% end %>
+
 <% if current_member&.position != 'Pending' %>
   <a href="<%= profile_path %>">
     <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
   </a>
 <% end %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
