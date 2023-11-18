@@ -321,6 +321,7 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
+          <td><%= link_to 'Show', officer_show_member_path(member) %></td>
         </tr>
       <%else%>
         <tr class = "info">
@@ -330,6 +331,7 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
+          <td><%= link_to 'Show', officer_show_member_path(member) %></td>
         </tr>
       <%end%>
     <% end %>
@@ -338,6 +340,7 @@
 <%= link_to "Back to members", members_path %>
 <% if @current_member&.position == 'President' %>
   <%= link_to 'Add Officer Points', new_officer_entry_path %>
+  <%= link_to 'See All Officer Entries', officer_entries_path %>
 <%end%>
 
 <script>
