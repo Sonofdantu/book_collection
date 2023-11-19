@@ -1,3 +1,47 @@
+<header>
+  <title>Member Details</title>
+</header>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+  }
+
+  h3 {
+    color: #333;
+    font-size: 5vw;
+  }
+
+  h2 {
+    color: #333;
+    margin-top: 1%;
+    left: 41.25%;
+    font-size: 2vw;
+  }
+
+  h1 {
+    margin-top: 1%;
+    font-size: 3vw;
+    text-align: center;
+  }
+
+  p {
+    color: #666;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 5px;
+  }
+
+  table {
+    width: 100%;
+  }
+</style>
+
 <p style="color: green"><%= notice %></p>
 <h2>Member Information</h2>
 <%= render @member %>
@@ -9,23 +53,28 @@
 
 <table>
   <thead>
-    <tr>
+    <p>
       <th>Event Name</th>
       <!-- Add other relevant headers -->
-    </tr>
+    </p>
   </thead>
   <tbody>
     <% @member_attendances.each do |attendance| %>
-      <tr>
+      <p>
         <td><%= attendance.event_name %></td>
         <!-- Display other attendance attributes as needed -->
-      </tr>
+      </p>
     <% end %>
   </tbody>
 </table>
 
+<br>
+<br>
+
 <div class="links">
-  <%= link_to "Edit this member", edit_member_path(@member) %> |
+  <% if @current_member&.position == 'President' %>
+    <%= link_to "Edit this member", edit_member_path(@member) %>
+  <% end %>
   <%= link_to "Back to members", members_path %>
 </div>
 <div class="box"> </div>

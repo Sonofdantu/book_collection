@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GoogleOauthDevise</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -62,8 +61,9 @@
         }
 
         .welcomeMsg{
-          top: 35px;
+          top: 1%;
           left: 41.75%;
+          font-size: 1vw;
         }
 
     </style>
@@ -80,7 +80,7 @@
     <h2>Texas A&M Ismaili Muslim Student Association</h2> <br> <br>
     
     <div class="logo-container">
-      <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %> <!-- New image added -->
+      <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-logo' %> <!-- New image added -->
     </div>
 
     <span class="logged-out-message">You are logged out.</span>

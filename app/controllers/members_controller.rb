@@ -67,6 +67,14 @@ class MembersController < ApplicationController
   def officer_index
     @members = Member.where("position != 'Member' and position != 'Pending'").order(officer_points: :desc)
   end
+
+  def officer_show
+    # Existing set_member call
+    set_member
+
+    # Fetching attendance data for the member
+    @member_officer_points = OfficerEntry.where(email: @member.email)
+  end
   
     # Individual officer point edit and update
   def edit_officer_points
