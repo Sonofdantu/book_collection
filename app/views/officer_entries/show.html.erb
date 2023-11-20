@@ -8,5 +8,7 @@
 
 <div>
   <%= link_to "Back to officer leaderboard", officer_index_members_path %>
-  <%= link_to "Add more officer points", new_officer_entry_path %>
+  <% if current_member&.position == 'President' %>
+    <%= link_to "Add more officer points", new_officer_entry_path %>
+  <% end %>
 </div>
