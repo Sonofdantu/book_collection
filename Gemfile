@@ -78,10 +78,12 @@ end
 gem "yaml_db"
 
 gem "rubocop"
+gem "rubocop-shopify", require: false
 
 gem 'devise'
 gem 'omniauth', "~> 1.9.1"
 gem 'omniauth-google-oauth2'
 
-gem "rubocop-shopify", require: false
+gem 'rspec-rails'
+gem 'brakeman'
 gem 'simplecov', require: false
