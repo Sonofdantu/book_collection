@@ -1,10 +1,28 @@
 <!-- app/views/members/index.html.erb -->
 <!DOCTYPE html>
 <html lang="en">
-<header>
+
+<style>
+  .link-like-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .link-like-button:hover {
+    color: #00C;
+    text-decoration: underline;
+  }
+</style>
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Officers</title>
+  <title>Officer Leaderboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
   <style>
@@ -14,44 +32,12 @@
       margin: 50px;
     }
 
-    h3 {
-      color: #333;
-      font-size: 5vw;
-    }
-
-    h2 {
-      color: #333;
-      margin-top: 1%;
-      left: 41.25%;
-      font-size: 2vw;
-    }
-
-    h1 {
-      margin-top: 1%;
-      font-size: 3vw;
-    }
-
-    .imsa-logo {
-      position: fixed;
-      top: 4%;
-      left: 3%;
-      width: 7.5%;
-    }
-
-    .profile-icon {
-      position: fixed;
-      top: 4%;
-      right: 3%; 
-      width: 7.5%; 
-      cursor: pointer;
-    }
-
     h2 {
       color: #333;
     }
 
     p {
-      color: #666;åå
+      color: #666;
     }
 
     a {
@@ -96,6 +82,15 @@
       color: #fff;
     }
 
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #007bff;
+      padding: 5px; 
+      color: #fff;
+    }
+
     .content {
       margin-top: 60px; 
     }
@@ -103,9 +98,9 @@
     .navbar {
       background-color: #007bff;
       padding: 5px;
-      width: 55%;
+      width: 57%;
       margin: auto; 
-      margin-top: 5vh;
+      margin-top: 15vh; 
       display: flex;
       align-items: center; 
       justify-content: space-evenly;
@@ -116,22 +111,30 @@
       color: #fff;
     }
 
+
     .navbar .active a {
       background-color: #C0C0C0; 
       color: #007bff; 
       border-radius: 5px; 
-    }
-
-    .navbar-nav {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+      
     }
 
     .member-navbar {
       width: 30%;
     }
     @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
+
+
+    .side-header {
+      transform: rotate(270deg);
+      position: fixed;
+      top: 75%; 
+      left: 13%; 
+      transform-origin: bottom left; 
+      letter-spacing: 0.8em; 
+      font-size: 120px; 
+      font-family: 'Mustopha'; 
+    }
 
     table, thead, tbody, tr, td {
       font-family: Arial, sans-serif;
@@ -160,13 +163,13 @@
     }
 
     .red-dot {
-      width: 1.75vw;
-      height: 3.5vh;
+      width: 22px;
+      height: 22px;
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 24.5%;
-      left: 73.5%;
+      top: 190px;
+      left: 1425px;
       z-index: 1000000;
       font-size: 1vw;
       color: white;
@@ -187,92 +190,89 @@
       text-decoration: underline;
     }
   </style>
-</header>
+</head>
 
-<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+<body>
+
+<% if current_member&.position != 'Member' %>
   <% if Finance.where(status: 0).count > 0 %>
     <div class="red-dot"><%= Finance.where(status: 0).count %></div>
   <% end %>
 <% end %> 
 
-<% if admin_signed_in? %>
-  <% current_member = Member.find_by(email: current_admin.email) %>
-  <h1 class = "title">Officers</h1>
-  <% if current_member&.position == 'President' %>
+  <% if admin_signed_in? %>
+    <% current_member = Member.find_by(email: current_admin.email) %>
+    <% if current_member&.position == 'President' %>
+      <div class="admin-links">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Members', members_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item active">
+                <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Events', events_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Finances', finances_path, class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <h2 class = "title">Officer Leaderboard</h2>
+      </div>
+    <% else %>
+    <h2>Officer Leaderboard</h2>
     <div class="admin-links">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to 'Members', members_path, class: 'nav-link' %>
-            </li>
-
-            <li class="nav-item active">
-              <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to 'Events', events_path, class: 'nav-link' %>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to 'Finances', finances_path, class: 'nav-link' %>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  <% elsif current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-    <div class="admin-links">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
             <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
             </li>
-
             <li class="nav-item">
               <%= link_to 'Members', members_path, class: 'nav-link' %>
             </li>
-
             <li class="nav-item active">
-              <%= link_to 'Officers', officer_index_members_path, class: 'nav-link' %>
+              <%= link_to 'Officer Members', officer_index_members_path, class: 'nav-link' %>
             </li>
-
             <li class="nav-item">
               <%= link_to 'Events', events_path, class: 'nav-link' %>
             </li>
-            
+            <li class="nav-item">
+              <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Officer Entries', officer_entries_path, class: 'nav-link' %>
+            </li>
             <li class="nav-item">
               <%= link_to 'Finances', finances_path, class: 'nav-link' %>
             </li>
           </ul>
         </div>
       </nav>
+      <h2>Officer Leaderboard</h2>
     <% end %>
   <% end %>
-
-  <%= link_to root_path do %>
-    <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-logo' %>
-  <% end %>
-
-  <% if current_member&.position != 'Pending' %>
-    <a href="<%= profile_path %>">
-      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
-    </a>
-  <% end %>
+  <h1 class="side-header">IMSA</h1>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -301,6 +301,7 @@
 
 </body>
 
+<h1>Officers</h1>
 <table class="centered">
   <thead>
     <tr>
@@ -322,7 +323,6 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
-          <td><%= link_to 'Show', officer_show_member_path(member) %></td>
         </tr>
       <%else%>
         <tr class = "info">
@@ -332,7 +332,6 @@
           <td><%= member.phone_number %></td>
           <td><%= member.position %></td>
           <td><%= member.officer_points %></td>
-          <td><%= link_to 'Show', officer_show_member_path(member) %></td>
         </tr>
       <%end%>
     <% end %>
@@ -341,7 +340,6 @@
 <%= link_to "Back to members", members_path %>
 <% if @current_member&.position == 'President' %>
   <%= link_to 'Add Officer Points', new_officer_entry_path %>
-  <%= link_to 'See All Officer Entries', officer_entries_path %>
 <%end%>
 
 <script>

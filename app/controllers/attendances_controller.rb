@@ -4,7 +4,6 @@ class AttendancesController < ApplicationController
   # GET /attendances or /attendances.json
   def index
     @attendances = Attendance.all
-    @events = Event.all
   end
 
   # GET /attendances/1 or /attendances/1.json
@@ -26,7 +25,9 @@ class AttendancesController < ApplicationController
 
     respond_to do |format|
       if @attendance.save
-        format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
+        format.html do
+ redirect_to attendance_url(@attendance), notice: "Attendance was successfully created."
+        end
         format.json { render :show, status: :created, location: @attendance }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,9 @@ class AttendancesController < ApplicationController
   def update
     respond_to do |format|
       if @attendance.update(attendance_params)
-        format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully updated." }
+        format.html do
+ redirect_to attendance_url(@attendance), notice: "Attendance was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @attendance }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,11 +60,7 @@ class AttendancesController < ApplicationController
     
     if member && event
       # Decrement the member's total points by the score of the event
-      if member.totalPoints - @event.score >= 0
-        member.decrement(:totalPoints, event.score).save!
-      else
-        member.totalPoints = 0
-      end
+      member.decrement(:totalPoints, event.score).save!
     elsif !member
       flash[:alert] = "Could not find the member to update points."
     elsif !event
