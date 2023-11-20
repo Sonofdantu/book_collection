@@ -188,7 +188,6 @@
       left: 1430px;
       z-index: 1000000;
       font-size: 1vw;
-      color: white;
     }
 
     .red-dot2 {
@@ -208,7 +207,7 @@
 
 <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count >= 1 %>
-      <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+      <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 
