@@ -97,7 +97,6 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
-    docile (1.4.0)
     erubi (1.12.0)
     faraday (2.7.11)
       base64
@@ -265,12 +264,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simplecov (0.21.2)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.12.3)
-    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -333,7 +326,6 @@ DEPENDENCIES
   rubocop
   rubocop-shopify
   selenium-webdriver
-  simplecov
   sprockets-rails
   stimulus-rails
   turbo-rails

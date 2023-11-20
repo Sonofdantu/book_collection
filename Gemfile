@@ -84,4 +84,3 @@ gem 'omniauth', "~> 1.9.1"
 gem 'omniauth-google-oauth2'
 
 gem "rubocop-shopify", require: false
-gem 'simplecov', require: false
