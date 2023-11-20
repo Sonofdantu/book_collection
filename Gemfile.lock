@@ -335,7 +335,6 @@ DEPENDENCIES
   rubocop
   rubocop-shopify
   selenium-webdriver
-  simplecov
   sprockets-rails
   stimulus-rails
   turbo-rails
