@@ -86,4 +86,3 @@ gem 'omniauth-google-oauth2'
 
 gem 'rspec-rails'
 gem 'brakeman'
-gem 'simplecov', require: false
