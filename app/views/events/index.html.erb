@@ -294,7 +294,9 @@
               <div class="col-md-12">
                 <%= render event %>
                 <p>
-                  <%= link_to "Show this event", event %>
+                  <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+                    <%= link_to "Show this event", event %>
+                  <% end %>
                   <% if event.attendanceVisible || (current_member&.position != 'Member' && current_member&.position != 'Pending') %>
                     <%= link_to "View Attendees", peopleAttending_event_path(event), class: 'btn btn-info' %>
                   <% end %>
