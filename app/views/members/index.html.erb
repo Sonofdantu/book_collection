@@ -367,7 +367,7 @@
                   </td>
                 <% end %>
               <% else %>
-                <% if Member.where(position: 'President').count > 1 %>
+                <% if Member.where(position: 'President').count > 1 && current_member&.position == 'President'%>
                   <td><%= link_to 'Edit', edit_member_path(member) %></td>
                   
                   <td>
