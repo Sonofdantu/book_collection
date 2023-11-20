@@ -198,16 +198,19 @@
       top: 190px;
       left: 1410px;
       z-index: 1000000;
+      font-size: 1vw;
+      color: white;
     }
 
   </style>
 </head>
 <body>
-<% if current_member&.position != 'Member' %>
-  <% if Finance.where(status: 0).count > 0 %>
-      <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+
+  <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+    <% if Finance.where(status: 0).count > 0 %>
+        <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+    <% end %>
   <% end %>
-<% end %>
 
 <% if admin_signed_in? %>
   <% current_member = Member.find_by(email: current_admin.email) %>
@@ -291,21 +294,18 @@
               <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
             </li>
 
-            <li class="nav-item active">
-              <%= link_to 'Events', events_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Leaderboard', events_path, class: 'nav-link' %>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>  
+              <li class="nav-item active">
+                <%= link_to 'Events', events_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Leaderboard', members_path, class: 'nav-link' %>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>  
+    <% end %>
   <% end %>
-<% end %>
-<h1 class="side-header">IMSA</h1>
-</div>
-<h1 style="visibility: hidden; color: white;">f</h1>
 
 <div class="container">
   <div class="row">

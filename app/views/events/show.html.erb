@@ -1,4 +1,98 @@
-<!-- show.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+
+    .event-details-container {
+      max-width: 100%;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      top: -5%
+    }
+
+    h5 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .event-image {
+      text-align: center;
+    }
+
+    .actions-card {
+      margin-top: 10%;
+    }
+
+    .delete-confirmation-popup {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      border: 1px solid black;
+      z-index: 1000;
+    }
+
+    .confirm-delete-btn, .cancel-delete-btn {
+      margin-right: 5px;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .confirm-delete-btn {
+      background-color: #d9534f; /* Red */
+      color: white;
+    }
+
+    .cancel-delete-btn {
+      background-color: #f0ad4e; /* Yellow */
+      color: white;
+    }
+
+    .image-resizing img {
+      max-width: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="<%= root_path %>" style="color: black; text-align: left;">
+    <img src="<%= asset_path('back_arrow_icon.png') %>" alt="Arrow Icon" class="mr-2" style="width: 5%; height: auto; cursor: pointer;" onclick="redirectToRoot(); return false;">
+    </a>
+  </nav>
+
+  <h1> Event Details </h1>
 
   <div class="container">
     <div class="row">
@@ -46,17 +140,18 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div>
-        <%= link_to "Edit this event", edit_event_path(@event) %> |
-        <%= link_to "Back to events", events_path %>
-      </div>
-      <div>
-        <%= button_to "Destroy this event", @event, method: :delete, form_class: "destroy-event-form", style: "display: none;" %>
-        <button class="link-like-button" onclick="confirmEventDelete('<%= escape_javascript(@event.title) %>')">Destroy this event</button>
+      <div class="card p-3 actions-card">
+        <h5 class="card-title">Actions</h5>
+        <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+          <%= link_to "Edit this event", edit_event_path(@event), class: "btn btn-primary btn-block mb-2" %>
+          <%= button_to "Delete this event", @event, method: :delete, class: "destroy-event-form", form_class: "event-delete-form", onclick: "confirmEventDelete()", style: "display: none;" %>
+          <button type="button" onclick="confirmEventDelete()" class="btn btn-danger btn-block mb-2">
+            Delete this event
+          </button>
+        <% end %>
       </div>
     </div>
   </div>
-</div>
 
 <!-- Confirmation Popup -->
 <div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
@@ -80,58 +175,13 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-function cancelDelete() {
-  document.getElementById('deleteConfirmationPopup').style.display = 'none';
-}
-</script>
+    function cancelDelete() {
+      document.getElementById('deleteConfirmationPopup').style.display = 'none';
+    }
 
-<style>
-  .link-like-button {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    font-family: arial, sans-serif;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .link-like-button:hover {
-    color: #00C;
-    text-decoration: underline;
-  }
-
-  .delete-confirmation-popup {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid black; /* This adds the black border */
-  z-index: 1000;
-  }
-
-
-  .confirm-delete-btn, .cancel-delete-btn {
-    margin-right: 5px;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-
-  .confirm-delete-btn {
-    background-color: #d9534f; /* Red */
-    color: white;
-  }
-
-  .cancel-delete-btn {
-    background-color: #f0ad4e; /* Yellow */
-    color: white;
-  }
-</style>
-
+    function redirectToRoot() {
+      window.location.href = '<%= events_path %>';
+    }
+  </script>
+</body>
+</html>
