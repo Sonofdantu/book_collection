@@ -1,7 +1,4 @@
 <!-- app/views/events/peopleAttending.html.erb -->
-<header>
-  <title>Attendance</title>
-</header>
 
 <h1>People Attending <%= @event.title %></h1>
 
@@ -11,4 +8,4 @@
   <% end %>
 </ul>
 
-<%= link_to 'Back to Events', events_path %>
+<%= link_to 'Back to Event', event_path(@event) %>

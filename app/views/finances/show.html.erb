@@ -1,6 +1,75 @@
-<header>
-  <title>Finance Request Details</title>
-</header>
+<br>
+<h1>Viewing finance</h1>
+<br>
+
+<%= render @finance %>
+
+<p>
+  <strong>Receipt:</strong> <br> <!-- Line break after the Receipt image -->
+  <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
+</p>
+
+<p>
+  <% if @finance.reimbursement.present? %>
+    <strong>Reimbursement:</strong> <br> <!-- Line break after the Receipt image -->
+    <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
+  <% end %>
+</p>
+  
+<div>
+  <% if @finance.status == 'Pending' %>
+    <%= link_to edit_finance_path(@finance) do %>
+      <button type="button" 
+      style="width: 5%; bottom: 50px; right: 225px; position: fixed; background: none; border: none;" 
+      onmouseover="this.style.transform='scale(1.1)';"
+      onmouseout="this.style.transform='scale(1)';">
+        <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
+      </button>
+    <% end %>
+
+    <%= button_to @finance, method: :delete, onclick: "confirmFinanceDelete()",
+    style: "width: 5%; bottom: 50px; right: 100px; position: fixed; background: none; border: none;", 
+    onmouseover: "this.style.transform='scale(1.1)';",
+    onmouseout: "this.style.transform='scale(1)';" do %>
+      <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
+    <% end %>
+  <% end %>  
+
+  <%= link_to finances_path do %>
+    <button type="button" style= "width: 5%; border: none; background: none; position: fixed; top: 25px; left: 25px;"
+    onmouseover="this.style.transform='scale(1.1)';"
+    onmouseout="this.style.transform='scale(1)';">
+      <%= image_tag "back_arrow_icon.png", alt: "Back to Finance Dashboard", style: "width: 100%; height: auto;" %>
+    </button>
+  <% end %>
+</div>
+
+<!-- Confirmation Popup -->
+<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
+  <p id="deleteConfirmationMessage">Are you sure you want to delete this finance record?</p>
+  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
+  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
+</div>
+
+<script>
+function confirmFinanceDelete() {
+  document.getElementById('deleteConfirmationPopup').style.display = 'block';
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  var destroyForm = document.querySelector('.destroy-finance-form');
+
+  confirmDeleteBtn.addEventListener('click', function() {
+    destroyForm.submit();
+  });
+});
+
+function cancelDelete() {
+  document.getElementById('deleteConfirmationPopup').style.display = 'none';
+}
+</script>
+
 
 <style>
   .delete-confirmation-popup {
@@ -15,6 +84,7 @@
     border: 1px solid black;
     z-index: 1000;
   }
+
 
   .confirm-delete-btn, .cancel-delete-btn {
     margin-right: 5px;
@@ -34,94 +104,4 @@
     background-color: #f0ad4e; /* Yellow */
     color: white;
   }
-
-  .image-resizing img {
-    max-width: 50%;
-  }
 </style>
-
-<br>
-<h1>Viewing Finance Request</h1>
-<br>
-
-<%= render @finance %>
-
-<p>
-  <strong>Receipt:</strong> <br> <!-- Line break after the Receipt image -->
-  <div class="image-resizing">
-    <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
-  </div>
-</p>
-
-<p>
-  <% if @finance.reimbursement.present? %>
-    <strong>Reimbursement:</strong> <br> <!-- Line break after the Receipt image -->
-    <div class="image-resizing">
-      <%= image_tag "data:image/png;base64,#{@finance.reimbursement}", alt: 'Reimbursement' if @finance.reimbursement.present? %>
-    </div>
-  <% end %>
-</p>
-  
-<div>
-  <% if @finance.status == 'Pending' %>
-    <%= link_to edit_finance_path(@finance) do %>
-      <button type="button" 
-      style="width: 5%; bottom: 50px; right: 225px; position: fixed; background: none; border: none;" 
-      onmouseover="this.style.transform='scale(1.1)';"
-      onmouseout="this.style.transform='scale(1)';">
-        <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
-      </button>
-    <% end %>
-
-    <%= button_to "Delete Finance", @finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" %>
-      <button type="button" onclick="confirmFinanceDelete()" 
-        style="width: 5%; bottom: 50px; right: 100px; position: fixed; background: none; border: none;" 
-        onmouseover="this.style.transform='scale(1.1)';"
-        onmouseout="this.style.transform='scale(1)';">
-        <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
-      </button>
-    <% end %>  
-
-  <%= link_to finances_path do %>
-    <button type="button" style= "width: 5%; border: none; background: none; position: fixed; top: 25px; left: 25px;"
-    onmouseover="this.style.transform='scale(1.1)';"
-    onmouseout="this.style.transform='scale(1)';">
-      <%= image_tag "back_arrow_icon.png", alt: "Back to Finance Dashboard", style: "width: 100%; height: auto;" %>
-    </button>
-  <% end %>
-</div>
-
-<!-- Confirmation Popup -->
-<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
-  <p id="deleteConfirmationMessage">Are you sure you want to delete this finance record?</p>
-  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
-  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
-</div>
-
-<script>
-  function confirmFinanceDelete() {
-    document.getElementById('deleteConfirmationPopup').style.display = 'block';
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    var destroyForm = document.querySelector('.finance-delete-form');
-
-    confirmDeleteBtn.addEventListener('click', function() {
-      try {
-        if (destroyForm) {
-          console.log(destroyForm);
-          destroyForm.submit();
-        } else {
-          console.error('Delete form not found');
-        }
-      } catch (error) {
-        console.error('Error submitting delete form:', error);
-      }
-    });
-  });
-
-  function cancelDelete() {
-    document.getElementById('deleteConfirmationPopup').style.display = 'none';
-  }
-</script>
