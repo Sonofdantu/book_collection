@@ -1,9 +1,17 @@
-<h1>New event</h1>
+
 
 <%= render "form", event: @event %>
 
 <br>
 
 <div>
-  <%= link_to "Back to events", events_path %>
+<div>
+<%= link_to events_path do %>
+  <button type="button" style= "width: 5%; border: none; background: none; position: fixed; top: 25px; left: 25px;"
+  onmouseover="this.style.transform='scale(1.1)';"
+  onmouseout="this.style.transform='scale(1)';">
+    <%= image_tag "back_arrow_icon.png", alt: "Back to Events Dashboard", style: "width: 100%; height: auto;" %>
+  </button>
+<% end %>
+</div>
 </div>

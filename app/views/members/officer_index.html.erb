@@ -151,18 +151,39 @@
       padding: 5px;
     }
 
-    tr:nth-child(even) {background-color: #f2f2f2;}
+    tr:nth-child(even):not(.viewer) {background-color: #f2f2f2;}
+
+    .viewer {
+      background-color: #ace6d0;
+    }
 
     th {
       background-color: #04AA6D;
       color: white;
     }
 
+    .red-dot {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 190px;
+      left: 1425px;
+      z-index: 1000000;
+    }
 
   </style>
 </head>
 
 <body>
+
+<% if current_member&.position != 'Member' %>
+  <% if Finance.where(status: 0).count > 0 %>
+    <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
+  <% end %>
+<% end %> 
+
   <% if admin_signed_in? %>
     <% current_member = Member.find_by(email: current_admin.email) %>
     <% if current_member&.position == 'President' %>
@@ -208,7 +229,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
             <%= link_to 'Dashboard', root_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
@@ -271,19 +292,32 @@
       <th>ID</th>
       <th>Full Name</th>
       <th>Email</th>
+      <th>Phone Number</th>
       <th>Position</th>
       <th>Officer Points</th>
     </tr>
   </thead>
   <tbody>
     <% @members.each do |member| %>
-      <tr>
-        <td><%= member.id %></td>
-        <td><%= member.full_name %></td>
-        <td><%= member.email %></td>
-        <td><%= member.position %></td>
-        <td><%= member.officer_points %></td>
-      </tr>
+      <% if member.email == @current_member&.email %>
+        <tr class = "viewer">
+          <td><%= member.id %></td>
+          <td><%= member.full_name %></td>
+          <td><%= member.email %></td>
+          <td><%= member.phone_number %></td>
+          <td><%= member.position %></td>
+          <td><%= member.officer_points %></td>
+        </tr>
+      <%else%>
+        <tr class = "info">
+          <td><%= member.id %></td>
+          <td><%= member.full_name %></td>
+          <td><%= member.email %></td>
+          <td><%= member.phone_number %></td>
+          <td><%= member.position %></td>
+          <td><%= member.officer_points %></td>
+        </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>

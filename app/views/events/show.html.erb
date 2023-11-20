@@ -1,11 +1,49 @@
 <!-- show.html.erb -->
 
-<div class="container">
-  <!-- ... other content ... -->
-  <div class="row">
-    <div class="col-md-8">
-      <p style="color: green"><%= notice %></p>
-      <%= render @event %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"> <!-- Updated col-md-3 -->
+        <div class="card p-3 event-image">
+          <h5 class="card-title">Event Image</h5>
+          <%= image_tag "data:image/png;base64,#{@event.image}", alt: 'Image', class: "img-fluid"  %>
+        </div>
+      </div>
+      <div class="col-md-9"> <!-- Updated col-md-9 -->
+        <div class="card bg-light p-3 event-details-container">
+          <h5 class="card-title">
+            <%= @event.title %>
+            <% if @event.start_time.present? && @event.end_time.present? && @current_time.present? %>
+              <% if @event.start_time < @current_time && @event.end_time > @current_time %>
+                <span class="ongoing-marker">Ongoing</span>
+              <% elsif @event.start_time < @current_time %>
+                <span class="ongoing-marker">Past</span>
+              <% else %>
+                <span class="ongoing-marker">Upcoming</span>
+              <% end %>
+            <% end %>
+          </h5>
+
+          <p class="card-text">
+            <strong>Score:</strong> <%= @event.score %>
+          </p>
+          <% if current_member&.position != 'Member' %>
+            <p class="card-text">
+              <strong>Password:</strong> <%= @event.password %>
+            </p>
+          <% end %>
+          <p class="card-text">
+            <strong>Start time:</strong> <%= @event.start_time.strftime("%B %d, %Y %H:%M %p %Z") %>
+          </p>
+
+          <p class="card-text">
+            <strong>End time:</strong> <%= @event.end_time %>
+          </p>
+
+          <p class="card-text">
+            <strong>Attendance Visibility:</strong> <%= @event.attendanceVisible %>
+          </p>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div>

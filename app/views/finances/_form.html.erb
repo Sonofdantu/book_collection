@@ -189,15 +189,16 @@
 
     <div>
       <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
-        <%= form.label :resolved, style: "display: block; margin-bottom: 10px;" %>
-        <%= form.check_box :resolved, style: "margin-bottom: 10px;" %>
+        <%= form.label :status, style: "display: block; margin-bottom: 10px;" %>
+        <%= form.select :status, Finance.statuses.keys, {}, { style: "margin-bottom: 10px;" } %>
       <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <%= form.check_box :resolved, style: "display: none;" %>
+        <%= form.label :status, style: "display: block; margin-bottom: 10px;" %>  
+        <%= form.select :status, Finance.statuses.keys, {}, { disabled: true } %>
       <% end %>
     </div>
 
     <div>
-      <%= form.label :receipt, style: "display: block; margin-bottom: 10px;" %>
+      <%= form.label :receipt, style: "display: block; margin-bottom: 10px; margin-top: 10px;" %>
       <% if finance.receipt.present? %>
         <%= image_tag "data:image/png;base64,#{@finance.receipt}", alt: 'Receipt' if @finance.receipt.present? %>
         <br>

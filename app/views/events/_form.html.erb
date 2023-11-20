@@ -1,51 +1,103 @@
-<%= form_with(model: event) do |form| %>
-  <% if event.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
+  <style>
+    /* Replicated styles from the finance form */
+    .form-formatting {
+      text-align: center;
+      align-items: center;
+      left:40%;  
+    }
 
-      <ul>
-        <% event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    .form-formatting label,
+    .form-formatting .form-control {
+      display: block;
+      margin-bottom: 10px;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+  </style>
+</head>
+<body>
+
+
+  <div class="container form-formatting">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card bg-light p-3">
+          <%= form_with(model: event) do |form| %>
+            <!-- Error Messages -->
+            <% if event.errors.any? %>
+              <div style="color: red">
+                <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+                <ul>
+                  <% event.errors.each do |error| %>
+                    <li><%= error.full_message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Form Fields -->
+            <div>
+              <%= form.label :title %>
+              <%= form.text_field :title, class: "form-control" %>
+            </div>
+
+            <div>
+              <%= form.label :score %>
+              <%= form.number_field :score, class: "form-control" %>
+            </div>
+            <div>
+            <%= form.label :password, style: "display: block" %>
+            <%= form.text_field :password %>
+          </div>
+
+          <div>
+            <%= form.label :start_time, style: "display: block" %>
+            <%= form.datetime_field :start_time %>
+          </div>
+
+          <div>
+            <%= form.label :end_time, style: "display: block" %>
+            <%= form.datetime_field :end_time %>
+          </div>
+
+            <div>
+              <%= form.label :attendanceVisible, "Attendance Visible?" %>
+              <%= form.check_box :attendanceVisible %>
+            </div>
+
+            <div>
+              <%= form.label :image %>
+              <% if event.image.present? %>
+                <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' %>
+              <% end %>
+              <br>
+              <%= form.file_field :image %>
+            </div>
+
+            <div>
+              <%= form.submit class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
   </div>
 
-  <div>
-    <%= form.label :score, style: "display: block" %>
-    <%= form.number_field :score %>
-  </div>
-
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
-  </div>
-
-  <div>
-    <%= form.label :start_time, style: "display: block" %>
-    <%= form.datetime_field :start_time %>
-  </div>
-
-  <div>
-    <%= form.label :end_time, style: "display: block" %>
-    <%= form.datetime_field :end_time %>
-  </div>
-
-  <div>
-    <%= form.label :image, style: "display: block" %>
-    <% if event.image.present? %>
-      <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' if event.image.present? %>
-    <% end %>
-    <br>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+  <!-- Include Bootstrap JS files -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
