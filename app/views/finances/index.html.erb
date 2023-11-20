@@ -208,8 +208,6 @@
       top: 24.5%;
       left: 73.5%;
       z-index: 1000000;
-      font-size: 1vw;
-      color: white;
     }
 
     .delete-confirmation-popup {
@@ -247,10 +245,15 @@
   </style>
 </head>
 <body>
+<% if current_member&.position != 'Member' %>
+  <% if Finance.where(status: 0).count == 1 %>
+      <div class="red-dot1"><%= Finance.where(status: 0).count %>!</div>
+  <% end %>
+<% end %>
 
-<% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-  <% if Finance.where(status: 0).count >= 1 %>
-      <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+<% if current_member&.position != 'Member' %>
+  <% if Finance.where(status: 0).count > 1 %>
+      <div class="red-dot2"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 
