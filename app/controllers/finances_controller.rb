@@ -16,19 +16,21 @@ class FinancesController < ApplicationController
   # GET /finances/new
   def new
     @finance = Finance.new
-    @officer_emails = Member.where.not("position != 'Member' and position != 'Pending'").pluck(:email)
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
   end 
 
   # GET /finances/1/edit
   def edit
     @finance = Finance.find(params[:id])
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
   end
 
   # POST /finances or /finances.json
   def create
     @finance = Finance.new(finance_params_without_receipt)
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
 
     encode_uploaded_images
@@ -48,7 +50,9 @@ class FinancesController < ApplicationController
 
   # PATCH/PUT /finances/1 or /finances/1.json
   def update
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
+
     encode_uploaded_images
 
     respond_to do |format|
@@ -66,9 +70,10 @@ class FinancesController < ApplicationController
 
   # DELETE /finances/1 or /finances/1.json
   def destroy
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @event_titles = Event.all.pluck(:title)
+    
     @finance.destroy
-
 
     respond_to do |format|
       format.html { redirect_to finances_url, notice: "Finance was successfully destroyed." }
@@ -79,6 +84,7 @@ class FinancesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_finance
+      @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
       @event_titles = Event.all.pluck(:title)
       @finance = Finance.find(params[:id])
     end
