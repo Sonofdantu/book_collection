@@ -9,7 +9,7 @@
   <style>
     body {
       background-color: #f4f4f4;
-      padding-top: 70px;
+      text-align: center;
     }
 
     .event-details-container {
@@ -86,9 +86,13 @@
 
 <body>
   <!-- Bootstrap Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Event Details</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="<%= root_path %>" style="color: black; text-align: left;">
+    <img src="<%= asset_path('back_arrow_icon.png') %>" alt="Arrow Icon" class="mr-2" style="width: 5%; height: auto; cursor: pointer;" onclick="redirectToRoot(); return false;">
+    </a>
   </nav>
+
+  <h1> Event Details </h1>
 
   <div class="container">
     <div class="row">
@@ -147,7 +151,6 @@
             Delete this event
           </button>
         <% end %>
-        <%= link_to "Back to Dashboard", events_path, class: "btn btn-secondary btn-block" %>
       </div>
     </div>
   </div>
@@ -190,6 +193,10 @@
 
     function cancelDelete() {
       document.getElementById('deleteConfirmationPopup').style.display = 'none';
+    }
+
+    function redirectToRoot() {
+      window.location.href = '<%= events_path %>';
     }
   </script>
 </body>

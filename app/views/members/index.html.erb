@@ -304,7 +304,7 @@
                   <%= link_to 'Events', events_path, class: 'nav-link' %>
                 </li>
                 <li class="nav-item active">
-                  <%= link_to 'Leaderboard', events_path, class: 'nav-link' %>
+                  <%= link_to 'Leaderboard', members_path, class: 'nav-link' %>
                 </li>
               </ul>
             </nav>
@@ -348,16 +348,35 @@
             
             <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
               <td><%= link_to 'Show', member %></td>
-            <% end %>
-            
-            <% if current_member&.position == 'President' %>
-              <td><%= link_to 'Edit', edit_member_path(member) %></td>
-            
-              <td>
-                <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
-                  <%= submit_tag 'Delete', class: 'link-like-button' %>
+              <% if member.position == 'Member' || member.position == 'Pending' %>
+                <td><%= link_to 'Edit', edit_member_path(member) %></td>
+              
+                <td>
+                  <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
+                    <%= submit_tag 'Delete', class: 'link-like-button' %>
+                  <% end %>
+                </td>
+              <% elsif member.position != 'Member' && member.position != 'Pending' && member.position != "President" %>
+                <% if current_member&.position == 'President' %>
+                  <td><%= link_to 'Edit', edit_member_path(member) %></td>
+                
+                  <td>
+                    <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
+                      <%= submit_tag 'Delete', class: 'link-like-button' %>
+                    <% end %>
+                  </td>
                 <% end %>
-              </td>
+              <% else %>
+                <% if Member.where(position: 'President').count > 1 %>
+                  <td><%= link_to 'Edit', edit_member_path(member) %></td>
+                  
+                  <td>
+                    <%= form_with url: member_path(member), method: :delete, class: 'delete-member-form', local: true do %>
+                      <%= submit_tag 'Delete', class: 'link-like-button' %>
+                    <% end %>
+                  </td>
+                <% end %>
+              <% end %>
             <% end %>
           </tr>
         <% end %>
