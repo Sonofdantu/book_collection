@@ -9,11 +9,7 @@
   }
 
   .card:hover {
-    background-color: #f9f9f9 !important;
-  }
-
-  .card .card-body .row .col-md-4 img {
-    max-width: 100%;
+    background-color: #585858 !important;
   }
 
   .event-section {
@@ -33,9 +29,7 @@
     color: #FFFFFF;
     padding: 5px;
     border-radius: 5px;
-    font-size: 1.5vw;
   }
-  
 </style>
 
 <% if event.start_time.present? && event.end_time.present? && @current_time.present? %>
@@ -71,7 +65,7 @@
             <p class="card-text">
               <strong>Score:</strong> <%= event.score %>
             </p>
-            <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+            <% if current_member&.position != 'Member' %>
               <p class="card-text">
                 <strong>Password:</strong> <%= event.password %>
               </p>

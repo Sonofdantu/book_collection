@@ -12,8 +12,7 @@
     .form-formatting {
       text-align: center;
       align-items: center;
-      left:40%;
-      max-width: 40vw;  
+      left:40%;  
     }
 
     .form-formatting label,
@@ -25,38 +24,6 @@
       margin-right: auto;
     }
 
-    body {
-      background-color: #f4f4f4;
-      padding-top: 50px; /* Adjust for fixed navbar */
-    }
-
-    h5 {
-      color: #333;
-    }
-
-    p {
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .actions-card {
-      margin-top: 20px;
-    }
-
-    .img-fluid {
-      width: 70%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .event-image {
-      text-align: center;
-    }
-
-    .image-resizing img {
-      max-width: 100%;
-    }
 
   </style>
 </head>
@@ -86,54 +53,38 @@
               <%= form.text_field :title, class: "form-control" %>
             </div>
 
-            <br>
-
             <div>
               <%= form.label :score %>
               <%= form.number_field :score, class: "form-control" %>
             </div>
-
-            <br>
-
             <div>
-              <%= form.label :password, style: "display: block" %>
-              <%= form.text_field :password %>
-            </div>
+            <%= form.label :password, style: "display: block" %>
+            <%= form.text_field :password %>
+          </div>
 
-            <br>
+          <div>
+            <%= form.label :start_time, style: "display: block" %>
+            <%= form.datetime_field :start_time %>
+          </div>
 
-            <div>
-              <%= form.label :start_time, style: "display: block" %>
-              <%= form.datetime_field :start_time %>
-            </div>
-
-            <br>
-
-            <div>
-              <%= form.label :end_time, style: "display: block" %>
-              <%= form.datetime_field :end_time %>
-            </div>
-
-            <br>
+          <div>
+            <%= form.label :end_time, style: "display: block" %>
+            <%= form.datetime_field :end_time %>
+          </div>
 
             <div>
               <%= form.label :attendanceVisible, "Attendance Visible?" %>
               <%= form.check_box :attendanceVisible %>
             </div>
 
-            <br>
-
-            <div class="image-resizing">
-              <%= form.label :image, style: "display: block" %>
+            <div>
+              <%= form.label :image %>
               <% if event.image.present? %>
                 <%= image_tag "data:image/png;base64,#{event.image}", alt: 'Image' %>
               <% end %>
               <br>
-              <br>
               <%= form.file_field :image %>
             </div>
-
-            <br>
 
             <div>
               <%= form.submit class: "btn btn-primary" %>

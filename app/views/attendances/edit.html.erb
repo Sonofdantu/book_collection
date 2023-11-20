@@ -1,7 +1,3 @@
-<header>
-  <title> Edit Attendance </title>
-</header>
-
 <h1>Editing attendance</h1>
 
 <%= render "form", attendance: @attendance %>
@@ -9,11 +5,6 @@
 <br>
 
 <div>
-  <%= link_to attendances_path do %>
-    <button type="button" style= "width: 5%; border: none; background: none; position: fixed; top: 25px; left: 25px;"
-    onmouseover="this.style.transform='scale(1.1)';"
-    onmouseout="this.style.transform='scale(1)';">
-      <%= image_tag "back_arrow_icon.png", alt: "Back to Attendance Dashboard", style: "width: 100%; height: auto;" %>
-    </button>
-  <% end %>
+  <%= link_to "Show this attendance", @attendance %> |
+  <%= link_to "Back to attendances", attendances_path %>
 </div>

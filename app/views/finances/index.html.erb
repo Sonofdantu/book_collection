@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finance Requests</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.cdnfonts.com/css/mustopha" rel="stylesheet">
   <style>
@@ -15,35 +15,13 @@
 
     h3 {
       color: #333;
-      font-size: 5vw;
+      font-size: 25px;
     }
 
     h2 {
       color: #333;
-      margin-top: 1%;
+      margin-top: 30px;
       left: 41.25%;
-      font-size: 2vw;
-    }
-
-    h1 {
-      margin-top: 1%;
-      font-size: 3vw;
-    }
-
-    .imsa-icon {
-      position: fixed;
-      top: 4%;
-      left: 3%;
-      width: 7.5%;
-      border-radius: 20px; 
-    }
-
-    .profile {
-      position: fixed;
-      top: 4%;
-      right: 3%; 
-      width: 7.5%; 
-      cursor: pointer;
     }
 
     p {
@@ -53,6 +31,7 @@
     a {
       color: #007bff;
       text-decoration: none;
+      margin: 5px;
     }
 
     .admin-links,
@@ -103,19 +82,6 @@
       color: #fff;
     }
 
-    .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #007bff;
-      padding: 5px; 
-      color: #fff;
-    }
-
-    .content {
-      margin-top: 60px; 
-    }
-
     .navbar .active a {
       background-color: #C0C0C0; 
       color: #007bff; 
@@ -133,10 +99,22 @@
     }
     @import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
 
+
+    .side-header {
+      transform: rotate(270deg);
+      position: fixed;
+      top: 70%; 
+      left: 200px; 
+      transform-origin: bottom left; 
+      letter-spacing: 0.8em; 
+      font-size: 120px; 
+      font-family: 'Mustopha'; 
+    }
+
     .floating-button {
       position: fixed;
-      bottom: 10%;
-      right: 10%;
+      bottom: 40px;
+      right: 40px;
     }
 
     .finances {
@@ -148,11 +126,13 @@
       color: #333;
       border: 2px solid #ccc;
       border-radius: 20px;
-      font-size: 5vh;
+      font-size: 50px;
       cursor: pointer;
-      height: 10vh;
-      width: 5vw;
+      height: 75px;
+      width: 75px;
       text-align: center;
+      margin-right: 325px;
+      margin-bottom: 20px;
     }
 
     .newFinance button:hover{
@@ -196,74 +176,51 @@
       border: none;
       height: 2px;
       background-color: #ccc;
-      width: 80%;
+      width: 30%;
     }
-
-    .red-dot {
-      width: 1.75vw;
-      height: 3.5vh;
+    .red-dot1 {
+      width: 22px;
+      height: 22px;
       background-color: red;
       border-radius: 100%;
       position: absolute;
-      top: 24.5%;
-      left: 73.5%;
+      top: 190px;
+      left: 1430px;
       z-index: 1000000;
       font-size: 1vw;
-      color: white;
     }
 
-    .delete-confirmation-popup {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      border: 1px solid black;
-      z-index: 1000;
+    .red-dot2 {
+      width: 22px;
+      height: 22px;
+      background-color: red;
+      border-radius: 100%;
+      position: absolute;
+      top: 190px;
+      left: 1410px;
+      z-index: 1000000;
     }
 
-
-    .confirm-delete-btn, .cancel-delete-btn {
-      margin-right: 5px;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .confirm-delete-btn {
-      background-color: #d9534f; /* Red */
-      color: white;
-    }
-
-    .cancel-delete-btn {
-      background-color: #f0ad4e; /* Yellow */
-      color: white;
-    }
   </style>
 </head>
 <body>
 
 <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
   <% if Finance.where(status: 0).count >= 1 %>
-      <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+      <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %>
 
 <% if admin_signed_in? %>
   <% current_member = Member.find_by(email: current_admin.email) %>
 
-  <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-    <h1>Finance Requests</h1>
+  <% if current_member&.position != 'Member' %>
+    <h2 class = "title">Finance Requests</h2>
     
     <div class="links">
       <div class="admin-links">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+  
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -282,6 +239,9 @@
               <li class="nav-item">
                 <%= link_to 'Events', events_path, class: 'nav-link' %>
               </li>
+              <li class="nav-item">
+                <%= link_to 'Attendance', attendances_path, class: 'nav-link' %>
+              </li>
               <li class="nav-item active">
                 <%= link_to 'Finances', finances_path, class: 'nav-link' %>
               </li>
@@ -292,45 +252,8 @@
     </div>
     
     <div class="finances">
-      <% if current_member&.position == 'President' || current_member&.position == 'Finance Chair' %>
-        <h2> Denied </h2>
-        <% @finances.each do |finance| %>
-          <div class = "finance">
-            <% if finance.status == 'Denied' %>
-              <% if finance.email == current_member&.email %>
-                <div class="pending-finance-box">
-                  <%= render finance %>
-                  <div class="showFinance">
-                    <p>
-                      <div style="display: flex;">
-                        <%= link_to finance do %>
-                          <button type="button" style="width: 33.3%;">
-                            <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
-                          </button>
-                        <% end %>
-                      
-                        <%= link_to edit_finance_path(finance) do %>
-                          <button type="button" style="width: 33.3%;">
-                            <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
-                          </button>
-                        <% end %>
-                      
-                        <%= button_to finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" do %>
-                          <button type="button" onclick="confirmFinanceDelete()" style="width: 33.3%; height: auto;">
-                            <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
-                          </button>
-                        <% end %>
-                      </div>
-                    </p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-        
-        <hr class="pretty-divider">
-        <h2> Pending </h2>
+      <% if current_member&.position == 'President' || current_member&.position == 'Finance Officer' %>
+        <h3> Pending </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.status == 'Pending' %>
@@ -340,20 +263,13 @@
                   <p>
                     <div style="display: flex;">
                       <%= link_to finance do %>
-                        <button type="button" style= "width: 33.3%;">
+                        <button type="button" style= "width: 20%;">
                           <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
                         </button>
                       <% end %>
-
                       <%= link_to edit_finance_path(finance) do %>
-                        <button type="button" style= "width: 33.3%;">
+                        <button type="button" style= "width: 20%;">
                           <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
-                        </button>
-                      <% end %>
-
-                      <%= button_to finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" do %>
-                        <button type="button" onclick="confirmFinanceDelete()" style="width: 33.3%; height: auto;">
-                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
                         </button>
                       <% end %>
                     </div>
@@ -365,7 +281,7 @@
         <% end %>
 
         <hr class="pretty-divider">
-        <h2> Completed </h2>
+        <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.status == 'Approved' %>
@@ -375,15 +291,12 @@
                   <p>
                     <div style="display: flex;">
                       <%= link_to finance do %>
-                        <button type="button" style= "width: 33.3%;">
+                        <button type="button" style= "width: 20%;">
                           <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
                         </button>
                       <% end %>
-
-                      <%= button_to finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" do %>
-                        <button type="button" onclick="confirmFinanceDelete()" style="width: 33.3%; height: auto;">
-                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
-                        </button>
+                      <%= button_to finance, method: :delete, style: "width: 20%;" do %>
+                        <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
                       <% end %>
                     </div>
                   </p>
@@ -395,16 +308,16 @@
 
         <div class="floating-button">
           <div class = "newFinance">
-            <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
+            <% if @current_member&.position != 'Member' %>
               <%= link_to new_finance_path do %>
-                <button type="buottn">+</button>
+                <button type="button">+</button>
               <% end %>
             <% end %>
           </div>
         </div>
 
-      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Chair' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
-        <h2> Denied </h2>
+      <% elsif current_member&.position != 'President' && current_member&.position != 'Finance Officer' && current_member&.position != 'Member' && current_member&.position != 'Pending' %>
+        <h3> Denied </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.status == 'Denied' %>
@@ -415,21 +328,19 @@
                     <p>
                       <div style="display: flex;">
                         <%= link_to finance do %>
-                          <button type="button" style="width: 33.3%;">
+                          <button type="button" style="width: 30%;">
                             <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
                           </button>
                         <% end %>
                       
                         <%= link_to edit_finance_path(finance) do %>
-                          <button type="button" style="width: 33.3%;">
+                          <button type="button" style="width: 30%;">
                             <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
                           </button>
                         <% end %>
                       
-                        <%= button_to finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" do %>
-                          <button type="button" onclick="confirmFinanceDelete()" style="width: 33.3%; height: auto;">
-                            <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
-                          </button>
+                        <%= button_to finance, method: :delete, style: "width: 30%;" do %>
+                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
                         <% end %>
                       </div>
                     </p>
@@ -441,7 +352,7 @@
         <% end %>
 
         <hr class="pretty-divider">
-        <h2> Pending </h2>
+        <h3> Pending </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.status == 'Pending' %>
@@ -452,21 +363,19 @@
                     <p>
                       <div style="display: flex;">
                         <%= link_to finance do %>
-                          <button type="button" style="width: 33.3%;">
+                          <button type="button" style="width: 30%;">
                             <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
                           </button>
                         <% end %>
                       
                         <%= link_to edit_finance_path(finance) do %>
-                          <button type="button" style="width: 33.3%;">
+                          <button type="button" style="width: 30%;">
                             <%= image_tag "edit_icon.png", alt: "Edit Finance", style: "width: 100%; height: auto;" %>
                           </button>
                         <% end %>
                       
-                        <%= button_to finance, method: :delete, class: "destroy-finance-form", form_class: "finance-delete-form", style: "display: none;" do %>
-                          <button type="button" onclick="confirmFinanceDelete()" style="width: 33.3%; height: auto;">
-                            <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
-                          </button>
+                        <%= button_to finance, method: :delete, style: "width: 30%;" do %>
+                          <%= image_tag "delete_icon.png", alt: "Delete Finance", style: "width: 100%; height: auto;" %>
                         <% end %>
                       </div>
                     </p>
@@ -478,7 +387,7 @@
         <% end %>
 
         <hr class="pretty-divider">
-        <h2> Completed </h2>
+        <h3> Completed </h3>
         <% @finances.each do |finance| %>
           <div class = "finance">
             <% if finance.status == 'Approved' %>
@@ -488,7 +397,7 @@
                   <div class="showFinance">
                     <p>
                       <%= link_to finance do %>
-                        <button type="button" style= "width: 33.3%;">
+                        <button type="button" style= "width: 10%;">
                           <%= image_tag "view_icon.png", alt: "Show Finance", style: "width: 100%; height: auto;" %>
                         </button>
                       <% end %>
@@ -499,10 +408,9 @@
             <% end %>
           </div>
         <% end %>
-
         <div class="floating-button">
           <div class = "newFinance">
-            <% if @current_member&.position != 'Member' && @current_member&.position != 'Pending' %>
+            <% if @current_member&.position != 'Member' %>
               <%= link_to new_finance_path do %>
                 <button type="button">+</button>
               <% end %>
@@ -511,56 +419,13 @@
         </div>
       <% end %>
     </div> 
-  
-    <%= link_to root_path do %>
-      <%= image_tag 'imsa_logo.JPEG', alt: 'IMSA Logo', class: 'imsa-icon' %>
-    <% end %>
-
-    <% if current_member&.position != 'Pending' %>
-      <a href="<%= profile_path %>">
-        <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile' %>
-      </a>
-    <% end %>
 
   <% end %>
+  <h1 class="side-header">IMSA</h1>
+  <%= image_tag 'imsa_logo.png', alt: 'IMSA Logo', class: 'imsa-logo' %>
+  <% if current_member&.position != 'Pending' %>
+    <a href="<%= profile_path %>">
+      <%= image_tag 'profile_icon.png', alt: 'Profile Icon', class: 'profile-icon' %>
+    </a>
+  <% end %>
 <% end %>
-</body>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Confirmation Popup -->
-<div id="deleteConfirmationPopup" class="delete-confirmation-popup" style="display: none;">
-  <p id="deleteConfirmationMessage">Are you sure you want to delete this finance record?</p>
-  <button id="confirmDeleteBtn" class="confirm-delete-btn">Delete</button>
-  <button onclick="cancelDelete()" class="cancel-delete-btn">Cancel</button>
-</div>
-
-<script>
-  function confirmFinanceDelete() {
-    document.getElementById('deleteConfirmationPopup').style.display = 'block';
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    var destroyForm = document.querySelector('.finance-delete-form');
-
-    confirmDeleteBtn.addEventListener('click', function() {
-      try {
-        if (destroyForm) {
-          console.log(destroyForm);
-          destroyForm.submit();
-        } else {
-          console.error('Delete form not found');
-        }
-      } catch (error) {
-        console.error('Error submitting delete form:', error);
-      }
-    });
-  });
-
-  function cancelDelete() {
-    document.getElementById('deleteConfirmationPopup').style.display = 'none';
-  }
-</script>
