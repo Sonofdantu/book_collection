@@ -11,6 +11,7 @@
   <style>
     body {
       background-color: #f4f4f4;
+      padding-top: 50px; /* Adjust for fixed navbar */
     }
 
     .profile-container {
@@ -37,21 +38,15 @@
     }
   </style>
 </head>
-
 <body>
   <!-- Bootstrap Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" style="color: black;">
-      <%= link_to root_url do %>
-        <%= image_tag "back_arrow_icon.png", :width => "8%"%>
-      <% end %>
-    </a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="<%= root_path %>">Dashboard</a>
   </nav>
-
-  <h1> <%= @current_member.full_name%>'s Profile </h1>
 
   <div class="container">
     <div class="profile-container">
+      <h1>Profile Information</h1>
       <p><strong>Name:</strong> <%= @current_member.full_name %></p>
       <p><strong>Email:</strong> <%= @current_member.email %></p>
       <p><strong>Phone Number:</strong> <%= @current_member.phone_number %> <a href="<%= edit_phone_number_member_path(@current_member) %>">Edit</a></p>
@@ -60,6 +55,6 @@
     </div>
   </div>
 
+  <!-- Include Bootstrap JS files -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2

@@ -171,24 +171,8 @@
       top: 190px;
       left: 1425px;
       z-index: 1000000;
-      font-size: 1vw;
-      color: white;
     }
 
-    .link-like-button {
-      background: none !important;
-      border: none;
-      padding: 0 !important;
-      font-family: arial, sans-serif;
-      color: #069;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .link-like-button:hover {
-      color: #00C;
-      text-decoration: underline;
-    }
   </style>
 </head>
 
@@ -196,7 +180,7 @@
 
 <% if current_member&.position != 'Member' %>
   <% if Finance.where(status: 0).count > 0 %>
-    <div class="red-dot"><%= Finance.where(status: 0).count %></div>
+    <div class="red-dot"><%= Finance.where(status: 0).count %>!</div>
   <% end %>
 <% end %> 
 
