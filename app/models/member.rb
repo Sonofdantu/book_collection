@@ -5,7 +5,7 @@ class Member < ApplicationRecord
     validates_format_of :full_name, with: /\A[a-zA-Z\s-]+\z/
     validates_format_of :position, with: /\A[a-zA-Z\s-]+\z/
     validate :email_valid
-    validates_format_of :phone_number, with: /\A\d+\z/, allow_blank: true, message: "can only contain numbers."
+    validates_format_of :phone_number, with: /\A\d{10}\z/, allow_blank: true, message: "can only contain numbers and must be 10 digits long."
 
     private
       def email_valid
