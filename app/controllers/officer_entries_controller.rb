@@ -3,25 +3,29 @@ class OfficerEntriesController < ApplicationController
 
   # GET /officer_entries or /officer_entries.json
   def index
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @officer_entries = OfficerEntry.all
   end
 
   # GET /officer_entries/1 or /officer_entries/1.json
   def show
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
   end
 
   # GET /officer_entries/new
   def new
     @officer_entry = OfficerEntry.new
-    @officer_emails = Member.where("position != 'Member' and position != 'Pending'").pluck(:email)
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
   end
 
   # GET /officer_entries/1/edit
   def edit
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
   end
 
   # POST /officer_entries or /officer_entries.json
   def create
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     @officer_entry = OfficerEntry.new(officer_entry_params)
   
     respond_to do |format|
@@ -46,6 +50,7 @@ class OfficerEntriesController < ApplicationController
 
   # PATCH/PUT /officer_entries/1 or /officer_entries/1.json
   def update
+    @officer_emails = Member.where.not(position: ["Member", "Pending"]).pluck(:email)
     respond_to do |format|
       if @officer_entry.update(officer_entry_params)
         format.html do

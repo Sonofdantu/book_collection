@@ -22,11 +22,15 @@
     <%= form.label :points, style: "display: block" %>
     <%= form.number_field :points %>
 
-    <%= form.label :email, style: "display: block" %>
-    <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an officer email" %>
-
     <%= form.label :description, style: "display: block" %>
     <%= form.text_area :description %>
+
+    <%= form.label :email, style: "display: block" %>
+    <% if @officer_emails %>
+      <%= form.collection_select :email, @officer_emails, :to_s, :to_s, prompt: "Select an email" %>
+    <% else %>
+      <p>No emails available.</p>
+    <% end %>
 
     <%= form.label :submit, style: "display: block" %>
     <%= form.submit class: 'submit_button' %>
