@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Documentation</title>
+</head>
+<body>
+  <header>
+    <h1>Ismaili Muslim Student Association</h1>
+    
+
+ 
+
+  
+  <%= link_to 'System Documentation', 'https://docs.google.com/document/d/1dGa4Y_8W6sfZlNCA-iedr_0MzOiIliPa-foDv9RXZrw/edit?usp=sharing', target: '_blank', class: 'btn btn-primary' %>
+
+
+  <%= link_to 'User Documentation', 'https://docs.google.com/document/d/1b4HsSjNFevR1vaAXLL67TnGSNY-YQ1CtyFJznEXvNX8/edit?usp=sharing', target: '_blank', class: 'btn btn-primary' %>
+    </header>
+
+
+  <% if current_member&.position == 'President' || current_member&.position == 'Officer' %>
+    
+    <%= link_to 'Admin Documentation', 'https://docs.google.com/document/d/1ZJIy3Tdw4nQEcKfn8lgzq_W9KazzVMT2YUTk_PO3Y1I/edit?usp=sharing', target: '_blank', class: 'btn btn-primary' %>
+  <% end %>
+
+  <%= link_to root_url do %>
+    <%= image_tag "back_arrow_icon.png", :width => "8%"%>
+  <% end %>
+  <div class="container">
+
+</div>
+  
+
+
+</body>
+</html>
