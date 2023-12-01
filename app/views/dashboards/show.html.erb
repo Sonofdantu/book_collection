@@ -148,6 +148,7 @@
 </header>
 
 <body>
+<%= link_to 'Help', documentation_path %>
   <% if current_member&.position != 'Member' && current_member&.position != 'Pending' %>
     <% if Finance.where(status: 0).count > 0 %>
         <div class="red-dot"><%= Finance.where(status: 0).count %></div>

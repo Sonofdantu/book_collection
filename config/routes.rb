@@ -60,4 +60,5 @@ Rails.application.routes.draw do
   end
 
   get '/profile', to: 'profiles#show', as: :profile
+  get '/documentation', to: 'dashboards#documentation'
 end
